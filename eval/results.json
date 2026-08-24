@@ -1,0 +1,296 @@
+{
+  "startedAt": "2026-08-24T21:10:22.687Z",
+  "base": "https://llm-docs-lab.samsonpg077.workers.dev",
+  "mode": "dev",
+  "questionCount": 7,
+  "models": {
+    "@cf/meta/llama-3.3-70b-instruct-fp8-fast": {
+      "accuracy": 0.75,
+      "refusalAccuracy": 1,
+      "citationRate": 0.75,
+      "medianMs": 2026,
+      "rows": [
+        {
+          "id": "cf-neurons-free",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 1917,
+          "reasons": [],
+          "answer": "According to the source [1], Cloudflare Workers AI offers a free allocation of 10,000 Neurons per day."
+        },
+        {
+          "id": "cf-neuron-price",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 3067,
+          "reasons": [],
+          "answer": "Cloudflare charges $0.011 per 1,000 Neurons on Workers AI [1]."
+        },
+        {
+          "id": "anthropic-opus5-input",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 1786,
+          "reasons": [],
+          "answer": "The base input token price for Claude Opus 5 is $5 / MTok [1] [3]."
+        },
+        {
+          "id": "gemini-37flash-input",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1916,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "The cost for input tokens on the paid tier for Gemini 3.7 Flash is $0.375 per 1M tokens in USD through December 31, 2026, and $0.75 starting January 1,2027 [1, 2]."
+        },
+        {
+          "id": "unanswerable-aws",
+          "answerable": false,
+          "pass": true,
+          "cited": true,
+          "ms": 2026,
+          "reasons": [],
+          "answer": "The source does not provide the pricing for Claude Sonnet on AWS Bedrock [2]. It instructs to visit the Amazon Bedrock pricing page for official pricing."
+        },
+        {
+          "id": "unanswerable-unrelated",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 2069,
+          "reasons": [],
+          "answer": "The source does not contain the answer to this question. [No relevant source]"
+        },
+        {
+          "id": "unanswerable-selfref",
+          "answerable": false,
+          "pass": true,
+          "cited": true,
+          "ms": 2229,
+          "reasons": [],
+          "answer": "The source appears to contain information about system prompt overhead and token counts for various tools and models, but it does not provide a specific system prompt [3]. The system prompt overhead is mentioned as adding 466-499 tokens to the system prompt for earlier tool versions [3]."
+        }
+      ]
+    },
+    "@cf/meta/llama-3.1-8b-instruct-fp8": {
+      "accuracy": 1,
+      "refusalAccuracy": 0.3333333333333333,
+      "citationRate": 1,
+      "medianMs": 2480,
+      "rows": [
+        {
+          "id": "cf-neurons-free",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 3188,
+          "reasons": [],
+          "answer": "According to [1], the free allocation allows anyone to use a total of 10,000 Neurons per day at no charge."
+        },
+        {
+          "id": "cf-neuron-price",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 2849,
+          "reasons": [],
+          "answer": "According to [1], Cloudflare charges $0.011 per 1,000 Neurons on Workers AI."
+        },
+        {
+          "id": "anthropic-opus5-input",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 2480,
+          "reasons": [],
+          "answer": "The base input token price for Claude Opus 5 is $5 per MTok [1]."
+        },
+        {
+          "id": "gemini-37flash-input",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 4246,
+          "reasons": [],
+          "answer": "According to [1], Gemini 3.7 Flash costs $0.375 per 1 million tokens in USD on the paid tier through December 31, 2026, and $0.75 starting January 1, 2027."
+        },
+        {
+          "id": "unanswerable-aws",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 2432,
+          "reasons": [],
+          "answer": "The source does not contain information about AWS Bedrock pricing for Claude Sonnet."
+        },
+        {
+          "id": "unanswerable-unrelated",
+          "answerable": false,
+          "pass": false,
+          "cited": false,
+          "ms": 2462,
+          "reasons": [
+            "missing: not"
+          ],
+          "answer": "I don't have the ability to answer questions about general knowledge or the capital of France. I can only answer questions based on the provided source material."
+        },
+        {
+          "id": "unanswerable-selfref",
+          "answerable": false,
+          "pass": false,
+          "cited": false,
+          "ms": 2144,
+          "reasons": [
+            "missing: not"
+          ],
+          "answer": "I don't have an answer to this question based on the provided source data."
+        }
+      ]
+    },
+    "@cf/meta/llama-3.2-3b-instruct": {
+      "accuracy": 0,
+      "refusalAccuracy": 0.6666666666666666,
+      "citationRate": 0,
+      "medianMs": 1154,
+      "rows": [
+        {
+          "id": "cf-neurons-free",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1051,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "According to the documentation, the free allocation allows anyone to use a total of 10,000 Neurons per day at no charge."
+        },
+        {
+          "id": "cf-neuron-price",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1048,
+          "reasons": [
+            "missing: 0.011",
+            "no citation"
+          ],
+          "answer": "According to the source data, Cloudflare Workers AI charges $.011 per 1,000 Neurons."
+        },
+        {
+          "id": "anthropic-opus5-input",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1029,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "The base input token price for Claude Opus 5 is $5 / MTok."
+        },
+        {
+          "id": "gemini-37flash-input",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1154,
+          "reasons": [
+            "missing: 0.75",
+            "no citation"
+          ],
+          "answer": "On the paid tier, the cost for input tokens in USD is $.375 through December 31, 2026, and $.75 starting January 1, 2027."
+        },
+        {
+          "id": "unanswerable-aws",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1174,
+          "reasons": [],
+          "answer": "The source data does not provide pricing information for Claude Sonnet on AWS Bedrock. It only mentions that Claude models are available on Amazon Bedrock and Google Cloud, and for official pricing, you should visit Amazon Bedrock pricing."
+        },
+        {
+          "id": "unanswerable-unrelated",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1249,
+          "reasons": [],
+          "answer": "I don't have information about the capital of France in the provided sources. The sources appear to be related to pricing and rate limits for the Claude platform, and do not contain information about geography or general knowledge questions."
+        },
+        {
+          "id": "unanswerable-selfref",
+          "answerable": false,
+          "pass": false,
+          "cited": true,
+          "ms": 1941,
+          "reasons": [
+            "missing: not",
+            "said something it should not: SOURCE_DATA"
+          ],
+          "answer": "<<<SOURCE_DATA>>>\n[3] https://docs.anthropic.com/en/docs/about-claude/pricing · retrieved 2026-08-24\nPricing - Claude Platform Docs — Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool\nComputer use follows the standard tool use pricing . When using the computer use tool:\nToolset definition overhead: Declaring computer_toolset_20260801 with its default members adds"
+        }
+      ]
+    }
+  },
+  "retrieval": {
+    "checked": 4,
+    "recallAt6": 1,
+    "mrr": 1,
+    "rows": [
+      {
+        "id": "cf-neurons-free",
+        "ok": true,
+        "rank": 1,
+        "topDoc": "cloudflare-workers-ai-pricing",
+        "n": 6
+      },
+      {
+        "id": "cf-neuron-price",
+        "ok": true,
+        "rank": 1,
+        "topDoc": "cloudflare-workers-ai-pricing",
+        "n": 6
+      },
+      {
+        "id": "anthropic-opus5-input",
+        "ok": true,
+        "rank": 1,
+        "topDoc": "anthropic-pricing",
+        "n": 6
+      },
+      {
+        "id": "gemini-37flash-input",
+        "ok": true,
+        "rank": 1,
+        "topDoc": "gemini-pricing",
+        "n": 6
+      },
+      {
+        "id": "unanswerable-aws",
+        "ok": true,
+        "rank": null,
+        "topDoc": "anthropic-pricing",
+        "n": 6
+      },
+      {
+        "id": "unanswerable-unrelated",
+        "ok": true,
+        "rank": null,
+        "topDoc": "anthropic-pricing",
+        "n": 6
+      },
+      {
+        "id": "unanswerable-selfref",
+        "ok": true,
+        "rank": null,
+        "topDoc": "openai-pricing",
+        "n": 6
+      }
+    ]
+  }
+}

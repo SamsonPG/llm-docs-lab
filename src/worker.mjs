@@ -26,6 +26,18 @@ import { retrieve, answerQuestionStream, DEFAULT_MODEL, EMBEDDING_MODEL } from '
 /** Questions longer than this are refused. Real questions are far shorter. */
 const MAX_QUESTION_CHARS = 500;
 
+/**
+ * Models the /ask endpoint will run. Anything else falls back to the default.
+ *
+ * The list exists so the eval can compare models through the endpoint that actually ships,
+ * without turning a public URL into "run any model you like on someone else's quota".
+ */
+const ALLOWED_MODELS = [
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-3.1-8b-instruct-fp8',
+  '@cf/meta/llama-3.2-3b-instruct',
+];
+
 /*
   A small in-memory rate limiter.
 
@@ -38,6 +50,23 @@ const MAX_QUESTION_CHARS = 500;
 const BUCKETS = new Map();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 12;
+
+/**
+ * An authenticated operator is not rate limited.
+ *
+ * The eval must run dozens of questions through the same endpoints the UI uses — that is
+ * the whole point of measuring the deployed system rather than a copy — and the first full
+ * run was throttled by this Worker's own limiter after twelve requests. Loosening the limit
+ * would have been the wrong fix: it exists so one script cannot drain the day's shared AI
+ * allowance and leave the demo dead.
+ *
+ * So the limiter distinguishes an anonymous visitor from someone holding the ingest token,
+ * which only I have. The eval still paces itself; this only removes the hard wall.
+ */
+function isOperator(request, env) {
+  const given = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ?? '';
+  return tokenMatches(given, env.INGEST_TOKEN ?? '');
+}
 
 function rateLimited(ip) {
   const now = Date.now();
@@ -135,7 +164,7 @@ export default {
     if (url.pathname === '/search') {
       const q = (url.searchParams.get('q') ?? '').slice(0, MAX_QUESTION_CHARS);
       if (!q) return json({ error: 'missing q' }, 400);
-      if (rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
+      if (!isOperator(request, env) && rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
 
       const topK = Math.min(Math.max(Number(url.searchParams.get('k') ?? 5), 1), 20);
       return json({ query: q, matches: await retrieve(env, q, { topK }) });
@@ -148,9 +177,22 @@ export default {
       if (raw.length > MAX_QUESTION_CHARS) {
         return json({ error: `question too long (max ${MAX_QUESTION_CHARS} characters)` }, 413);
       }
-      if (rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
+      if (!isOperator(request, env) && rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
 
-      const { stream, sources } = await answerQuestionStream(env, raw.trim());
+      /*
+        The model is selectable, from an ALLOWLIST and never from the query string directly.
+
+        The eval needs to compare models through the same endpoint the UI uses, otherwise it
+        measures a different code path than the one that ships. But passing an arbitrary
+        model name to env.AI.run on a public URL hands a stranger the choice of what to spend
+        the daily allowance on — including the largest and slowest model available, on repeat.
+        An unknown value falls back to the default rather than erroring, so a typo in a
+        script degrades instead of breaking.
+      */
+      const requested = url.searchParams.get('model');
+      const model = ALLOWED_MODELS.includes(requested) ? requested : DEFAULT_MODEL;
+
+      const { stream, sources } = await answerQuestionStream(env, raw.trim(), { model });
 
       if (!stream) {
         return new Response(
