@@ -160,6 +160,26 @@ export default {
       return json({ upserted: vectors.length, mutationId: result.mutationId });
     }
 
+    /*
+      Delete by id. Authenticated, and it exists specifically for the injection tests.
+
+      Those tests poison the live index on purpose, so there must be an exact way to remove
+      what they inserted. Without it, a failed run leaves a public demo answering strangers
+      with attacker-controlled text — which is a considerably worse outcome than not having
+      measured the attack rate at all.
+    */
+    if (url.pathname === '/ingest/delete') {
+      if (request.method !== 'POST') return new Response('POST only', { status: 405 });
+      if (!isOperator(request, env)) {
+        return new Response('unauthorized', { status: 401, headers: SECURITY_HEADERS });
+      }
+      const { ids } = await request.json();
+      if (!Array.isArray(ids) || !ids.length) return json({ error: 'expected { ids: [...] }' }, 400);
+
+      const result = await env.VECTORIZE.deleteByIds(ids);
+      return json({ deleted: ids.length, mutationId: result.mutationId });
+    }
+
     /* ── Retrieval only, no generation. Used by the eval to score retrieval alone. ── */
     if (url.pathname === '/search') {
       const q = (url.searchParams.get('q') ?? '').slice(0, MAX_QUESTION_CHARS);
