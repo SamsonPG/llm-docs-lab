@@ -1,24 +1,46 @@
 # wrangler.toml — Cloudflare Worker configuration
 #
-# WHAT: Bindings for the retrieval API — Workers AI for embeddings and generation,
-#       Vectorize for the index.
+# WHAT: Bindings and routes for the retrieval API.
 # WHY:  Bindings rather than API tokens. A binding is granted by the platform at runtime,
 #       so there is no key to store, rotate, or leak into a commit. This repo is public.
 # WHEN: Read by `wrangler dev --remote` and `wrangler deploy`.
+#
+# TOML ORDERING MATTERS AND COST ME A DEPLOY.
+# Every key after a [table] header belongs to that table until the next header. Appending
+# `workers_dev` to the end of this file put it inside [observability], where wrangler
+# reported it as an unexpected field and carried on — so the setting silently did nothing.
+# Top-level keys live at the top, above every table.
 
 name = "llm-docs-lab"
 main = "src/worker.mjs"
+
 # Set to 2026-08-24, not today: Cloudflare rejects a compatibility date in the future
-# relative to ITS clock (UTC), and the local machine had already rolled over to the 25th.
+# relative to ITS clock (UTC), and this machine had already rolled over to the 25th.
 compatibility_date = "2026-08-24"
 
-# Workers AI: embeddings today, generation on day 3.
+# Keep the workers.dev hostname serving alongside the custom domain.
+#
+# Adding a route silently disables workers.dev, which took the service offline for the
+# minutes a new custom domain needs to propagate DNS and issue a certificate. Both are
+# served now; only the custom domain is advertised.
+workers_dev = true
+
+# Custom domain, so the public URL is not derived from an email address.
+#
+# The default hostname is llm-docs-lab.samsonpg077.workers.dev — that subdomain comes from
+# the account, which comes from the account email. It works, but it puts a personal address
+# into a link that goes on a CV. Wrangler creates the DNS record; existing acsaven.com
+# records are untouched because this is a new hostname.
+[[routes]]
+pattern = "llmdocs.acsaven.com"
+custom_domain = true
+
+# Workers AI — embeddings and generation.
 [ai]
 binding = "AI"
 
-# Vectorize index. Dimensions must match the embedding model exactly and cannot be
-# changed after creation, so the number below was measured rather than assumed —
-# see scripts/probe-embedding.mjs and the note in DECISIONS.md.
+# Vectorize index. Dimensions must match the embedding model exactly and cannot be changed
+# after creation, so 768 was measured from a live /probe call rather than assumed.
 [[vectorize]]
 binding = "VECTORIZE"
 index_name = "llm-docs"

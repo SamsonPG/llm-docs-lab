@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "RAG over LLM provider pricing docs, with model evals, a measured prompt-injection rate, and a tool-calling agent — all on one shared core.",
+  "description": "RAG over LLM provider pricing docs, with model evals, a measured prompt-injection rate, and a tool-calling agent \u2014 all on one shared core.",
   "scripts": {
     "corpus:fetch": "node scripts/fetch-corpus.mjs",
     "corpus:build": "node scripts/build-corpus.mjs",
     "chunk:test": "node --test scripts/*.test.mjs src/*.test.mjs",
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "node --test \"src/**/*.test.mjs\""
   }
 }

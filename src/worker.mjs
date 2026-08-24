@@ -1,27 +1,54 @@
 /**
  * src/worker.mjs
  *
- * WHAT: The HTTP surface — health, dimension probe, authenticated ingest, and search.
- * WHY:  Embeddings run through a Workers AI binding rather than an API key, so this public
- *       repo has no secret to leak and nothing to rotate.
+ * WHAT: The HTTP surface — the UI page, /ask, /search, authenticated /ingest, /health.
+ * WHY:  Embeddings and generation run through Workers AI bindings rather than API keys, so
+ *       this public repo holds no secret and there is nothing to rotate.
  * WHEN: `wrangler dev --remote` locally, `wrangler deploy` for the live URL.
+ *
+ * WHAT A PUBLIC AI ENDPOINT HAS TO DEFEND AGAINST
+ * ───────────────────────────────────────────────
+ * Every request here can spend the daily Workers AI allowance, which is shared, finite, and
+ * resets once a day. Three things follow, and none of them are optional on a URL that is
+ * printed on a CV:
+ *
+ *   - RATE LIMITING per IP, so one script cannot exhaust the day's quota in a minute and
+ *     leave the demo dead for everyone who looks at it afterwards.
+ *   - INPUT BOUNDS. A question is capped in length before it reaches a model; an unbounded
+ *     prompt is an unbounded bill.
+ *   - AUTHENTICATION on ingest. An open ingest endpoint is a public index-poisoning API.
  *
  * LAYER: Delivery (HTTP).
  */
+import { PAGE } from './ui.mjs';
+import { retrieve, answerQuestionStream, DEFAULT_MODEL, EMBEDDING_MODEL } from './answer/answer.mjs';
 
-/** The embedding model for the whole project. Changing it invalidates the index. */
-export const EMBEDDING_MODEL = '@cf/baai/bge-base-en-v1.5';
+/** Questions longer than this are refused. Real questions are far shorter. */
+const MAX_QUESTION_CHARS = 500;
 
-/**
- * Embed a batch of strings.
- *
- * bge-base takes an array and returns vectors in the same order. Batching matters for
- * quota: the free allowance is 10,000 neurons a day, and one request per chunk would spend
- * more of it on request overhead than on the work.
- */
-async function embed(env, texts) {
-  const res = await env.AI.run(EMBEDDING_MODEL, { text: texts });
-  return res.data;
+/*
+  A small in-memory rate limiter.
+
+  Deliberately simple and deliberately documented as imperfect: Workers are per-isolate, so
+  this is per-isolate rather than global, and a distributed attacker gets one bucket per
+  edge location. It stops the honest accident — a loop in someone's terminal, a crawler —
+  which is what actually drains a free tier. A global limit needs Durable Objects or KV, and
+  the README says so rather than implying this is airtight.
+*/
+const BUCKETS = new Map();
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 12;
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const hits = (BUCKETS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  hits.push(now);
+  BUCKETS.set(ip, hits);
+  // Keep the map from growing without bound in a long-lived isolate.
+  if (BUCKETS.size > 5000) {
+    for (const [k, v] of BUCKETS) if (!v.some((t) => now - t < WINDOW_MS)) BUCKETS.delete(k);
+  }
+  return hits.length > MAX_PER_WINDOW;
 }
 
 /** Compared without early exit, so a wrong token cannot be found one character at a time. */
@@ -33,56 +60,63 @@ function tokenMatches(given, expected) {
   return diff === 0;
 }
 
+const SECURITY_HEADERS = {
+  /*
+    The page inlines its own CSS and script and loads nothing from anywhere else, so the
+    policy can be strict rather than permissive. 'unsafe-inline' is required because the
+    style and script are inline; a nonce would be better and is noted in the README as the
+    honest next step rather than claimed as done.
+  */
+  'content-security-policy':
+    "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; "
+    + "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'no-referrer',
+  'x-frame-options': 'DENY',
+  'strict-transport-security': 'max-age=31536000; includeSubDomains',
+};
+
+const json = (data, status = 200) =>
+  Response.json(data, { status, headers: { ...SECURITY_HEADERS, 'cache-control': 'no-store' } });
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
+
+    if (url.pathname === '/' || url.pathname === '/index.html') {
+      return new Response(PAGE, {
+        headers: { ...SECURITY_HEADERS, 'content-type': 'text/html; charset=utf-8' },
+      });
+    }
 
     if (url.pathname === '/health') {
-      return Response.json({ ok: true, model: EMBEDDING_MODEL });
+      return json({ ok: true, embedding: EMBEDDING_MODEL, generation: DEFAULT_MODEL });
     }
 
-    /*
-      Reports the true dimensionality of the embedding model.
-      A Vectorize index cannot change dimensions after creation, so this was measured once
-      (768) rather than taken from documentation, and the index created to match.
-    */
     if (url.pathname === '/probe') {
-      const [vector] = await embed(env, [url.searchParams.get('q') ?? 'dimension probe']);
-      return Response.json({ model: EMBEDDING_MODEL, dimensions: vector.length });
+      const { data } = await env.AI.run(EMBEDDING_MODEL, { text: [url.searchParams.get('q') ?? 'probe'] });
+      return json({ model: EMBEDDING_MODEL, dimensions: data[0].length });
     }
 
-    /*
-      INGEST IS AUTHENTICATED, and that is not optional.
-
-      An unauthenticated ingest endpoint on a public URL is a public index-poisoning API:
-      anyone could upsert a vector claiming a model costs $0.01, and every later answer
-      would repeat it with a citation attached. It would also be a strange thing to ship in
-      a project whose stage 05 measures resistance to injected content.
-
-      The token is a Workers secret, compared without early exit. Failure returns 401 with
-      no detail — "wrong token" and "no token" look identical from outside.
-    */
+    /* ── Ingest: authenticated, because an open one is an index-poisoning API ── */
     if (url.pathname === '/ingest') {
       if (request.method !== 'POST') return new Response('POST only', { status: 405 });
 
       const given = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ?? '';
       if (!tokenMatches(given, env.INGEST_TOKEN ?? '')) {
-        return new Response('unauthorized', { status: 401 });
+        return new Response('unauthorized', { status: 401, headers: SECURITY_HEADERS });
       }
 
       const chunks = await request.json();
       if (!Array.isArray(chunks) || !chunks.length) {
-        return Response.json({ error: 'expected a non-empty array of chunks' }, { status: 400 });
+        return json({ error: 'expected a non-empty array of chunks' }, 400);
       }
 
-      const vectors = (await embed(env, chunks.map((c) => c.text))).map((values, i) => ({
+      const { data } = await env.AI.run(EMBEDDING_MODEL, { text: chunks.map((c) => c.text) });
+      const vectors = data.map((values, i) => ({
         id: chunks[i].id,
         values,
-        /*
-          The chunk text is stored as metadata so a result can be read and cited without a
-          second round trip to the source. Vectorize caps metadata per vector; these chunks
-          average ~530 characters, well inside it.
-        */
         metadata: {
           text: chunks[i].text,
           docId: chunks[i].docId,
@@ -94,29 +128,92 @@ export default {
       }));
 
       const result = await env.VECTORIZE.upsert(vectors);
-      return Response.json({ upserted: vectors.length, mutationId: result.mutationId });
+      return json({ upserted: vectors.length, mutationId: result.mutationId });
     }
 
+    /* ── Retrieval only, no generation. Used by the eval to score retrieval alone. ── */
     if (url.pathname === '/search') {
-      const q = url.searchParams.get('q');
-      if (!q) return Response.json({ error: 'missing q' }, { status: 400 });
-      const topK = Math.min(Number(url.searchParams.get('k') ?? 5), 20);
+      const q = (url.searchParams.get('q') ?? '').slice(0, MAX_QUESTION_CHARS);
+      if (!q) return json({ error: 'missing q' }, 400);
+      if (rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
 
-      const [vector] = await embed(env, [q]);
-      const found = await env.VECTORIZE.query(vector, { topK, returnMetadata: 'all' });
+      const topK = Math.min(Math.max(Number(url.searchParams.get('k') ?? 5), 1), 20);
+      return json({ query: q, matches: await retrieve(env, q, { topK }) });
+    }
 
-      return Response.json({
-        query: q,
-        matches: found.matches.map((m) => ({
-          score: m.score,
-          text: m.metadata?.text,
-          section: m.metadata?.section,
-          source: m.metadata?.url,
-          fetchedAt: m.metadata?.fetchedAt,
-        })),
+    /* ── The answer endpoint the UI calls. Streams tokens as they arrive. ── */
+    if (url.pathname === '/ask') {
+      const raw = url.searchParams.get('q') ?? '';
+      if (!raw.trim()) return json({ error: 'missing q' }, 400);
+      if (raw.length > MAX_QUESTION_CHARS) {
+        return json({ error: `question too long (max ${MAX_QUESTION_CHARS} characters)` }, 413);
+      }
+      if (rateLimited(ip)) return json({ error: 'rate limited, try again shortly' }, 429);
+
+      const { stream, sources } = await answerQuestionStream(env, raw.trim());
+
+      if (!stream) {
+        return new Response(
+          'No sources were retrieved for that question, so there is nothing to answer from.',
+          { headers: { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8', 'x-sources': '%5B%5D' } },
+        );
+      }
+
+      /*
+        Sources travel in a header so the page can render citations before the first token
+        arrives — the reader can see what is being answered from while it is being written.
+        URI-encoded because header values are latin-1 and the corpus contains ·, — and ₹.
+      */
+      const compact = sources.map((s) => ({
+        text: s.text.slice(0, 400), source: s.source, fetchedAt: s.fetchedAt, score: s.score,
+      }));
+
+      /*
+        Workers AI streams Server-Sent Events. The UI wants plain text, so the SSE framing is
+        unwrapped here rather than in the browser: parsing a wire format is the server's job,
+        and it keeps the page free of a protocol it should not need to know about.
+      */
+      const out = new TransformStream();
+      const writer = out.writable.getWriter();
+      const enc = new TextEncoder();
+      const dec = new TextDecoder();
+
+      (async () => {
+        let buffer = '';
+        try {
+          for await (const part of stream) {
+            buffer += typeof part === 'string' ? part : dec.decode(part, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() ?? '';
+            for (const line of lines) {
+              if (!line.startsWith('data:')) continue;
+              const payload = line.slice(5).trim();
+              if (!payload || payload === '[DONE]') continue;
+              try {
+                const token = JSON.parse(payload).response;
+                if (token) await writer.write(enc.encode(token));
+              } catch {
+                /* A partial JSON frame; the next chunk completes it. */
+              }
+            }
+          }
+        } catch (err) {
+          await writer.write(enc.encode(`\n\n[stream interrupted: ${err.message}]`));
+        } finally {
+          await writer.close();
+        }
+      })();
+
+      return new Response(out.readable, {
+        headers: {
+          ...SECURITY_HEADERS,
+          'content-type': 'text/plain; charset=utf-8',
+          'cache-control': 'no-store',
+          'x-sources': encodeURIComponent(JSON.stringify(compact)),
+        },
       });
     }
 
-    return new Response('llm-docs-lab', { status: 404 });
+    return new Response('Not found', { status: 404, headers: SECURITY_HEADERS });
   },
 };
