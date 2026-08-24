@@ -151,7 +151,7 @@ export const PAGE = /* html */ `<!doctype html>
 
   <footer>
     Built by <a href="https://samsonpg.github.io">Samson P G</a> ·
-    <a href="https://github.com/SamsonPG/llm-docs-lab">source, evals and measured limits on GitHub</a>
+    <a href="https://github.com/acsavenhq/llm-docs-lab">source, evals and measured limits on GitHub</a>
   </footer>
 </div>
 
