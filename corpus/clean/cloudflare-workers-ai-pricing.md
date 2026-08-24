@@ -1,0 +1,112 @@
+---
+id: cloudflare-workers-ai-pricing
+url: https://developers.cloudflare.com/workers-ai/platform/pricing/
+fetched_at: 2026-08-24T20:03:39.622Z
+---
+
+# Pricing
+
+Note
+Workers AI has updated pricing to be more granular, with per-model unit-based pricing presented, but still billing in neurons in the back end.
+Workers AI is included in both the Free and Paid Workers plans and is priced at $0.011 per 1,000 Neurons .
+Our free allocation allows anyone to use a total of 10,000 Neurons per day at no charge . To use more than 10,000 Neurons per day, you need to sign up for the Workers Paid plan . On Workers Paid, you will be charged at $0.011 / 1,000 Neurons for any usage above the free allocation of 10,000 Neurons per day.
+You can monitor your Neuron usage in the Cloudflare Workers AI dashboard ↗ .
+All limits reset daily at 00:00 UTC. If you exceed any one of the above limits, further operations will fail with an error.
+Pricing > Workers Free | Free allocation: 10,000 Neurons per day | Pricing: N/A - Upgrade to Workers Paid
+Pricing > Workers Paid | Free allocation: 10,000 Neurons per day | Pricing: $0.011 / 1,000 Neurons
+
+Note
+Some models require a paid billing method. This applies to @cf/moonshotai/kimi-k2.6 , @cf/moonshotai/kimi-k2.7-code , @cf/zai-org/glm-5.2 , @cf/deepseek-ai/deepseek-v4-flash-0731 , and @cf/deepseek-ai/deepseek-v4-pro-0813 . You can access these models with either the Workers Paid plan or prepaid AI Gateway credits .
+
+## Pay with AI Gateway credits
+
+You can use prepaid AI Gateway credits to pay for Workers AI inference. Set the gateway's Workers AI billing setting to Unified billing , then specify that gateway in the AI binding or REST API request.
+Requests to frontier models that use prepaid credits receive higher rate limits .
+
+## What are Neurons?
+
+Neurons are our way of measuring AI outputs across different models, representing the GPU compute needed to perform your request. Our serverless model allows you to pay only for what you use without having to worry about renting, managing, or scaling GPUs.
+Note
+The Price in Tokens column is equivalent to the Price in Neurons column - the different units are displayed so you can easily compare and understand pricing.
+
+## LLM model pricing
+
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.2-1b-instruct | Price in Tokens: $0.027 per M input tokens $0.201 per M output tokens | Price in Neurons: 2457 neurons per M input tokens 18252 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.2-3b-instruct | Price in Tokens: $0.051 per M input tokens $0.335 per M output tokens | Price in Neurons: 4625 neurons per M input tokens 30475 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.1-8b-instruct-fp8-fast | Price in Tokens: $0.045 per M input tokens $0.384 per M output tokens | Price in Neurons: 4119 neurons per M input tokens 34868 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.2-11b-vision-instruct | Price in Tokens: $0.049 per M input tokens $0.676 per M output tokens | Price in Neurons: 4410 neurons per M input tokens 61493 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.1-70b-instruct-fp8-fast | Price in Tokens: $0.293 per M input tokens $2.253 per M output tokens | Price in Neurons: 26668 neurons per M input tokens 204805 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.3-70b-instruct-fp8-fast | Price in Tokens: $0.293 per M input tokens $2.253 per M output tokens | Price in Neurons: 26668 neurons per M input tokens 204805 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/deepseek-ai/deepseek-r1-distill-qwen-32b | Price in Tokens: $0.497 per M input tokens $4.881 per M output tokens | Price in Neurons: 45170 neurons per M input tokens 443756 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/deepseek-ai/deepseek-v4-flash-0731 | Price in Tokens: $0.440 per M input tokens $0.014 per M cached input tokens $1.320 per M output tokens | Price in Neurons: 40000 neurons per M input tokens 1273 neurons per M cached input tokens 120000 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/deepseek-ai/deepseek-v4-pro-0813 | Price in Tokens: $1.320 per M input tokens $0.044 per M cached input tokens $3.960 per M output tokens | Price in Neurons: 120000 neurons per M input tokens 4000 neurons per M cached input tokens 360000 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/mistral/mistral-7b-instruct-v0.1 | Price in Tokens: $0.110 per M input tokens $0.190 per M output tokens | Price in Neurons: 10000 neurons per M input tokens 17300 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/mistralai/mistral-small-3.1-24b-instruct | Price in Tokens: $0.351 per M input tokens $0.555 per M output tokens | Price in Neurons: 31876 neurons per M input tokens 50488 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.1-8b-instruct | Price in Tokens: $0.282 per M input tokens $0.827 per M output tokens | Price in Neurons: 25608 neurons per M input tokens 75147 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.1-8b-instruct-fp8 | Price in Tokens: $0.152 per M input tokens $0.287 per M output tokens | Price in Neurons: 13778 neurons per M input tokens 26128 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3.1-8b-instruct-awq | Price in Tokens: $0.123 per M input tokens $0.266 per M output tokens | Price in Neurons: 11161 neurons per M input tokens 24215 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3-8b-instruct | Price in Tokens: $0.282 per M input tokens $0.827 per M output tokens | Price in Neurons: 25608 neurons per M input tokens 75147 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-3-8b-instruct-awq | Price in Tokens: $0.123 per M input tokens $0.266 per M output tokens | Price in Neurons: 11161 neurons per M input tokens 24215 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-2-7b-chat-fp16 | Price in Tokens: $0.556 per M input tokens $6.667 per M output tokens | Price in Neurons: 50505 neurons per M input tokens 606061 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-guard-3-8b | Price in Tokens: $0.484 per M input tokens $0.030 per M output tokens | Price in Neurons: 44003 neurons per M input tokens 2730 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/meta/llama-4-scout-17b-16e-instruct | Price in Tokens: $0.270 per M input tokens $0.850 per M output tokens | Price in Neurons: 24545 neurons per M input tokens 77273 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/google/gemma-3-12b-it | Price in Tokens: $0.345 per M input tokens $0.556 per M output tokens | Price in Neurons: 31371 neurons per M input tokens 50560 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/qwen/qwq-32b | Price in Tokens: $0.660 per M input tokens $1.000 per M output tokens | Price in Neurons: 60000 neurons per M input tokens 90909 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/qwen/qwen2.5-coder-32b-instruct | Price in Tokens: $0.660 per M input tokens $1.000 per M output tokens | Price in Neurons: 60000 neurons per M input tokens 90909 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/qwen/qwen3-30b-a3b-fp8 | Price in Tokens: $0.051 per M input tokens $0.335 per M output tokens | Price in Neurons: 4625 neurons per M input tokens 30475 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/qwen/qwen3.8-27b | Price in Tokens: $0.450 per M input tokens $3.200 per M output tokens | Price in Neurons: 40909 neurons per M input tokens 290909 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/openai/gpt-oss-120b | Price in Tokens: $0.350 per M input tokens $0.750 per M output tokens | Price in Neurons: 31818 neurons per M input tokens 68182 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/openai/gpt-oss-20b | Price in Tokens: $0.200 per M input tokens $0.300 per M output tokens | Price in Neurons: 18182 neurons per M input tokens 27273 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/aisingapore/gemma-sea-lion-v4-27b-it | Price in Tokens: $0.351 per M input tokens $0.555 per M output tokens | Price in Neurons: 31876 neurons per M input tokens 50488 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/ibm-granite/granite-4.0-h-micro | Price in Tokens: $0.017 per M input tokens $0.112 per M output tokens | Price in Neurons: 1542 neurons per M input tokens 10158 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/zai-org/glm-4.7-flash | Price in Tokens: $0.060 per M input tokens $0.400 per M output tokens | Price in Neurons: 5500 neurons per M input tokens 36400 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/zai-org/glm-5.2 | Price in Tokens: $1.400 per M input tokens $0.260 per M cached input tokens $4.400 per M output tokens | Price in Neurons: 127273 neurons per M input tokens 23636 neurons per M cached input tokens 400000 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/nvidia/nemotron-3-120b-a12b | Price in Tokens: $0.500 per M input tokens $1.500 per M output tokens | Price in Neurons: 45455 neurons per M input tokens 136364 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/moonshotai/kimi-k2.5 | Price in Tokens: $0.600 per M input tokens $0.100 per M cached input tokens $3.000 per M output tokens | Price in Neurons: 54545 neurons per M input tokens 9091 neurons per M cached input tokens 272727 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/moonshotai/kimi-k2.6 | Price in Tokens: $0.950 per M input tokens $0.160 per M cached input tokens $4.000 per M output tokens | Price in Neurons: 86364 neurons per M input tokens 14545 neurons per M cached input tokens 363636 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/moonshotai/kimi-k2.7-code | Price in Tokens: $0.950 per M input tokens $0.190 per M cached input tokens $4.000 per M output tokens | Price in Neurons: 86364 neurons per M input tokens 17273 neurons per M cached input tokens 363636 neurons per M output tokens
+Pricing > LLM model pricing > Model: @cf/google/gemma-4-26b-a4b-it | Price in Tokens: $0.100 per M input tokens $0.300 per M output tokens | Price in Neurons: 9091 neurons per M input tokens 27273 neurons per M output tokens
+
+## Embeddings model pricing
+
+Pricing > Embeddings model pricing > Model: @cf/baai/bge-small-en-v1.5 | Price in Tokens: $0.020 per M input tokens | Price in Neurons: 1841 neurons per M input tokens
+Pricing > Embeddings model pricing > Model: @cf/baai/bge-base-en-v1.5 | Price in Tokens: $0.067 per M input tokens | Price in Neurons: 6058 neurons per M input tokens
+Pricing > Embeddings model pricing > Model: @cf/baai/bge-large-en-v1.5 | Price in Tokens: $0.204 per M input tokens | Price in Neurons: 18582 neurons per M input tokens
+Pricing > Embeddings model pricing > Model: @cf/baai/bge-m3 | Price in Tokens: $0.012 per M input tokens | Price in Neurons: 1075 neurons per M input tokens
+Pricing > Embeddings model pricing > Model: @cf/pfnet/plamo-embedding-1b | Price in Tokens: $0.019 per M input tokens | Price in Neurons: 1689 neurons per M input tokens
+Pricing > Embeddings model pricing > Model: @cf/qwen/qwen3-embedding-0.6b | Price in Tokens: $0.012 per M input tokens | Price in Neurons: 1075 neurons per M input tokens
+
+## Image model pricing
+
+Pricing > Image model pricing > Model: @cf/black-forest-labs/flux-1-schnell | Price in Tokens: $0.0000528 per 512x512 tile $0.0001056 per step | Price in Neurons: 4.80 neurons per 512x512 tile 9.60 neurons per step
+Pricing > Image model pricing > Model: @cf/leonardo/lucid-origin | Price in Tokens: $0.006996 per 512x512 tile $0.000132 per step | Price in Neurons: 636.00 neurons per 512x512 tile 12.00 neurons per step
+Pricing > Image model pricing > Model: @cf/leonardo/phoenix-1.0 | Price in Tokens: $0.005830 per 512x512 tile $0.000110 per step | Price in Neurons: 530.00 neurons per 512x512 tile 10.00 neurons per step
+Pricing > Image model pricing > Model: @cf/black-forest-labs/flux-2-dev | Price in Tokens: $0.00021 per input 512x512 tile, per step $0.00041 per output 512x512 tile, per step | Price in Neurons: 18.75 neurons per input 512x512 tile, per step 37.50 neurons per output 512x512 tile, per step
+Pricing > Image model pricing > Model: @cf/black-forest-labs/flux-2-klein-4b | Price in Tokens: $0.000059 per input 512x512 tile $0.000287 per output 512x512 tile | Price in Neurons: 5.37 neurons per input 512x512 tile 26.05 neurons per output 512x512 tile
+Pricing > Image model pricing > Model: @cf/black-forest-labs/flux-2-klein-9b | Price in Tokens: $0.015 per first MP (1024x1024) $0.002 per subsequent MP $0.002 per input image MP | Price in Neurons: 1363.64 neurons per first MP (1024x1024) 181.82 neurons per subsequent MP 181.82 neurons per input image MP
+
+## Audio model pricing
+
+Pricing > Audio model pricing > Model: @cf/openai/whisper | Price in Tokens: $0.0005 per audio minute | Price in Neurons: 41.14 neurons per audio minute
+Pricing > Audio model pricing > Model: @cf/openai/whisper-large-v3-turbo | Price in Tokens: $0.0005 per audio minute | Price in Neurons: 46.63 neurons per audio minute
+Pricing > Audio model pricing > Model: @cf/myshell-ai/melotts | Price in Tokens: $0.0002 per audio minute | Price in Neurons: 18.63 neurons per audio minute
+Pricing > Audio model pricing > Model: @cf/deepgram/aura-1 | Price in Tokens: $0.015 per 1k characters input | Price in Neurons: 1,363.64 neurons per 1k characters input
+Pricing > Audio model pricing > Model: @cf/deepgram/nova-3 | Price in Tokens: $0.0052 per audio minute input | Price in Neurons: 472.73 neurons per audio minute input
+Pricing > Audio model pricing > Model: @cf/deepgram/nova-3 (WebSocket) | Price in Tokens: $0.0092 per audio minute input | Price in Neurons: 836.36 neurons per audio minute input
+Pricing > Audio model pricing > Model: @cf/pipecat-ai/smart-turn-v2 | Price in Tokens: $0.00033795 per audio minute input | Price in Neurons: 0.51 neurons per audio minute input
+Pricing > Audio model pricing > Model: @cf/deepgram/aura-2-en | Price in Tokens: $0.030 per 1k characters input | Price in Neurons: 2727.27 neurons per 1k characters input
+Pricing > Audio model pricing > Model: @cf/deepgram/aura-2-es | Price in Tokens: $0.030 per 1k characters input | Price in Neurons: 2727.27 neurons per 1k characters input
+Pricing > Audio model pricing > Model: @cf/deepgram/flux (WebSocket) | Price in Tokens: $0.0077 per audio minute | Price in Neurons: 700.00 neurons per audio minute
+
+## Other model pricing
+
+Pricing > Other model pricing > Model: @cf/huggingface/distilbert-sst-2-int8 | Price in Tokens: $0.026 per M input tokens | Price in Neurons: 2394 neurons per M input tokens
+Pricing > Other model pricing > Model: @cf/baai/bge-reranker-base | Price in Tokens: $0.003 per M input tokens | Price in Neurons: 283 neurons per M input tokens
+Pricing > Other model pricing > Model: @cf/meta/m2m100-1.2b | Price in Tokens: $0.342 per M input tokens $0.342 per M output tokens | Price in Neurons: 31050 neurons per M input tokens 31050 neurons per M output tokens
+Pricing > Other model pricing > Model: @cf/microsoft/resnet-50 | Price in Tokens: $2.51 per M images | Price in Neurons: 228055 neurons per M images
+Pricing > Other model pricing > Model: @cf/ai4bharat/indictrans2-en-indic-1B | Price in Tokens: $0.342 per M input tokens $0.342 per M output tokens | Price in Neurons: 31050 neurons per M input tokens 31050 neurons per M output tokens
+Pricing > Other model pricing > Model: @cf/moondream/moondream3.1-9B-A2B | Price in Tokens: $0.300 per M input tokens $1.000 per M output tokens | Price in Neurons: 27273 neurons per M input tokens 90909 neurons per M output tokens
+
+Was this helpful?
+
+## On this page
