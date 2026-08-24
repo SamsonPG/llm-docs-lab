@@ -1,9 +1,9 @@
 {
-  "name": "llm-docs-rag",
+  "name": "llm-docs-lab",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Retrieval over LLM provider documentation and pricing, with measured quality, cost and injection resistance.",
+  "description": "RAG over LLM provider pricing docs, with model evals, a measured prompt-injection rate, and a tool-calling agent — all on one shared core.",
   "scripts": {
     "corpus:fetch": "node scripts/fetch-corpus.mjs",
     "corpus:build": "node scripts/build-corpus.mjs",

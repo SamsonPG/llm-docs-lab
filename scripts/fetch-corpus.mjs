@@ -78,7 +78,7 @@ const SOURCES = [
   the client honestly is both better manners for a public docs page and, here, the thing
   that actually works.
 */
-const UA = 'llm-docs-rag/0.1 (corpus snapshot; +https://github.com/SamsonPG/llm-docs-rag)';
+const UA = 'llm-docs-lab/0.1 (corpus snapshot; +https://github.com/SamsonPG/llm-docs-lab)';
 
 mkdirSync(outDir, { recursive: true });
 
