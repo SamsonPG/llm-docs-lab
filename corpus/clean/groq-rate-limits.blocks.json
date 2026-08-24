@@ -1,0 +1,338 @@
+{
+ "id": "groq-rate-limits",
+ "url": "https://console.groq.com/docs/rate-limits",
+ "fetchedAt": "2026-08-24T20:03:39.622Z",
+ "blocks": [
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Documentation",
+   "text": "Documentation"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Docs",
+   "text": "Docs"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Getting Started",
+   "text": "Getting Started"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Core Features",
+   "text": "Core Features"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Tools & Integrations",
+   "text": "Tools & Integrations"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Compound (Agentic AI)",
+   "text": "Compound (Agentic AI)"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Guides",
+   "text": "Guides"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Service Tiers",
+   "text": "Service Tiers"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Advanced",
+   "text": "Advanced"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Production Readiness",
+   "text": "Production Readiness"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Account and Console",
+   "text": "Account and Console"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Developer Resources",
+   "text": "Developer Resources"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Docs > Legal",
+   "text": "Legal"
+  },
+  {
+   "type": "heading",
+   "level": 1,
+   "section": "Rate Limits",
+   "text": "Rate Limits"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits",
+   "text": "Rate limits act as control measures to regulate how frequently users and applications can access our API within specified timeframes. These limits help ensure service stability, fair access, and protection against misuse so that we can serve reliable and fast inference for all."
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "Understanding Rate Limits"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "Rate limits are measured in:"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "RPM: Requests per minute"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "RPD: Requests per day"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "TPM: Tokens per minute"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "TPD: Tokens per day"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "ASH: Audio seconds per hour"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "ASD: Audio seconds per day"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "ITPM: Input tokens per minute"
+  },
+  {
+   "type": "list",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "OTPM: Output tokens per minute"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "Cached tokens do not count towards your rate limits."
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "Rate limits apply at the organization level, not individual users. You can hit any limit type depending on which threshold you reach first."
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits",
+   "text": "Example: Let&#x27;s say your RPM = 50 and your TPM = 200K. If you were to send 50 requests with only 100 tokens within a minute, you would reach your limit even though you did not send 200K tokens within those 50 requests."
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Rate Limits > Understanding Rate Limits > Input and Output Token Rate Limits (ITPM / OTPM)",
+   "text": "Input and Output Token Rate Limits (ITPM / OTPM)"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits > Input and Output Token Rate Limits (ITPM / OTPM)",
+   "text": "In addition to the combined TPM limit, some organizations are also subject to separate per-minute limits on input tokens (ITPM) and output tokens (OTPM). For example, an OTPM limit caps how many completion tokens your organization can generate per minute, regardless of how many input tokens are sent."
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Understanding Rate Limits > Input and Output Token Rate Limits (ITPM / OTPM)",
+   "text": "If these limits are configured on your account, you&#x27;ll see your TPM value on the Limits page — hover over it to see the \"X in / Y out\" breakdown. If no breakdown appears, your organization has a single combined TPM cap with no separate input/output limits."
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Rate Limits",
+   "text": "The following is a high level summary and there may be exceptions to these limits. You can view the current, exact rate limits for your organization on the limits page in your account settings."
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Need higher rate limits? Upgrade to Developer plan to access higher limits, Batch and Flex processing, and more. Note that the limits shown below are the base limits for the Developer plan, and higher limits are available for select workloads and enterprise use cases."
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > MODEL ID | RPM | RPD | TPM | TPD | ASH | ASD"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: canopylabs/orpheus-arabic-saudi | Column 2: 10 | Column 3: 100 | Column 4: 1.2K | Column 5: 3.6K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: canopylabs/orpheus-v1-english | Column 2: 10 | Column 3: 100 | Column 4: 1.2K | Column 5: 3.6K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: groq/compound | Column 2: 30 | Column 3: 250 | Column 4: 70K | Column 5: - | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: groq/compound-mini | Column 2: 30 | Column 3: 250 | Column 4: 70K | Column 5: - | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: meta-llama/llama-prompt-guard-2-22m | Column 2: 30 | Column 3: 14.4K | Column 4: 15K | Column 5: 500K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: meta-llama/llama-prompt-guard-2-86m | Column 2: 30 | Column 3: 14.4K | Column 4: 15K | Column 5: 500K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: openai/gpt-oss-120b | Column 2: 30 | Column 3: 1K | Column 4: 8K | Column 5: 200K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: openai/gpt-oss-20b | Column 2: 30 | Column 3: 1K | Column 4: 8K | Column 5: 200K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: openai/gpt-oss-safeguard-20b | Column 2: 30 | Column 3: 1K | Column 4: 8K | Column 5: 200K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: qwen/qwen3.6-27b | Column 2: 30 | Column 3: 1K | Column 4: 8K | Column 5: 200K | Column 6: - | Column 7: -"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: whisper-large-v3 | Column 2: 20 | Column 3: 2K | Column 4: - | Column 5: - | Column 6: 7.2K | Column 7: 28.8K"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limits",
+   "text": "Rate Limits > Rate Limits > Column 1: whisper-large-v3-turbo | Column 2: 20 | Column 3: 2K | Column 4: - | Column 5: - | Column 6: 7.2K | Column 7: 28.8K"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limit Headers"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "In addition to viewing your limits on your account&#x27;s limits page, you can also view rate limit information such as remaining requests and tokens in HTTP response headers as follows:"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "The following headers are set (values are illustrative):"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: retry-after | Value: 2 | Notes: In seconds"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-limit-requests | Value: 14400 | Notes: Always refers to Requests Per Day (RPD)"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-limit-tokens | Value: 18000 | Notes: Always refers to Tokens Per Minute (TPM)"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-remaining-requests | Value: 14370 | Notes: Always refers to Requests Per Day (RPD)"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-remaining-tokens | Value: 17997 | Notes: Always refers to Tokens Per Minute (TPM)"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-reset-requests | Value: 2m59.56s | Notes: Always refers to Requests Per Day (RPD)"
+  },
+  {
+   "type": "row",
+   "section": "Rate Limits > Rate Limit Headers",
+   "text": "Rate Limits > Rate Limit Headers > Header: x-ratelimit-reset-tokens | Value: 7.66s | Notes: Always refers to Tokens Per Minute (TPM)"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Rate Limits > Handling Rate Limits",
+   "text": "Handling Rate Limits"
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Handling Rate Limits",
+   "text": "When you exceed rate limits, our API returns a 429 Too Many Requests HTTP status code."
+  },
+  {
+   "type": "prose",
+   "section": "Rate Limits > Handling Rate Limits",
+   "text": "Note : retry-after is only set if you hit the rate limit and status code 429 is returned. The other headers are always included."
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Rate Limits > Handling Rate Limits > Was this page helpful?",
+   "text": "Was this page helpful?"
+  },
+  {
+   "type": "heading",
+   "level": 4,
+   "section": "Rate Limits > Handling Rate Limits > Was this page helpful? > On this page",
+   "text": "On this page"
+  }
+ ]
+}

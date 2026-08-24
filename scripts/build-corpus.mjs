@@ -136,6 +136,16 @@ function extract(html) {
     .replace(/<!--[\s\S]*?-->/g, ' ');
 
   const out = [];
+  /*
+    Typed blocks, emitted alongside the markdown.
+
+    The chunker needs to know which lines are denormalised table rows, because those must
+    never be split. It could infer that from the markdown by pattern-matching for " > " and
+    " | " — but that means re-parsing my own output with a heuristic, and a heuristic that
+    is wrong on one line in fifty puts a broken chunk into the index silently. The structure
+    is known here, for free, so it is recorded here.
+  */
+  const blocks = [];
   let headerlessTables = 0;
   let tableCount = 0;
   /*
@@ -178,6 +188,9 @@ function extract(html) {
         if (res.headerless) headerlessTables += 1;
         out.push(...res.lines);
         out.push('');
+        for (const line of res.lines) {
+          blocks.push({ type: 'row', section: sectionPath(), text: line });
+        }
       }
       continue;
     }
@@ -191,12 +204,17 @@ function extract(html) {
       // Anything deeper than this heading is now out of scope.
       headings.length = level + 1;
       out.push('', `${'#'.repeat(level)} ${t}`, '');
+      blocks.push({ type: 'heading', level, section: sectionPath(), text: t });
+    } else if (tag === 'li') {
+      out.push(`- ${t}`);
+      blocks.push({ type: 'list', section: sectionPath(), text: t });
+    } else {
+      out.push(t);
+      blocks.push({ type: 'prose', section: sectionPath(), text: t });
     }
-    else if (tag === 'li') out.push(`- ${t}`);
-    else out.push(t);
   }
 
-  return { body: out.join('\n').replace(/\n{3,}/g, '\n\n').trim(), tableCount, headerlessTables };
+  return { body: out.join('\n').replace(/\n{3,}/g, '\n\n').trim(), blocks, tableCount, headerlessTables };
 }
 
 mkdirSync(outDir, { recursive: true });
@@ -208,7 +226,7 @@ for (const file of files) {
   const id = file.replace(/\.html$/, '');
   const html = readFileSync(join(rawDir, file), 'utf8');
   const meta = JSON.parse(readFileSync(join(rawDir, `${id}.meta.json`), 'utf8'));
-  const { body, tableCount, headerlessTables } = extract(html);
+  const { body, blocks, tableCount, headerlessTables } = extract(html);
   totalHeaderless += headerlessTables;
 
   /*
@@ -228,6 +246,11 @@ for (const file of files) {
   ].join('\n');
 
   writeFileSync(join(outDir, `${id}.md`), doc, 'utf8');
+  writeFileSync(
+    join(outDir, `${id}.blocks.json`),
+    JSON.stringify({ id: meta.id, url: meta.url, fetchedAt: meta.fetchedAt, blocks }, null, 1),
+    'utf8',
+  );
 
   const kb = (doc.length / 1024).toFixed(0);
   const flag = headerlessTables ? `  ${headerlessTables} headerless` : '';

@@ -1,0 +1,3097 @@
+{
+ "id": "openai-pricing",
+ "url": "https://platform.openai.com/docs/pricing",
+ "fetchedAt": "2026-08-24T20:03:39.622Z",
+ "blocks": [
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Search the API docs",
+   "text": "Search the API docs"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Suggested",
+   "text": "Suggested"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Suggested",
+   "text": "Suggested"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Suggested",
+   "text": "Home"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Get started",
+   "text": "Get started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Using GPT-5.6"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Key concepts"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Core concepts",
+   "text": "Core concepts"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Responses API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Conversation state"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Background mode"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Streaming"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "WebSocket mode"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Multi-agent"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Webhooks"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "File inputs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Compaction"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Counting tokens"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > SDKs and CLI",
+   "text": "SDKs and CLI"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > SDKs and CLI",
+   "text": "OpenAI SDK"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > SDKs and CLI",
+   "text": "OpenAI CLI"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Resources",
+   "text": "Resources"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Changelog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Deprecations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Supported countries"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "OpenAI Crawlers"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Terms and policies"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Legacy APIs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Agent Builder Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Migration guide"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Node reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Safety in building agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Evals Getting started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Working with evals"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Prompt optimizer"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "External models"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Best practices"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Graders"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Fine-tuning Optimization cycle"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Supervised fine-tuning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Vision fine-tuning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Direct preference optimization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Reinforcement fine-tuning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "RFT use cases"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Best practices"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Assistants API Migration guide"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Deep dive"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Tools"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Legacy APIs",
+   "text": "Model catalog"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Choose a model",
+   "text": "Choose a model"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Choose a model",
+   "text": "Pricing"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Choose a model",
+   "text": "Model selection"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Text and code",
+   "text": "Text and code"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Text and code",
+   "text": "Text generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Text and code",
+   "text": "Code generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Text and code",
+   "text": "Structured output"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Prompting",
+   "text": "Prompting"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Prompt engineering"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Citation formatting"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Migration guide"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Prompt generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Prompting",
+   "text": "Frontend prompting"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Reasoning",
+   "text": "Reasoning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reasoning",
+   "text": "Reasoning models"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reasoning",
+   "text": "Reasoning best practices"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Images and video",
+   "text": "Images and video"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Images and video",
+   "text": "Images and vision"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Images and video",
+   "text": "Image generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Images and video",
+   "text": "Video generation"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Realtime and audio",
+   "text": "Realtime and audio"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Realtime and audio",
+   "text": "Audio and speech"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Realtime and audio",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Realtime and audio",
+   "text": "Voice agents"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Specialized models",
+   "text": "Specialized models"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Specialized models",
+   "text": "Deep research"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Specialized models",
+   "text": "Embeddings"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Specialized models",
+   "text": "Moderation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Specialized models",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Agents SDK",
+   "text": "Agents SDK"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Agent definitions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Models and providers"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Running agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Sandbox agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Orchestration"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Guardrails"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Results and state"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Integrations and observability"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agents SDK",
+   "text": "Evaluate agent workflows"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > ChatKit",
+   "text": "ChatKit"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Customize"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Widgets"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Actions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Advanced integrations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > ChatKit",
+   "text": "Function calling"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Search and retrieval",
+   "text": "Search and retrieval"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Search and retrieval",
+   "text": "Web search"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Search and retrieval",
+   "text": "File search"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Search and retrieval",
+   "text": "Retrieval"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Connect tools and data",
+   "text": "Connect tools and data"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Connect tools and data",
+   "text": "MCP and Connectors"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Connect tools and data",
+   "text": "Secure MCP Tunnel"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Build tool workflows",
+   "text": "Build tool workflows"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build tool workflows",
+   "text": "Skills"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build tool workflows",
+   "text": "Tool search"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build tool workflows",
+   "text": "Programmatic tool calling"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Computer and code",
+   "text": "Computer and code"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Computer and code",
+   "text": "Shell"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Computer and code",
+   "text": "Computer use"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Computer and code",
+   "text": "Apply Patch"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Computer and code",
+   "text": "Local shell"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Computer and code",
+   "text": "Code interpreter"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Media",
+   "text": "Media"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Media",
+   "text": "Image generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Media",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Get started",
+   "text": "Get started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Voice agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Live translation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Realtime prompting guide"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Audio",
+   "text": "Audio"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Audio",
+   "text": "Audio and speech"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Audio",
+   "text": "Transcription"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Audio",
+   "text": "File transcription"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Audio",
+   "text": "Realtime transcription"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Audio",
+   "text": "Speech generation"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Connection methods",
+   "text": "Connection methods"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Connection methods",
+   "text": "WebRTC"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Connection methods",
+   "text": "WebSocket"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Connection methods",
+   "text": "SIP"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Sessions and operations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Managing conversations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Voice activity detection"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Realtime with tools"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Webhooks and server-side controls"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Sessions and operations",
+   "text": "Managing costs"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Go live",
+   "text": "Go live"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Go live",
+   "text": "Production best practices"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Go live",
+   "text": "Deployment checklist"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Performance and quality",
+   "text": "Performance and quality"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Performance and quality",
+   "text": "Latency optimization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Performance and quality",
+   "text": "Predicted Outputs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Performance and quality",
+   "text": "Fast mode"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Performance and quality",
+   "text": "Accuracy optimization"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Cost and throughput",
+   "text": "Cost and throughput"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cost and throughput",
+   "text": "Cost optimization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cost and throughput",
+   "text": "Prompt caching"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cost and throughput",
+   "text": "Batch"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cost and throughput",
+   "text": "Flex processing"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Safety and governance",
+   "text": "Safety and governance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Safety best practices"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Red teaming"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Safety checks Cybersecurity checks"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Under 18 API Guidance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "CSAM guidance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Content provenance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Your data"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Safety and governance",
+   "text": "Permissions"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Infrastructure and access"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Terraform provider Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Projects and access"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Service accounts"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Rate limits and spend"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Model, tool, and data controls"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Import and reconciliation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Private Link"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "IP allowlist"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Workload identity federation Codex setup"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Federation rules"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Admin API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "X.509 certificates (beta)"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Kubernetes"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "AWS"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Microsoft Azure"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Google Cloud"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Oracle Cloud Infrastructure"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "GitHub Actions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "SPIFFE"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "IP egress ranges"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Infrastructure and access",
+   "text": "Amazon Bedrock"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Operations",
+   "text": "Operations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Rate limits"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Spend limits"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Admin APIs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Error codes"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Home"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Operations",
+   "text": "Quickstart"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Core concepts",
+   "text": "Core concepts"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Plugin architecture"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "Skills"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Core concepts",
+   "text": "MCP server"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Plan",
+   "text": "Plan"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Plan",
+   "text": "Brainstorm use cases"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Plan",
+   "text": "Define tools"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Build",
+   "text": "Build"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Build an MCP server"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Add UI to your MCP server (optional)"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Authenticate users"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Build skills"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Package your plugin"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build",
+   "text": "Examples"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Test and publish",
+   "text": "Test and publish"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Test and publish",
+   "text": "Connect and test your plugin"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Test and publish",
+   "text": "Submit and publish"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Test and publish",
+   "text": "Submission error reference"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Conversion specs",
+   "text": "Conversion specs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Conversion specs",
+   "text": "Restaurant reservation spec"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Conversion specs",
+   "text": "Get Quote spec"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Conversion specs",
+   "text": "Product checkout spec"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Guides",
+   "text": "Guides"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "UI guidelines"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Optimize Metadata"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Submit a Claude Code plugin"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Security & Privacy"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Troubleshooting"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Resources",
+   "text": "Resources"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Changelog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Plugin guidelines"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "MCP server review requirements"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Plugin UI reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Checkout API reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Resources",
+   "text": "Home"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Get started",
+   "text": "Get started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Trigger workspace agent runs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Authenticate with Workspace Agent access tokens"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Home"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Guides",
+   "text": "Guides"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Get started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Guides",
+   "text": "Best practices"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > File Upload",
+   "text": "File Upload"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > File Upload",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > File Upload",
+   "text": "Products"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > API",
+   "text": "API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API",
+   "text": "Feeds"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API",
+   "text": "Products"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API",
+   "text": "Promotions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API",
+   "text": "Ads Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Measurement",
+   "text": "Measurement"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Measurement",
+   "text": "Measurement Pixel"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Measurement",
+   "text": "Multiple Pixels (Advanced)"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Measurement",
+   "text": "Image Tag"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Measurement",
+   "text": "Conversions API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Measurement",
+   "text": "Supported Events"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Advertiser API",
+   "text": "Advertiser API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "API Partner Setup"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Bulk API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Product Feeds"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Delta Feeds API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Campaign Targeting"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Conversion-Optimized Campaigns"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Advertiser API",
+   "text": "Custom Audiences"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > API Reference",
+   "text": "API Reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Authentication"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Ad Account"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Campaigns"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Ad Groups"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Ads"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Insights"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Files"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Conversion Setup"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > API Reference",
+   "text": "Home"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Get started",
+   "text": "Get started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Use ChatGPT"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Get started with Work"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Get started",
+   "text": "Import from another agent"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Foundations",
+   "text": "Foundations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Foundations",
+   "text": "Prompting"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Foundations",
+   "text": "Personalize ChatGPT"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Foundations",
+   "text": "Skills & Plugins"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Foundations",
+   "text": "Permissions"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Explore",
+   "text": "Explore"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Explore",
+   "text": "What's new"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Explore",
+   "text": "Models"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Explore",
+   "text": "Pricing"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Explore",
+   "text": "Glossary"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Available on",
+   "text": "Available on"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "ChatGPT desktop app"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "Remote"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "ChatGPT on the web"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "Codex CLI"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "Codex IDE extension"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Available on",
+   "text": "Codex cloud"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Releases",
+   "text": "Releases"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Releases",
+   "text": "Changelog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Releases",
+   "text": "Feature Maturity"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Releases",
+   "text": "Open Source"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Releases",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Workflows",
+   "text": "Workflows"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Projects and chats"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Sites"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Visualizations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Scheduled tasks"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Long-running work"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Notifications"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Pets"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workflows",
+   "text": "Codex Micro"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Capabilities",
+   "text": "Capabilities"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Browser"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Computer use"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Voice"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Plugins"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Web search"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Image generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Image inputs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Appshots"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Chrome extension"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Capabilities",
+   "text": "Work with files"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Reference",
+   "text": "Reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Commands"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Slash commands"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Settings"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Troubleshooting"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Customization",
+   "text": "Customization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Customization",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Customization",
+   "text": "Memories"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Customization",
+   "text": "Computer History"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Config file",
+   "text": "Config file"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Config file",
+   "text": "Config Basics"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Config file",
+   "text": "Advanced Config"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Config file",
+   "text": "Config Reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Config file",
+   "text": "Environment Variables"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Config file",
+   "text": "Sample Config"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Agent configuration",
+   "text": "Agent configuration"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agent configuration",
+   "text": "AGENTS.md"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agent configuration",
+   "text": "Subagents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agent configuration",
+   "text": "Speed"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Agent configuration",
+   "text": "Rules"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Extend ChatGPT and Codex",
+   "text": "Extend ChatGPT and Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Extend ChatGPT and Codex",
+   "text": "Record & Replay"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Extend ChatGPT and Codex",
+   "text": "MCP"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Linux",
+   "text": "Linux"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Linux",
+   "text": "Desktop app"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Windows",
+   "text": "Windows"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Windows",
+   "text": "Desktop app"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Windows",
+   "text": "Windows sandbox"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Windows",
+   "text": "WSL"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Windows",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Development workflows",
+   "text": "Development workflows"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Development workflows",
+   "text": "Code review"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Development workflows",
+   "text": "Integrated terminal"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Extend and automate",
+   "text": "Extend and automate"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Extend and automate",
+   "text": "Build skills"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Extend and automate",
+   "text": "Build plugins"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Extend and automate",
+   "text": "Hooks"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Environments",
+   "text": "Environments"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Environments",
+   "text": "Modes"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Environments",
+   "text": "Local environments"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Environments",
+   "text": "Cloud environment"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Environments",
+   "text": "Git worktrees"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Build with Codex",
+   "text": "Build with Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build with Codex",
+   "text": "Codex SDK"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build with Codex",
+   "text": "App Server"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build with Codex",
+   "text": "MCP Server"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build with Codex",
+   "text": "GitHub Action"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Build with Codex",
+   "text": "Non-interactive mode"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Third-party integrations",
+   "text": "Third-party integrations"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Third-party integrations",
+   "text": "GitHub"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Third-party integrations",
+   "text": "GitLab (Beta)"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Third-party integrations",
+   "text": "Slack"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Third-party integrations",
+   "text": "Linear"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Reference",
+   "text": "Reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "CLI customization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Developer commands"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Developer settings"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Reference",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Permissions",
+   "text": "Permissions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Permissions",
+   "text": "Profiles"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Permissions",
+   "text": "Sandboxing"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Permissions",
+   "text": "Auto-review"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Permissions",
+   "text": "Agent approvals & security"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Permissions",
+   "text": "Internet access"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Codex Security",
+   "text": "Codex Security"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Codex Security plugin Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Run a security scan"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Run a deep scan"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Review code changes"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Use the Security workbench"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Triage a backlog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Fix findings"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Propose security hardening"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Write vulnerability reports"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Export and track findings"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Changelog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Codex Security CLI Quickstart"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Run bulk scans"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Run scans in CI"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Reference"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "FAQ"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "TypeScript SDK"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Codex Security cloud Setup"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Security Review"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "Improving the threat model"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Codex Security",
+   "text": "FAQ"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Cyber safety",
+   "text": "Cyber safety"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cyber safety",
+   "text": "Models & Trusted Access"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cyber safety",
+   "text": "Recommended configuration"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Cyber safety",
+   "text": "Overview"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Getting started",
+   "text": "Getting started"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Getting started",
+   "text": "Admin rollout guide"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Getting started",
+   "text": "ChatGPT Work Overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Getting started",
+   "text": "ChatGPT Work admin FAQ"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Identity and authentication",
+   "text": "Identity and authentication"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Identity and authentication",
+   "text": "Authentication overview"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Identity and authentication",
+   "text": "Workload identity"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Identity and authentication",
+   "text": "Personal Access Tokens"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Identity and authentication",
+   "text": "Service accounts"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Workspace access, policy, and models"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Groups and provisioning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Roles and workspace permissions"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "GPTs and Sharing"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Managed configuration"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Prisma AIRS"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "HIPAA configuration"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Workspace access, policy, and models",
+   "text": "Workspace model availability"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Plugin and connector controls",
+   "text": "Plugin and connector controls"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Plugin and connector controls",
+   "text": "Plugin controls"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Plugin and connector controls",
+   "text": "Skill controls"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Usage, governance, and compliance",
+   "text": "Usage, governance, and compliance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Usage, governance, and compliance",
+   "text": "Governance"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Usage, governance, and compliance",
+   "text": "Workspace analytics"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Usage, governance, and compliance",
+   "text": "Analytics API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Usage, governance, and compliance",
+   "text": "Compliance API and audit events"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Deployment and model providers"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Manage app updates"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Windows app deployment"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Remote connections"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Amazon Bedrock"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Explore use cases"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Collections"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Home"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Videos"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Showcase"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "OpenAI Academy"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Deployment and model providers",
+   "text": "Online trainings"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Community",
+   "text": "Community"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex Ambassadors"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex for Students"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex for Open Source"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Meetups"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Blog",
+   "text": "Blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Company blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Developer blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Explore use cases"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Collections"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Home"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Videos"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Showcase"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "OpenAI Academy"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Online trainings"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Community",
+   "text": "Community"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex Ambassadors"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex for Students"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Codex for Open Source"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Community",
+   "text": "Meetups"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Blog",
+   "text": "Blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Company blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "Developer blog"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Blog",
+   "text": "All posts"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Recent",
+   "text": "Recent"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Recent",
+   "text": "Scaling cyber defenders with Daybreak"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Recent",
+   "text": "Codex as a platform: build on the open agent harness"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Recent",
+   "text": "Custom Code Review rules for Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Recent",
+   "text": "Mastering remote engineering work from your phone"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Recent",
+   "text": "Making private MCP servers reachable without making them public"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Topics",
+   "text": "Topics"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "General"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "API"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Apps SDK"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Audio"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Home"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Topics",
+   "text": "Topics"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Evals"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Multimodal"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Text"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Guardrails"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Optimization"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "ChatGPT"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "gpt-oss"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Contribute",
+   "text": "Contribute"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Contribute",
+   "text": "Cookbook on GitHub"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Contribute",
+   "text": "Home"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Contribute",
+   "text": "OpenAI Developers plugin"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Contribute",
+   "text": "Docs MCP"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Categories",
+   "text": "Categories"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Categories",
+   "text": "Demo apps"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Categories",
+   "text": "Videos"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Topics",
+   "text": "Topics"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Agents"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Audio & Voice"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Computer Use"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Codex"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Evals"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "gpt-oss"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Fine-tuning"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Image generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Scaling"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Tools"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Video generation"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Topics",
+   "text": "Community"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Programs",
+   "text": "Programs"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Programs",
+   "text": "Codex Ambassadors"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Programs",
+   "text": "Codex for Students"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Programs",
+   "text": "Codex for Open Source"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Programs",
+   "text": "OpenAI for Startups"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Events",
+   "text": "Events"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Events",
+   "text": "Meetups"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Search the API docs > Spaces",
+   "text": "Spaces"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Spaces",
+   "text": "Developer Forum"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Spaces",
+   "text": "Discord"
+  },
+  {
+   "type": "list",
+   "section": "Search the API docs > Spaces",
+   "text": "Reddit"
+  },
+  {
+   "type": "heading",
+   "level": 1,
+   "section": "Pricing",
+   "text": "Pricing"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Flagship models",
+   "text": "Flagship models"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > Model | Short context: Input | Long context: Cached input | Cache writes | Output | Input | Cached input | Cache writes | Output"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-sol | Short context: $4.00 | Long context: $0.40 | $5.00 | $20.00 | $8.00 | $0.80 | $10.00 | $30.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-terra | Short context: $2.00 | Long context: $0.20 | $2.50 | $12.00 | $4.00 | $0.40 | $5.00 | $18.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-luna | Short context: $0.20 | Long context: $0.02 | $0.25 | $1.20 | $0.40 | $0.04 | $0.50 | $1.80"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > Model | Short context: Input | Long context: Cached input | Cache writes | Output | Input | Cached input | Cache writes | Output"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-sol | Short context: $2.00 | Long context: $0.20 | $2.50 | $10.00 | $4.00 | $0.40 | $5.00 | $15.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-terra | Short context: $1.00 | Long context: $0.10 | $1.25 | $6.00 | $2.00 | $0.20 | $2.50 | $9.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-luna | Short context: $0.10 | Long context: $0.01 | $0.125 | $0.60 | $0.20 | $0.02 | $0.25 | $0.90"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > Model | Short context: Input | Long context: Cached input | Cache writes | Output | Input | Cached input | Cache writes | Output"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-sol | Short context: $2.00 | Long context: $0.20 | $2.50 | $10.00 | $4.00 | $0.40 | $5.00 | $15.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-terra | Short context: $1.00 | Long context: $0.10 | $1.25 | $6.00 | $2.00 | $0.20 | $2.50 | $9.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-luna | Short context: $0.10 | Long context: $0.01 | $0.125 | $0.60 | $0.20 | $0.02 | $0.25 | $0.90"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > Model | Short context: Input | Long context: Cached input | Cache writes | Output | Input | Cached input | Cache writes | Output"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-sol | Short context: $8.00 | Long context: $0.80 | $10.00 | $40.00 | $16.00 | $1.60 | $20.00 | $60.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-terra | Short context: $4.00 | Long context: $0.40 | $5.00 | $24.00 | $8.00 | $0.80 | $10.00 | $36.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Flagship models",
+   "text": "Pricing > Flagship models > gpt-5.6-luna | Short context: $0.40 | Long context: $0.04 | $0.50 | $2.40 | $0.80 | $0.08 | $1.00 | $3.60"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Cyber models",
+   "text": "Cyber models"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Cyber models",
+   "text": "Pricing > Cyber models > Model | Short context: Input | Long context: Cached input | Cache writes | Output | Input | Cached input | Cache writes | Output"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Cyber models",
+   "text": "Pricing > Cyber models > gpt-5.6-sol | Short context: $4.00 | Long context: $0.40 | $5.00 | $20.00 | $8.00 | $0.80 | $10.00 | $30.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Cyber models",
+   "text": "Pricing > Cyber models > gpt-5.6-cyber | Short context: $12.50 | Long context: $1.25 | $15.625 | $75.00 | - | - | - | -"
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Cyber models",
+   "text": "daybreak-blue-latest and daybreak-red-latest are aliases that currently point to gpt-5.6-sol and gpt-5.6-cyber , respectively. As new frontier models are released through the Daybreak program, these aliases will be updated to point to the latest models, with pricing adjusted to match each underlying model."
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Multimodal models",
+   "text": "Multimodal models"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Realtime and audio generation models"
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Prices per 1M tokens unless noted."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: gpt-realtime-2.1 | Modality: Audio | Input: $32.00 | Cached input: $0.40 | Output / cost: $64.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: Text | Modality: $4.00 | Input: $0.40 | Cached input: $24.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: Image | Modality: $5.00 | Input: $0.50 | Cached input: -"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: gpt-realtime-2.1-mini | Modality: Audio | Input: $10.00 | Cached input: $0.30 | Output / cost: $20.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: Text | Modality: $0.60 | Input: $0.06 | Cached input: $2.40"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Realtime and audio generation models",
+   "text": "Pricing > Multimodal models > Realtime and audio generation models > Model: Image | Modality: $0.80 | Input: $0.08 | Cached input: -"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Pricing > Multimodal models > Image generation models",
+   "text": "Image generation models"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Image generation models",
+   "text": "Pricing > Multimodal models > Image generation models > Model: gpt-image-2 | Modality: Image | Input: $8.00 | Cached input: $2.00 | Output: $30.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Image generation models",
+   "text": "Pricing > Multimodal models > Image generation models > Model: Text | Modality: $5.00 | Input: $1.25 | Cached input: -"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Image generation models",
+   "text": "Pricing > Multimodal models > Image generation models > Model: gpt-image-2 | Modality: Image | Input: $4.00 | Cached input: $1.00 | Output: $15.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Image generation models",
+   "text": "Pricing > Multimodal models > Image generation models > Model: Text | Modality: $2.50 | Input: $0.625 | Cached input: -"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Video generation models"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: sora-2 | Size: 720p | Portrait: 720x1280 | Landscape: 1280x720 | Price per second: $0.10"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: sora-2-pro | Size: 720p | Portrait: 720x1280 | Landscape: 1280x720 | Price per second: $0.30"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: 1024p | Size: 1024x1792 | Portrait: 1792x1024 | Landscape: $0.50"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: 1080p | Size: 1080x1920 | Portrait: 1920x1080 | Landscape: $0.70"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: sora-2 | Size: 720p | Portrait: 720x1280 | Landscape: 1280x720 | Price per second: $0.05"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: sora-2-pro | Size: 720p | Portrait: 720x1280 | Landscape: 1280x720 | Price per second: $0.15"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: 1024p | Size: 1024x1792 | Portrait: 1792x1024 | Landscape: $0.25"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Video generation models",
+   "text": "Pricing > Multimodal models > Video generation models > Model: 1080p | Size: 1080x1920 | Portrait: 1920x1080 | Landscape: $0.35"
+  },
+  {
+   "type": "heading",
+   "level": 3,
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Transcription models"
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Prices per 1M tokens unless noted."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-realtime-translate | Use case: Live translation | Input: - | Output: - | Estimated cost: $0.034 / minute"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-live-transcribe | Use case: Live transcription | Input: - | Output: - | Estimated cost: $0.017 / minute"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-realtime-whisper | Use case: Live transcription | Input: - | Output: - | Estimated cost: $0.017 / minute"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-transcribe | Use case: Transcription | Input: - | Output: - | Estimated cost: $0.0045 / minute"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-4o-transcribe | Use case: Transcription | Input: $2.50 | Output: $10.00 | Estimated cost: $0.006 / minute"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Multimodal models > Transcription models",
+   "text": "Pricing > Multimodal models > Transcription models > Model: gpt-4o-mini-transcribe | Use case: Transcription | Input: $1.25 | Output: $5.00 | Estimated cost: $0.003 / minute"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Tools",
+   "text": "Tools"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Web search | Details: Web search (all models) | Pricing: $10.00 / 1k calls + Search content tokens billed at model rates."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Image Web search (all models) | Details: $10.00 / 1k calls + Search content tokens billed at model rates."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Web search preview (reasoning models, including gpt-5 , o-series ) | Details: $10.00 / 1k calls + Search content tokens billed at model rates."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Web search preview (non-reasoning models) | Details: $25.00 / 1k calls + Search content tokens are free."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Containers | Details: Hosted Shell and Code Interpreter | Pricing: 1 GB $0.03, 4 GB $0.12, 16 GB $0.48, 64 GB $1.92 per 20-minute session per container."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: File search | Details: Storage | Pricing: $0.10 / GB per day (1 GB free)"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Tool call | Details: $2.50 / 1k calls"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Tools",
+   "text": "Pricing > Tools > Tool: Agent Kit | Details: ChatKit file and image upload storage | Pricing: $0.10 / GB-day after 1 GB free per account per month"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Specialized models",
+   "text": "Specialized models"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Specialized models",
+   "text": "Pricing > Specialized models > Category: ChatGPT | Model: chat-latest | Input: $5.00 | Cached input: $0.50 | Output: $30.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Specialized models",
+   "text": "Pricing > Specialized models > Category: Codex | Model: gpt-5.3-codex | Input: $1.75 | Cached input: $0.175 | Output: $14.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Specialized models",
+   "text": "Pricing > Specialized models > Category: Codex | Model: gpt-5.3-codex | Input: $3.50 | Cached input: $0.35 | Output: $28.00"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Finetuning",
+   "text": "Finetuning"
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Finetuning",
+   "text": "OpenAI is winding down the fine-tuning platform. The platform is no longer accessible to new users, but existing users of the fine-tuning platform will be able to create training jobs for the coming months."
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Finetuning",
+   "text": "All fine-tuned models will remain available for inference until their base models are deprecated. The full timeline is here ."
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Finetuning",
+   "text": "Pricing > Finetuning > Model: o4-mini-2025-04-16 | Training: $100.00 / hour | Input: $4.00 | Cached input: $1.00 | Output: $16.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Finetuning",
+   "text": "Pricing > Finetuning > Model: o4-mini-2025-04-16 with data sharing | Training: $100.00 / hour | Input: $2.00 | Cached input: $0.50 | Output: $8.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Finetuning",
+   "text": "Pricing > Finetuning > Model: o4-mini-2025-04-16 | Training: $100.00 / hour | Input: $2.00 | Cached input: $0.50 | Output: $8.00"
+  },
+  {
+   "type": "row",
+   "section": "Pricing > Finetuning",
+   "text": "Pricing > Finetuning > Model: o4-mini-2025-04-16 with data sharing | Training: $100.00 / hour | Input: $1.00 | Cached input: $0.25 | Output: $4.00"
+  },
+  {
+   "type": "heading",
+   "level": 2,
+   "section": "Pricing > Docs agent",
+   "text": "Docs agent"
+  },
+  {
+   "type": "prose",
+   "section": "Pricing > Docs agent",
+   "text": "Loading docs agent..."
+  }
+ ]
+}
