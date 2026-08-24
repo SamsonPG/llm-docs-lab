@@ -16,6 +16,22 @@ export const DEFAULT_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 export const EMBEDDING_MODEL = '@cf/baai/bge-base-en-v1.5';
 
 /**
+ * Pull the assistant's text out of a Workers AI reply.
+ *
+ * Workers AI returns an OpenAI-shaped object — choices[0].message.content — not the
+ * `response` string the older docs and most examples show. Reading `.response` yields
+ * undefined, and `String(undefined)` is the string "undefined", so the failure does not
+ * throw: the agent loop simply saw "[object Object]", failed to parse it five times, and
+ * hit its step ceiling. It looked exactly like a model that cannot follow instructions,
+ * when the model had produced correct JSON every time.
+ *
+ * Both shapes are accepted, because a platform that changed this once can change it again.
+ */
+export function replyText(res) {
+  return res?.choices?.[0]?.message?.content ?? res?.response ?? '';
+}
+
+/**
  * Retrieve the chunks most similar to a question.
  *
  * Exported separately because the agent calls it as a tool and the eval scores retrieval on
@@ -78,7 +94,7 @@ export async function answerQuestion(env, question, { model = DEFAULT_MODEL, top
   });
 
   return {
-    answer: (res.response ?? '').trim(),
+    answer: String(replyText(res)).trim(),
     sources,
     model,
     usage: res.usage ?? null,

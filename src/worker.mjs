@@ -22,6 +22,7 @@
  */
 import { PAGE } from './ui.mjs';
 import { retrieve, answerQuestionStream, DEFAULT_MODEL, EMBEDDING_MODEL } from './answer/answer.mjs';
+import { runAgent, LIMITS as AGENT_LIMITS } from './agent/agent.mjs';
 
 /** Questions longer than this are refused. Real questions are far shorter. */
 const MAX_QUESTION_CHARS = 500;
@@ -274,6 +275,29 @@ export default {
           'x-sources': encodeURIComponent(JSON.stringify(compact)),
         },
       });
+    }
+
+    /*
+      The agent. Rate limited harder than /ask, because one run is several model calls.
+
+      A single agent question can cost five generations plus four searches, so the ordinary
+      per-minute allowance would let a handful of visitors drain the day. Anonymous callers
+      get one run per window; the operator is exempt, as elsewhere.
+    */
+    if (url.pathname === '/agent') {
+      const raw = url.searchParams.get('q') ?? '';
+      if (!raw.trim()) return json({ error: 'missing q' }, 400);
+      if (raw.length > MAX_QUESTION_CHARS) return json({ error: 'question too long' }, 413);
+
+      if (!isOperator(request, env)) {
+        // Deliberately harsh: five model calls per run against a shared daily allowance.
+        for (let i = 0; i < 6; i += 1) {
+          if (rateLimited(`agent:${ip}`)) return json({ error: 'agent runs are rate limited; try /ask' }, 429);
+        }
+      }
+
+      const result = await runAgent(env, raw.trim());
+      return json({ question: raw.trim(), limits: AGENT_LIMITS, ...result });
     }
 
     return new Response('Not found', { status: 404, headers: SECURITY_HEADERS });
