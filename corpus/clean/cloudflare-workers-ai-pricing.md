@@ -1,7 +1,7 @@
 ---
 id: cloudflare-workers-ai-pricing
 url: https://developers.cloudflare.com/workers-ai/platform/pricing/
-fetched_at: 2026-08-24T20:03:39.622Z
+fetched_at: 2026-08-24T20:45:26.669Z
 ---
 
 # Pricing

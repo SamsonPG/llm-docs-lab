@@ -1,7 +1,7 @@
 ---
 id: groq-rate-limits
 url: https://console.groq.com/docs/rate-limits
-fetched_at: 2026-08-24T20:03:39.622Z
+fetched_at: 2026-08-24T20:45:26.669Z
 ---
 
 ## Documentation

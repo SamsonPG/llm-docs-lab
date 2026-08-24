@@ -85,12 +85,36 @@ function splitProse(text, maxTokens) {
 export function chunkDocument(doc, { target = TARGET_TOKENS, max = MAX_TOKENS } = {}) {
   const chunks = [];
   let n = 0;
+  /* Names the provider inside the embedded text, not only in metadata. */
+  const docTitle = doc.title ?? doc.id;
 
   const push = (section, parts, kind) => {
     if (!parts.length) return;
-    // The section is stated once at the top of the chunk, not per line.
-    const body = parts.join('\n');
-    const text = section ? `${section}\n${body}` : body;
+    /*
+      The header names the SOURCE as well as the section, and the section appears once.
+
+      Both halves of this were wrong on day 2, and retrieval was useless because of it.
+      "How many neurons per day are free on Cloudflare Workers AI" returned Anthropic
+      pricing rows, for two compounding reasons:
+
+        1. No chunk said which provider it came from. "Model: Claude Opus 4.5 | Base Input
+           Tokens: $5" never contains the word "Anthropic", so a query naming a provider had
+           nothing to match against. The provider sat in Vectorize metadata, which is not
+           embedded and therefore invisible to search.
+
+        2. The section path was duplicated. Rows already carry it from extraction and this
+           function prepended it again, so much of every chunk was the same boilerplate —
+           "Pricing > Feature-specific pricing > …" — near identical across providers, and
+           it drowned out the words that distinguish them.
+
+      Title once, section once, and the prefix stripped from the rows beneath it.
+    */
+    const prefix = section ? `${section} > ` : '';
+    const body = parts
+      .map((line) => (prefix && line.startsWith(prefix) ? line.slice(prefix.length) : line))
+      .join('\n');
+    const header = [docTitle, section].filter(Boolean).join(' — ');
+    const text = header ? `${header}\n${body}` : body;
     chunks.push({
       id: `${doc.id}#${n++}`,
       docId: doc.id,

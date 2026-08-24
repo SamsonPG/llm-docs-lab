@@ -1,0 +1,27 @@
+# wrangler.toml — Cloudflare Worker configuration
+#
+# WHAT: Bindings for the retrieval API — Workers AI for embeddings and generation,
+#       Vectorize for the index.
+# WHY:  Bindings rather than API tokens. A binding is granted by the platform at runtime,
+#       so there is no key to store, rotate, or leak into a commit. This repo is public.
+# WHEN: Read by `wrangler dev --remote` and `wrangler deploy`.
+
+name = "llm-docs-lab"
+main = "src/worker.mjs"
+# Set to 2026-08-24, not today: Cloudflare rejects a compatibility date in the future
+# relative to ITS clock (UTC), and the local machine had already rolled over to the 25th.
+compatibility_date = "2026-08-24"
+
+# Workers AI: embeddings today, generation on day 3.
+[ai]
+binding = "AI"
+
+# Vectorize index. Dimensions must match the embedding model exactly and cannot be
+# changed after creation, so the number below was measured rather than assumed —
+# see scripts/probe-embedding.mjs and the note in DECISIONS.md.
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "llm-docs"
+
+[observability]
+enabled = true

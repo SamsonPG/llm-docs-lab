@@ -1,7 +1,8 @@
 {
  "id": "openrouter-limits",
+ "title": "API Credit & Rate Limits - Handle 402 and 429 Errors",
  "url": "https://openrouter.ai/docs/api-reference/limits",
- "fetchedAt": "2026-08-24T20:03:39.622Z",
+ "fetchedAt": "2026-08-24T20:45:26.669Z",
  "blocks": [
   {
    "type": "heading",

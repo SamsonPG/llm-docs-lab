@@ -1,7 +1,7 @@
 ---
 id: gemini-rate-limits
 url: https://ai.google.dev/gemini-api/docs/rate-limits
-fetched_at: 2026-08-24T20:03:39.622Z
+fetched_at: 2026-08-24T20:45:26.669Z
 ---
 
 - English
@@ -26,153 +26,161 @@ fetched_at: 2026-08-24T20:03:39.622Z
 - 中文 – 繁體
 - 日本語
 - 한국어
+- Home
 - Gemini API
-- 문서
+- Docs
 
-# 비율 제한
+# Rate limits
 
-비율 제한은 특정 기간 내에 Gemini API에 전송할 수 있는 요청 수를 규제합니다. 이러한 한도는 공정한 사용을 유지하고, 악용을 방지하며, 모든 사용자를 위해 시스템 성능을 유지하는 데 도움이 됩니다.
-AI Studio에서 활성 비율 제한 보기
+Rate limits regulate the number of requests you can make to the Gemini API within a given timeframe. These limits help maintain fair usage, protect against abuse, and help maintain system performance for all users.
+View your active rate limits in AI Studio
 
-## 요청률 제한 작동 방식
+## How rate limits work
 
-비율 제한은 일반적으로 다음 세 가지 측정기준으로 측정됩니다.
-- 분당 요청 수 ( RPM )
-- 분당 토큰 수 (입력) ( TPM )
-- 일일 요청 수 ( RPD )
-사용량은 각 한도에 따라 평가되며, 한도를 초과하면 비율 제한 오류가 발생합니다. 예를 들어 RPM 한도가 20인 경우 TPM 또는 기타 한도를 초과하지 않았더라도 1분 이내에 21개의 요청을 하면 오류가 발생합니다.
-비율 제한은 API 키별이 아닌 프로젝트별로 적용됩니다. 일일 요청 수 ( RPD ) 할당량은 태평양 표준시 자정에 재설정됩니다.
-한도는 사용 중인 특정 모델에 따라 다르며 일부 한도는 특정 모델에만 적용됩니다. 예를 들어 이미지 수/분(IPM)은 이미지를 생성할 수 있는 모델(Nano Banana)에 대해서만 계산되지만 개념적으로 TPM과 유사합니다. 일부 모델에는 일일 토큰 한도 (TPD)가 있을 수 있습니다.
-실험 모델과 프리뷰 모델의 비율 제한이 더 엄격합니다.
+Rate limits are usually measured across three dimensions:
+- Requests per minute ( RPM )
+- Tokens per minute (input) ( TPM )
+- Requests per day ( RPD )
+Your usage is evaluated against each limit, and exceeding any of them will trigger a rate limit error. For example, if your RPM limit is 20, making 21 requests within a minute will result in an error, even if you haven't exceeded your TPM or other limits.
+Rate limits are applied per project, not per API key. Requests per day ( RPD ) quotas reset at midnight Pacific time.
+Limits vary depending on the specific model being used, and some limits only apply to specific models. For example, Images per minute, or IPM, is only calculated for models capable of generating images (Nano Banana), but is conceptually similar to TPM. Other models might have a token per day limit (TPD).
+Rate limits are more restricted for experimental and preview models.
 
-### 지출 기반 비율 제한
+### Spend-based rate limits
 
-Gemini API는 분당 요청 수 (RPM) 및 분당 토큰 수 (TPM) 한도 외에도 예상치 못한 요금 청구를 방지하기 위해 지출 기반 비율 제한을 적용합니다. 이러한 한도가 계정에 적용되는지 여부는 결제 내역과 사용량 등급 에 따라 다릅니다.
-다음 표에는 각 사용량 등급 의 지출 기반 비율 제한이 나와 있습니다. 이러한 한도는 10분 단위로 평가됩니다. 이러한 한도가 계정에 적용되는지 여부는 결제 내역과 계정 상태에 따라 달라집니다.
-비율 제한 > 요청률 제한 작동 방식 > 지출 기반 비율 제한 > 사용 등급: 무료 | 지출 비율 제한 (10분당): 해당 사항 없음
-비율 제한 > 요청률 제한 작동 방식 > 지출 기반 비율 제한 > 사용 등급: Tier 1 | 지출 비율 제한 (10분당): $10
-비율 제한 > 요청률 제한 작동 방식 > 지출 기반 비율 제한 > 사용 등급: Tier 2 | 지출 비율 제한 (10분당): $200
-비율 제한 > 요청률 제한 작동 방식 > 지출 기반 비율 제한 > 사용 등급: Tier 3 | 지출 비율 제한 (10분당): $200
+In addition to requests per minute (RPM) and tokens per minute (TPM) limits, the Gemini API enforces spend-based rate limits to protect against unexpected charges. Whether these limits apply to your account depends on your billing history and usage tier .
+The following table shows the spend-based rate limits for each usage tier . These limits are evaluated on a rolling 10-minute window. Whether these limits apply to your account depends on your billing history and account standing.
+Rate limits > How rate limits work > Spend-based rate limits > Usage tier: Free | Spend rate limit (per 10 minutes): N/A
+Rate limits > How rate limits work > Spend-based rate limits > Usage tier: Tier 1 | Spend rate limit (per 10 minutes): $10
+Rate limits > How rate limits work > Spend-based rate limits > Usage tier: Tier 2 | Spend rate limit (per 10 minutes): $50
+Rate limits > How rate limits work > Spend-based rate limits > Usage tier: Tier 3 | Spend rate limit (per 10 minutes): $200
 
-지출 기반 비율 한도에 도달하면 API에서 429 RESOURCE_EXHAUSTED 오류를 반환합니다. 이 문제를 해결하려면 다음 안내를 따르세요.
-- 잠시 기다린 후 다시 시도 합니다.
-- 더 작은 컨텍스트 창이나 더 짧은 출력을 사용하는 등 비용이 많이 드는 요청의 비율을 줄입니다 .
-- 정상적인 사용 중에 이 한도에 지속적으로 도달하는 경우 속도 제한 증가를 요청 하세요.
+If you hit a spend-based rate limit, the API returns a 429 RESOURCE_EXHAUSTED error. To resolve this:
+- Wait and retry after a short period.
+- Reduce the rate of expensive requests , for example by using smaller context windows or shorter outputs.
+- If you consistently hit this limit during normal usage, request a rate limit increase .
 
-## 사용 등급
+## Usage tiers
 
-비율 제한은 프로젝트의 사용량 등급과 연결되어 있습니다. API 사용량과 지출이 증가하면 비율 한도가 증가하는 상위 등급으로 자동 업그레이드됩니다.
-2단계 및 3단계의 자격 요건은 프로젝트에 연결된 결제 계정의 Google Cloud 서비스 (Gemini API 포함, 이에 국한되지 않음)에 대한 누적 총 지출을 기준으로 합니다.
-비율 제한 > 사용 등급 > 사용 등급: 무료 | 검증: 활성 프로젝트 또는 무료 체험판 | 결제 등급 한도: 해당 사항 없음
-비율 제한 > 사용 등급 > 사용 등급: Tier 1 | 검증: 활성 결제 계정 설정 및 연결 | 결제 등급 한도: $250
-비율 제한 > 사용 등급 > 사용 등급: Tier 2 | 검증: $100 지급 + 첫 번째 결제 완료 후 3일 | 결제 등급 한도: 2,000달러
-비율 제한 > 사용 등급 > 사용 등급: Tier 3 | 검증: $1,000 + 첫 번째 결제 완료 후 30일 | 결제 등급 한도: $20,000~$100,000 이상
+Rate limits are tied to the project's usage tier. As your API usage and spending increase, you'll be automatically upgraded to a higher tier with increased rate limits.
+The qualifications for Tiers 2 and 3 are based on the total cumulative spending on Google Cloud services (including, but not limited to, the Gemini API) for the billing account linked to your project.
+Rate limits > Usage tiers > Usage tier: Free | Qualification: Active project or free trial | Billing tier cap: N/A
+Rate limits > Usage tiers > Usage tier: Tier 1 | Qualification: Set up and link an active billing account | Billing tier cap: $250
+Rate limits > Usage tiers > Usage tier: Tier 2 | Qualification: Paid $100 + 3 days from first successful payment | Billing tier cap: $2,000
+Rate limits > Usage tiers > Usage tier: Tier 3 | Qualification: Paid $1,000 + 30 days from first successful payment | Billing tier cap: $20,000 - $100,000+
 
-일반적으로 명시된 자격 요건을 충족하면 승인을 받을 수 있지만, 드물게 검토 과정에서 확인된 다른 요인에 따라 업그레이드 요청이 거부될 수 있습니다.
-이 시스템은 모든 사용자를 위해 Gemini API 플랫폼의 보안과 무결성을 유지하는 데 도움이 됩니다.
+While meeting the stated qualification criteria is generally sufficient for approval, in rare cases an upgrade request may be denied based on other factors identified during the review process.
+This system helps maintain the security and integrity of the Gemini API platform for all users.
 
-## Gemini API 비율 제한
+## Gemini API rate limits
 
-요청률 제한은 다양한 요인 (예: 사용량 등급)에 따라 달라지며 Google AI Studio에서 확인할 수 있습니다. 시간이 지남에 따라 등급과 계정 상태가 변경되면 요청 한도가 자동으로 업데이트됩니다.
-AI Studio에서 활성 비율 제한 보기
-지정된 비율 제한은 보장되지 않으며 실제 용량은 다를 수 있습니다.
+Rate limits depend on a variety of factors (such as your usage tier) and can be viewed in Google AI Studio. As your tier and account status change over time, your rate limits will automatically update.
+View your active rate limits in AI Studio
+Specified rate limits are not guaranteed and actual capacity may vary.
 
-## 우선순위 추론 비율 제한
+## Priority inference rate limits
 
-우선순위 소비는 전체 대화형 트래픽 비율 한도에 포함되지만 자체 비율 한도가 적용됩니다. 기본 비율 제한은 각 모델 및 등급의 표준 비율 제한 의 0.3배입니다.
+Priority consumption holds its own rate limits even though consumption is counted towards overall interactive traffic rate limits. Default rate limits are: 0.3x the standard rate limit for each model and tier
 
-## Batch API 비율 제한
+## Batch API rate limits
 
-일괄 API 요청에는 일괄이 아닌 API 호출과 별도의 자체 비율 제한이 적용됩니다.
-- 동시 일괄 요청: 100
-- 입력 파일 크기 제한: 2GB
-- 파일 저장용량 한도: 20GB
-- 모델별 대기열에 추가된 토큰: 일괄 대기열에 추가된 토큰 표에는 특정 모델의 모든 활성 일괄 작업에서 일괄 처리를 위해 대기열에 추가할 수 있는 최대 토큰 수가 표시됩니다.
+Batch API requests are subject to their own rate limits, separate from the non-batch API calls.
+- Concurrent batch requests: 100
+- Input file size limit: 2GB
+- File storage limit: 20GB
+- Enqueued tokens per model: The Batch enqueued tokens table lists the maximum number of tokens that can be enqueued for batch processing across all your active batch jobs for a given model.
 
 ### Tier 1
 
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: 텍스트 출력 모델
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.1 Pro 프리뷰 | 큐에 추가된 일괄 토큰: 5,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.1 Flash Lite | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.1 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.5 Flash | 큐에 추가된 일괄 토큰: 3,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Pro | 큐에 추가된 일괄 토큰: 5,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Pro TTS | 큐에 추가된 일괄 토큰: 25,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash | 큐에 추가된 일괄 토큰: 3,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash 프리뷰 | 큐에 추가된 일괄 토큰: 3,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash Image 프리뷰 | 큐에 추가된 일괄 토큰: 3,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash TTS | 큐에 추가된 일괄 토큰: 100,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash Lite | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.5 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.0 Flash | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.0 Flash 이미지 | 큐에 추가된 일괄 토큰: 3,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 2.0 Flash Lite | 큐에 추가된 일괄 토큰: 10,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: 멀티모달 생성 모델
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.1 Flash Image Preview 🍌 | 큐에 추가된 일괄 토큰: 1,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3.1 Flash Lite 이미지 🍌 | 큐에 추가된 일괄 토큰: 2,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 3 Pro Image 프리뷰 🍌 | 큐에 추가된 일괄 토큰: 2,000,000
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: 임베딩 모델
-비율 제한 > Batch API 비율 제한 > Tier 1 > 모델: Gemini 임베딩 | 큐에 추가된 일괄 토큰: 500,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Text-out models
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.1 Pro Preview | Batch enqueued tokens: 5,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.5 Flash-Lite | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.7 Flash | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.1 Flash Lite | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.1 Flash Lite Preview | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.6 Flash | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.5 Flash | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Pro | Batch enqueued tokens: 5,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Pro TTS | Batch enqueued tokens: 25,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash Preview | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash Image Preview | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash TTS | Batch enqueued tokens: 100,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash Lite | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.5 Flash Lite Preview | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.0 Flash | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.0 Flash Image | Batch enqueued tokens: 3,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 2.0 Flash Lite | Batch enqueued tokens: 10,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Multi-modal generation models
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.1 Flash Image Preview 🍌 | Batch enqueued tokens: 1,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3.1 Flash Lite Image 🍌 | Batch enqueued tokens: 2,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini 3 Pro Image Preview 🍌 | Batch enqueued tokens: 2,000,000
+Rate limits > Batch API rate limits > Tier 1 > Model: Embedding models
+Rate limits > Batch API rate limits > Tier 1 > Model: Gemini Embedding | Batch enqueued tokens: 500,000
 
 ### Tier 2
 
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: 텍스트 출력 모델
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.1 Pro 프리뷰 | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.1 Flash Lite | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.1 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.5 Flash | 큐에 추가된 일괄 토큰: 400,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Pro | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Pro TTS | 큐에 추가된 일괄 토큰: 100,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash | 큐에 추가된 일괄 토큰: 400,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash 프리뷰 | 큐에 추가된 일괄 토큰: 400,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash Image 프리뷰 | 큐에 추가된 일괄 토큰: 400,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash TTS | 큐에 추가된 일괄 토큰: 100,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash Lite | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.5 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 500,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.0 Flash | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.0 Flash 이미지 | 큐에 추가된 일괄 토큰: 400,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 2.0 Flash Lite | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: 멀티모달 생성 모델
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.1 Flash Image Preview 🍌 | 큐에 추가된 일괄 토큰: 250,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3.1 Flash Lite 이미지 🍌 | 큐에 추가된 일괄 토큰: 270,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 3 Pro Image 프리뷰 🍌 | 큐에 추가된 일괄 토큰: 270,000,000
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: 임베딩 모델
-비율 제한 > Batch API 비율 제한 > Tier 2 > 모델: Gemini 임베딩 | 큐에 추가된 일괄 토큰: 5,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Text-out models
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.1 Pro Preview | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.5 Flash-Lite | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.1 Flash Lite | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.1 Flash Lite Preview | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.6 Flash | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.5 Flash | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Pro | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Pro TTS | Batch enqueued tokens: 100,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash Preview | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash Image Preview | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash TTS | Batch enqueued tokens: 100,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash Lite | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.5 Flash Lite Preview | Batch enqueued tokens: 500,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.0 Flash | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.0 Flash Image | Batch enqueued tokens: 400,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 2.0 Flash Lite | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Multi-modal generation models
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.1 Flash Image Preview 🍌 | Batch enqueued tokens: 250,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3.1 Flash Lite Image 🍌 | Batch enqueued tokens: 270,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini 3 Pro Image Preview 🍌 | Batch enqueued tokens: 270,000,000
+Rate limits > Batch API rate limits > Tier 2 > Model: Embedding models
+Rate limits > Batch API rate limits > Tier 2 > Model: Gemini Embedding | Batch enqueued tokens: 5,000,000
 
 ### Tier 3
 
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: 텍스트 출력 모델
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.1 Pro 프리뷰 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.1 Flash Lite | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.1 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.5 Flash | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Pro | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Pro TTS | 큐에 추가된 일괄 토큰: 1,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash 프리뷰 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash Image 프리뷰 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash TTS | 큐에 추가된 일괄 토큰: 4,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash Lite | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.5 Flash Lite 프리뷰 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.0 Flash | 큐에 추가된 일괄 토큰: 5,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.0 Flash 이미지 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 2.0 Flash Lite | 큐에 추가된 일괄 토큰: 5,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: 멀티모달 생성 모델
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.1 Flash Image Preview 🍌 | 큐에 추가된 일괄 토큰: 750,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3.1 Flash Lite 이미지 🍌 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 3 Pro Image 프리뷰 🍌 | 큐에 추가된 일괄 토큰: 1,000,000,000
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: 임베딩 모델
-비율 제한 > Batch API 비율 제한 > Tier 3 > 모델: Gemini 임베딩 | 큐에 추가된 일괄 토큰: 10,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Text-out models
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.1 Pro Preview | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.5 Flash-Lite | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.1 Flash Lite | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.1 Flash Lite Preview | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.6 Flash | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.5 Flash | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Pro | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Pro TTS | Batch enqueued tokens: 1,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash Preview | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash Image Preview | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash TTS | Batch enqueued tokens: 4,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash Lite | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.5 Flash Lite Preview | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.0 Flash | Batch enqueued tokens: 5,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.0 Flash Image | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 2.0 Flash Lite | Batch enqueued tokens: 5,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Multi-modal generation models
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.1 Flash Image Preview 🍌 | Batch enqueued tokens: 750,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3.1 Flash Lite Image 🍌 | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini 3 Pro Image Preview 🍌 | Batch enqueued tokens: 1,000,000,000
+Rate limits > Batch API rate limits > Tier 3 > Model: Embedding models
+Rate limits > Batch API rate limits > Tier 3 > Model: Gemini Embedding | Batch enqueued tokens: 10,000,000
 
-## 다음 등급으로 업그레이드하는 방법
+## How to upgrade to the next tier
 
-무료 등급에서 유료 등급으로 전환하려면 먼저 AI Studio에서 결제를 설정 해야 합니다.
-프로젝트가 지정된 기준 을 충족하면 다음 등급으로 자동 업그레이드됩니다. 무료에서 Tier 1로의 등급 업그레이드는 일반적으로 즉시 적용되며, 이후 등급 업그레이드는 10분 이내에 적용됩니다. AI Studio의 프로젝트 페이지 로 이동하여 등급을 확인합니다.
+To transition from the Free tier to a paid tier, you must first set up billing in AI Studio .
+Once your project meets the specified criteria , it will be automatically upgraded to the next tier. Tier upgrades from the Free to Tier 1 will typically take effect instantly, and subsequent tier upgrades will take effect within 10 minutes. Navigate to the Projects page in AI Studio to check your tiers.
 
-## 비율 제한 상향 요청
+## Request a rate limit increase
 
-각 모델 변형에는 연결된 비율 제한 (분당 요청 수, RPM)이 있습니다. 이러한 비율 제한에 대한 자세한 내용은 AI Studio 비율 제한 페이지를 참고하세요.
-유료 등급 비율 제한 상향 요청
-요청을 검토하기 위해 최선을 다하겠지만, 요청을 검토한다고 해서 요청하신 한도 증가가 보장되는 것은 아닙니다.
-달리 명시되지 않는 한 이 페이지의 콘텐츠에는 Creative Commons Attribution 4.0 라이선스 에 따라 라이선스가 부여되며, 코드 샘플에는 Apache 2.0 라이선스 에 따라 라이선스가 부여됩니다. 자세한 내용은 Google Developers 사이트 정책 을 참조하세요. 자바는 Oracle 및/또는 Oracle 계열사의 등록 상표입니다.
-최종 업데이트: 2026-07-03(UTC)
+Each model variation has an associated rate limit (requests per minute, RPM). For details on those rate limits, see the AI Studio Rate Limit page.
+Request paid tier rate limit increase
+We offer no guarantees about increasing your rate limit, but we'll do our best to review your request.
+Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License , and code samples are licensed under the Apache 2.0 License . For details, see the Google Developers Site Policies . Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2026-08-18 UTC.

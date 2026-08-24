@@ -3,3 +3,4 @@ node_modules/
 .dev.vars
 corpus/raw/
 .env
+.ingest-token

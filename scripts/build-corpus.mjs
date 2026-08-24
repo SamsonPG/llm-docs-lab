@@ -78,13 +78,40 @@ function tableToRows(tableHtml, section) {
   const cellsOf = (row) =>
     [...row.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) => text(m[1]));
 
-  // Headers: the first row containing <th>, else the first row if it looks like labels.
-  const headerRow = rows.find((r) => /<th[\s>]/i.test(r));
+  let headerRow = rows.find((r) => /<th[\s>]/i.test(r));
   let headers = headerRow ? cellsOf(headerRow) : [];
   let headerless = false;
+
+  /*
+    A table with no <th> is not necessarily a table with no headers.
+
+    Groq marks its rate-limit header row with <td>, so the first version fell back to
+    positional labels and produced
+
+        Column 1: groq/compound | Column 2: 30 | Column 3: 250 | Column 4: 70K
+
+    Every number present, none of them answerable: "Column 3" does not tell a reader, or an
+    embedding, that 250 is requests per day. Asking "Groq free tier requests per day"
+    returned OpenRouter. The build had already warned that one table was headerless and
+    would be the first suspect if a rate-limit question failed — it was.
+
+    So with no <th>, the first row is promoted to headers when it looks like labels: more
+    than one cell, each non-empty, short, and not a bare number or currency amount. A row of
+    real data fails that test and the positional fallback still applies, still counted.
+  */
   if (!headers.length) {
-    headerless = true;
-    headers = cellsOf(rows[0]).map((_, i) => `Column ${i + 1}`);
+    const first = cellsOf(rows[0]);
+    const looksLikeLabels =
+      first.length > 1 &&
+      first.every((c) => c && c.length <= 40 && !/^[$€£]?[\d,.]+\s*[kKmM%]?$/.test(c));
+
+    if (looksLikeLabels) {
+      headers = first;
+      [headerRow] = rows;
+    } else {
+      headerless = true;
+      headers = first.map((_, i) => `Column ${i + 1}`);
+    }
   }
 
   const bodyRows = rows.filter((r) => r !== headerRow);
@@ -227,6 +254,12 @@ for (const file of files) {
   const html = readFileSync(join(rawDir, file), 'utf8');
   const meta = JSON.parse(readFileSync(join(rawDir, `${id}.meta.json`), 'utf8'));
   const { body, blocks, tableCount, headerlessTables } = extract(html);
+  /*
+    The page title names the provider, and without it a chunk is unattributable.
+    Retrieval failed on day 2 because "Model: Claude Opus 4.5 | Base Input Tokens: $5"
+    never says "Anthropic" anywhere, so a query naming a provider had nothing to match.
+  */
+  const title = text(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? meta.id).slice(0, 90);
   totalHeaderless += headerlessTables;
 
   /*
@@ -248,7 +281,7 @@ for (const file of files) {
   writeFileSync(join(outDir, `${id}.md`), doc, 'utf8');
   writeFileSync(
     join(outDir, `${id}.blocks.json`),
-    JSON.stringify({ id: meta.id, url: meta.url, fetchedAt: meta.fetchedAt, blocks }, null, 1),
+    JSON.stringify({ id: meta.id, title, url: meta.url, fetchedAt: meta.fetchedAt, blocks }, null, 1),
     'utf8',
   );
 
@@ -259,6 +292,13 @@ for (const file of files) {
 
 console.log(`\n  ${files.length} documents written to corpus/clean`);
 if (totalHeaderless) {
-  console.log(`  ${totalHeaderless} tables had no <th> and use positional labels — these retrieve`);
-  console.log('  worse, and are the first place to look if a pricing question fails the eval.');
+  console.log(`  ${totalHeaderless} table(s) have no header row INSIDE the table, so columns fall back to`);
+  console.log('  positional labels ("Column 3: 250" rather than "RPD: 250").');
+  console.log('');
+  console.log('  Known instance: the Groq rate-limit table. Its column labels sit in the page');
+  console.log('  markup outside the <table>, so the first row is already data and cannot be');
+  console.log('  promoted. The numbers are indexed but unlabelled, which means a question like');
+  console.log('  "Groq requests per day" will not match them. Measured in the eval rather than');
+  console.log('  guessed at — reading labels from outside a table is a heuristic that would');
+  console.log('  mislabel other tables to fix this one.');
 }

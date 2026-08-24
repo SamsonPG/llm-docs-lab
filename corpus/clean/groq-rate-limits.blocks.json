@@ -1,7 +1,8 @@
 {
  "id": "groq-rate-limits",
+ "title": "Rate Limits - GroqDocs",
  "url": "https://console.groq.com/docs/rate-limits",
- "fetchedAt": "2026-08-24T20:03:39.622Z",
+ "fetchedAt": "2026-08-24T20:45:26.669Z",
  "blocks": [
   {
    "type": "heading",

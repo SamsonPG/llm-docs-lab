@@ -87,7 +87,19 @@ let failures = 0;
 
 for (const { id, url } of SOURCES) {
   try {
-    const res = await fetch(url, { headers: { 'user-agent': UA }, redirect: 'follow' });
+    /*
+      accept-language is not optional here.
+
+      Without it Google served the Gemini rate-limits page in Korean, so the corpus held
+      "비율 제한 > 사용 등급" where the English limits should be. An English question cannot
+      match that text, but the chunk still competes for retrieval slots — a corpus in a
+      language the questions are not asked in is worse than a missing document, because it
+      ranks.
+    */
+    const res = await fetch(url, {
+      headers: { 'user-agent': UA, 'accept-language': 'en-US,en;q=0.9' },
+      redirect: 'follow',
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const html = await res.text();
 

@@ -1,7 +1,7 @@
 ---
 id: openai-pricing
 url: https://platform.openai.com/docs/pricing
-fetched_at: 2026-08-24T20:03:39.622Z
+fetched_at: 2026-08-24T20:45:26.669Z
 ---
 
 ## Search the API docs

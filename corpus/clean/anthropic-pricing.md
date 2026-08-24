@@ -1,7 +1,7 @@
 ---
 id: anthropic-pricing
 url: https://docs.anthropic.com/en/docs/about-claude/pricing
-fetched_at: 2026-08-24T20:03:39.622Z
+fetched_at: 2026-08-24T20:45:26.669Z
 ---
 
 ### Cookie settings
