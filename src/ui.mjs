@@ -187,9 +187,9 @@ export const PAGE = /* html */ `<!doctype html>
       --glow-2: rgba(232, 180, 74, .10);
       --warn: #E0A868;
       --warn-bg: rgba(34, 26, 14, .72);
-      --haven-a: rgba(232, 180, 74, .22);
-      --haven-b: rgba(120, 90, 180, .16);
-      --haven-c: rgba(80, 140, 180, .12);
+      --haven-a: rgba(232, 180, 74, .55);
+      --haven-b: rgba(150, 110, 210, .40);
+      --haven-c: rgba(90, 170, 210, .34);
       --glass-bg: rgba(28, 26, 36, .42);
       --glass-bg-strong: rgba(36, 34, 46, .55);
       --glass-edge: rgba(255, 255, 255, .16);
@@ -217,9 +217,9 @@ export const PAGE = /* html */ `<!doctype html>
     --glow-2: rgba(232, 180, 74, .10);
     --warn: #E0A868;
     --warn-bg: rgba(34, 26, 14, .72);
-    --haven-a: rgba(232, 180, 74, .22);
-    --haven-b: rgba(120, 90, 180, .16);
-    --haven-c: rgba(80, 140, 180, .12);
+    --haven-a: rgba(232, 180, 74, .55);
+    --haven-b: rgba(150, 110, 210, .40);
+    --haven-c: rgba(90, 170, 210, .34);
     --glass-bg: rgba(28, 26, 36, .42);
     --glass-bg-strong: rgba(36, 34, 46, .55);
     --glass-edge: rgba(255, 255, 255, .16);
@@ -246,9 +246,10 @@ export const PAGE = /* html */ `<!doctype html>
     min-height: 100vh;
   }
 
-  /* Richer mesh so glass has something to refract */
+  /* Richer mesh so glass has something to refract.
+     z-index 0 (not negative): negative layers paint under body --ground and vanish. */
   .haven {
-    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
       radial-gradient(ellipse 55% 45% at 70% 12%, var(--haven-a), transparent 65%),
       radial-gradient(ellipse 45% 40% at 18% 55%, var(--haven-b), transparent 60%),
@@ -256,25 +257,30 @@ export const PAGE = /* html */ `<!doctype html>
       var(--ground);
   }
   .haven__orb {
-    position: absolute; border-radius: 50%; filter: blur(56px);
-    opacity: .7; will-change: transform;
+    position: absolute; border-radius: 50%; filter: blur(48px);
+    opacity: .85; will-change: transform;
+  }
+  :root[data-theme="dark"] .haven__orb,
+  :root:not([data-theme="light"]) .haven__orb {
+    opacity: .95;
+    filter: blur(40px);
   }
   .haven__orb--a {
     width: min(48vw, 32rem); height: min(48vw, 32rem);
     top: -6%; right: -4%;
-    background: var(--haven-a);
+    background: radial-gradient(circle, var(--haven-a) 0%, transparent 70%);
     animation: orb-drift 18s ease-in-out infinite alternate;
   }
   .haven__orb--b {
     width: min(40vw, 26rem); height: min(40vw, 26rem);
     top: 42%; left: -8%;
-    background: var(--haven-b);
+    background: radial-gradient(circle, var(--haven-b) 0%, transparent 70%);
     animation: orb-drift 22s ease-in-out infinite alternate-reverse;
   }
   .haven__orb--c {
     width: min(36vw, 22rem); height: min(36vw, 22rem);
     bottom: 8%; right: 18%;
-    background: var(--haven-c);
+    background: radial-gradient(circle, var(--haven-c) 0%, transparent 70%);
     animation: orb-drift 26s ease-in-out infinite alternate;
   }
   @keyframes orb-drift {
@@ -306,6 +312,10 @@ export const PAGE = /* html */ `<!doctype html>
     max-width: var(--page-max);
     margin-inline: auto;
     padding-inline: var(--page-gutter);
+  }
+  main {
+    position: relative;
+    z-index: 1;
   }
 
   a { color: var(--gold); text-underline-offset: 3px; text-decoration-thickness: 1px; }
