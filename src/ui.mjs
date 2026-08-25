@@ -151,7 +151,7 @@ export const PAGE = /* html */ `<!doctype html>
     --sink: #EDEEEA;
     --ink: #14140F;
     --ink-2: #4A4A41;
-    --ink-3: #75756A;
+    --ink-3: #6B6B60;   /* 5.06:1 on --ground; #75756A measured 4.37:1, just under AA */
     --line: #DCDDD5;
     --gold: #8A6612;
     --gold-lit: #6E5010;
@@ -204,10 +204,31 @@ export const PAGE = /* html */ `<!doctype html>
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  /*
+    The hero's glow is a ::before inset -30% on each side, so it deliberately bleeds past
+    the content column. That bleed was landing in the page's scroll width: 456px against a
+    375px phone. Nothing actually scrolled sideways — decorative overflow is not reachable,
+    and scrollTo(300, 0) left scrollX at 0 — but the layout viewport widened to match, and
+    every fixed element was then positioned against 456 instead of 375. The back-to-top
+    button sat at 397..438, past the right edge of the screen and unreachable.
+
+    clip, not hidden: hidden here would make the root a scroll container and break the
+    sticky nav, while clip trims the paint without creating one. There is a test for the
+    nav still sticking, because that breakage would be invisible in a screenshot.
+
+    Both html and body need it, which took three deploys to establish. On body alone the
+    value computes to clip and never reaches the viewport. On html alone the root clips,
+    but the layout viewport has already been widened by body's content, and the fixed
+    back-to-top button then holds it open by itself. Setting both gives 375.
+
+    Worth remembering how long this took to find. The glow is a pseudo-element, so every
+    pass that bisected the DOM by removing children walked straight past it.
+  */
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 
   body {
     margin: 0;
+    overflow-x: clip;   /* the other half of the rule on html above; neither works alone */
     background: var(--ground);
     color: var(--ink);
     font: 400 clamp(15px, 0.55vw + 13.4px, 17px)/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
