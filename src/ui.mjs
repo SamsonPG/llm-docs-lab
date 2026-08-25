@@ -480,10 +480,47 @@ export const PAGE = /* html */ `<!doctype html>
     .field { background: var(--raise-solid); }
   }
   .field .search { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: var(--ink-3); stroke-width: 2; }
+  .field__grow {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+  .field__type {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: .75rem .2rem;
+    color: var(--ink-3);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 1;
+    transition: opacity .15s ease;
+  }
+  .field__type[hidden] { display: none; }
+  .field__type::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 1.5px;
+    height: 1.05em;
+    margin-left: 2px;
+    background: color-mix(in srgb, var(--gold) 70%, var(--ink-3));
+    border-radius: 1px;
+    animation: type-caret 1s step-end infinite;
+  }
+  @keyframes type-caret {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
   .field input {
-    flex: 1 1 auto; min-width: 0;
+    flex: 1 1 auto; min-width: 0; width: 100%;
     border: 0; background: none; color: var(--ink);
     font: inherit; padding: .75rem .2rem;
+    position: relative; z-index: 1;
   }
   .field input::placeholder { color: var(--ink-3); }
   .field input:focus { outline: none; }
@@ -713,6 +750,7 @@ export const PAGE = /* html */ `<!doctype html>
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     .haven__orb { filter: none; opacity: .4; }
     .read-progress { display: none; }
+    .field__type { display: none !important; }
   }
 
 </style>
@@ -759,9 +797,12 @@ export const PAGE = /* html */ `<!doctype html>
       <label class="field">
         <span class="skip" id="qlabel">Your question</span>
         <svg class="search" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke-linecap="round"></circle><path d="M20 20l-3.5-3.5" stroke-linecap="round"></path></svg>
-        <input id="q" name="q" type="search" autocomplete="off" required
-               aria-labelledby="qlabel"
-               placeholder="How many neurons per day are free on Workers AI?">
+        <span class="field__grow">
+          <span class="field__type" id="q-type" aria-hidden="true"></span>
+          <input id="q" name="q" type="search" autocomplete="off" required
+                 aria-labelledby="qlabel"
+                 placeholder="Ask about pricing or rate limits…">
+        </span>
         <button type="submit" class="go" id="go">Ask</button>
       </label>
     </form>
@@ -898,6 +939,7 @@ export const PAGE = /* html */ `<!doctype html>
 
   const form = document.getElementById('f');
   const input = document.getElementById('q');
+  const typeHint = document.getElementById('q-type');
   const out = document.getElementById('a');
   const outWrap = document.getElementById('answer-wrap');
   const go = document.getElementById('go');
@@ -916,6 +958,74 @@ export const PAGE = /* html */ `<!doctype html>
     system into a cross-site scripting vector.
   */
   const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Live typewriter in the empty field — a static full-question placeholder reads as
+     pre-typed user text. Cycle the chip examples; stop whenever the field has focus or value. */
+  (function typewriterHint() {
+    if (!typeHint || reduced()) {
+      if (typeHint) typeHint.hidden = true;
+      return;
+    }
+    const lines = Array.from(document.querySelectorAll('.chips button[data-q]'))
+      .map((b) => b.dataset.q)
+      .filter(Boolean);
+    if (!lines.length) {
+      typeHint.hidden = true;
+      return;
+    }
+
+    let i = 0;
+    let pos = 0;
+    let deleting = false;
+    let pauseUntil = 0;
+    let timer = 0;
+    const TYPE_MS = 38;
+    const DELETE_MS = 22;
+    const HOLD_MS = 1600;
+    const GAP_MS = 420;
+
+    function busy() {
+      return document.activeElement === input || input.value.trim().length > 0;
+    }
+
+    function syncVisibility() {
+      const hide = busy();
+      typeHint.hidden = hide;
+      input.placeholder = hide ? 'Ask about pricing or rate limits…' : '';
+    }
+
+    function tick(now) {
+      syncVisibility();
+      if (!busy() && now >= pauseUntil) {
+        const line = lines[i];
+        if (!deleting) {
+          pos = Math.min(line.length, pos + 1);
+          typeHint.textContent = line.slice(0, pos);
+          if (pos === line.length) {
+            deleting = true;
+            pauseUntil = now + HOLD_MS;
+          }
+        } else {
+          pos = Math.max(0, pos - 1);
+          typeHint.textContent = line.slice(0, pos);
+          if (pos === 0) {
+            deleting = false;
+            i = (i + 1) % lines.length;
+            pauseUntil = now + GAP_MS;
+          }
+        }
+      }
+      const delay = busy() ? 200 : (deleting ? DELETE_MS : TYPE_MS);
+      timer = window.setTimeout(() => tick(performance.now()), delay);
+    }
+
+    input.addEventListener('focus', syncVisibility);
+    input.addEventListener('blur', syncVisibility);
+    input.addEventListener('input', syncVisibility);
+    syncVisibility();
+    timer = window.setTimeout(() => tick(performance.now()), 500);
+    addEventListener('beforeunload', () => clearTimeout(timer));
+  })();
 
   function renderSources(sources) {
     srcList.textContent = '';

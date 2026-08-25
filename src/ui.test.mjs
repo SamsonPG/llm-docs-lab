@@ -99,6 +99,22 @@ test('the theme key matches the other sites', () => {
   assert.ok(PAGE.includes('samsonpg-theme'), 'the shared storage key must be used');
 });
 
+test('the ask field uses a typing hint instead of a pre-typed question placeholder', () => {
+  /*
+    A full example question as placeholder looks like the visitor already typed it.
+    The live typewriter (field__type) cycles chip examples; the native placeholder stays
+    a short instruction for reduced-motion / no-JS.
+  */
+  assert.ok(PAGE.includes('id="q-type"') || PAGE.includes("id='q-type'"), 'typewriter target must exist');
+  assert.ok(PAGE.includes('typewriterHint') || PAGE.includes('field__type'), 'typewriter styles or script must ship');
+  assert.match(PAGE, /placeholder="Ask about pricing or rate limits[…]"/, 'placeholder must be instructional, not a sample question');
+  assert.doesNotMatch(
+    PAGE,
+    /placeholder="How many neurons per day are free on Workers AI\?"/,
+    'the old full-question placeholder must not return',
+  );
+});
+
 test('localStorage access is guarded', () => {
   /*
     Reading localStorage throws outright in some privacy modes rather than returning null.
