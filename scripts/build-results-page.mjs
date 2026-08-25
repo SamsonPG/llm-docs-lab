@@ -26,6 +26,7 @@
  * LAYER: Developer tooling (manual, local only).
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { THEME_TOKENS } from '../src/theme.mjs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -103,51 +104,101 @@ const page = `<!doctype html>
 <meta name="description" content="Retrieval, model-comparison and prompt-injection measurements for llm-docs-lab. A static record that outlives the live demo.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://samsonpg.github.io/static/llm-docs-lab/results/">
-<style>
-  :root {
-    --canvas:#F5F7FA; --surface:#FFF; --sunk:#EBEFF5; --ink:#111721; --muted:#46536A;
-    --faint:#6C7A91; --rim:#D7DEE9; --brand:#1D4ED8; --good:#15803D; --bad:#B42318;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --canvas:#0B0E14; --surface:#141A24; --sunk:#1B2330; --ink:#E7ECF4; --muted:#9DAABE;
-      --faint:#74839A; --rim:#26303F; --brand:#7BA7FF; --good:#5DD39E; --bad:#F97066;
+<script>
+  /* Same key as the other sites, so one theme choice follows a visitor across all of them.
+     Inline and synchronous: anything deferred runs after first paint, and a dark-mode
+     visitor sees a white flash. */
+  (function () {
+    try {
+      var k = 'samsonpg-theme';
+      var s = localStorage.getItem(k);
+      var pref = (s === 'light' || s === 'dark' || s === 'system') ? s : 'system';
+      var t = pref === 'system'
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : pref;
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.style.colorScheme = t;
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
     }
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-  .wrap{width:min(100% - 2rem,48rem);margin-inline:auto;padding-bottom:4rem}
-  a{color:var(--brand)}
-  :focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:3px}
-  header{padding:2.5rem 0 1.25rem;border-bottom:1px solid var(--rim)}
-  h1{margin:0;font-size:1.6rem;letter-spacing:-.025em}
-  .lede{margin:.6rem 0 0;color:var(--muted);max-width:44rem}
-  h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:2.25rem 0 .75rem}
-  table{width:100%;border-collapse:collapse;font-size:.92rem}
-  .scroll{overflow-x:auto}
-  th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--rim)}
-  th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:600}
-  td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
-  code{font-family:ui-monospace,"Cascadia Mono",monospace;font-size:.88em;background:var(--sunk);padding:.1em .35em;border-radius:3px}
-  .good{color:var(--good)} .bad{color:var(--bad);font-weight:600}
-  .cards{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));margin-top:.5rem}
-  .card{background:var(--surface);border:1px solid var(--rim);border-radius:9px;padding:.9rem 1rem}
-  .card b{display:block;font-size:1.5rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .card span{font-size:.82rem;color:var(--muted)}
-  .qa{background:var(--surface);border:1px solid var(--rim);border-radius:9px;padding:1rem 1.1rem;margin-bottom:.75rem}
-  .qa .q{margin:0;font-weight:600}
-  .qa .a{margin:.5rem 0 0;color:var(--ink);white-space:pre-wrap}
-  .qa .meta{margin:.5rem 0 0;font-size:.8rem;color:var(--faint)}
-  .note{background:var(--sunk);border-radius:8px;padding:.9rem 1.1rem;font-size:.9rem;color:var(--muted);margin-top:1rem}
-  footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--rim);font-size:.85rem;color:var(--faint)}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+  })();
+</script>
+<style>
+/*
+      The palette is imported, not restated. This page used to carry its own cool greys and
+      a blue accent, so the measurements looked like they belonged to a different product
+      than the demo they describe. Two hand-kept colour lists also drift the moment one
+      changes, which this repository has already paid for more than once.
+    */
+    ${THEME_TOKENS}
+  *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;overflow-x:clip}
+    body{margin:0;overflow-x:clip;background:var(--ground);color:var(--ink);font:400 clamp(15px,0.55vw + 13.4px,17px)/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased}
+    .shell{width:min(100% - 2 * var(--page-gutter),var(--page-max));margin-inline:auto}
+    .wrap{padding-bottom:4rem}
+    a{color:var(--gold)}
+    a:hover{color:var(--gold-lit)}
+    :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+    /* The nav is the site's, so this page is recognisably part of it rather than an export. */
+    .nav{position:sticky;top:0;z-index:20;background:var(--glass-bg);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:1px solid var(--glass-line)}
+    @supports not (backdrop-filter: blur(1px)){.nav{background:var(--ground)}}
+    .nav__in{display:flex;align-items:center;gap:.85rem;min-height:78px;height:78px}
+    .brand{display:inline-flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink);min-width:0}
+    .brand__mark{width:32px;height:32px;border-radius:10px;background:var(--mark-hole);color:var(--gold);display:grid;place-items:center;flex:0 0 auto}
+    .brand__mark svg{width:20px;height:20px}
+    .brand__name{font-weight:640;letter-spacing:-.01em;font-size:1.0625rem}
+    .nav__links{display:flex;gap:1.35rem;margin-left:auto;align-items:center}
+    .nav__links a{color:var(--ink-2);text-decoration:none;font-size:.9375rem;font-weight:500;line-height:1}
+    .nav__links a:hover{color:var(--ink)}
+    @media (max-width:34rem){.nav__links a{display:none}}
+
+    /* Display type is the serif the site uses; numbers are mono, because they are the argument. */
+    header.page{padding:3rem 0 1.5rem;border-bottom:1px solid var(--glass-line)}
+    h1{margin:0;font-family:ui-serif,Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(2rem,4vw,2.9rem);line-height:1.08;letter-spacing:-.02em}
+    h1 em{font-style:italic;color:var(--gold)}
+    .lede{margin:.85rem 0 0;color:var(--ink-2);max-width:44rem}
+    h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-3);margin:2.75rem 0 .85rem;font-weight:600}
+    table{width:100%;border-collapse:collapse;font-size:.92rem}
+    .scroll{overflow-x:auto}
+    th,td{text-align:left;padding:.65rem .85rem;border-bottom:1px solid var(--glass-line)}
+    th{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:600}
+    td.n{font-variant-numeric:tabular-nums;white-space:nowrap;font-family:ui-monospace,"Cascadia Mono",monospace}
+    code{font-family:ui-monospace,"Cascadia Mono",monospace;font-size:.88em;background:var(--sink);padding:.12em .38em;border-radius:4px}
+    .good{color:var(--gold)} .bad{color:var(--warn);font-weight:600;background:var(--warn-bg);padding:.05em .3em;border-radius:4px}
+    .cards{display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));margin-top:.5rem}
+    .card{background:var(--glass-bg);border:1px solid var(--glass-edge-soft);box-shadow:var(--glass-inset);border-radius:14px;padding:1rem 1.1rem}
+    .card b{display:block;font-size:1.75rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;font-family:ui-monospace,"Cascadia Mono",monospace;color:var(--ink)}
+    .card span{font-size:.82rem;color:var(--ink-2);display:block;margin-top:.3rem}
+    .qa{background:var(--glass-bg);border:1px solid var(--glass-edge-soft);border-radius:14px;padding:1.05rem 1.15rem;margin-bottom:.75rem}
+    .qa .q{margin:0;font-weight:600}
+    .qa .a{margin:.5rem 0 0;color:var(--ink-2);white-space:pre-wrap}
+    .qa .meta{margin:.5rem 0 0;font-size:.8rem;color:var(--ink-3)}
+    .note{background:var(--sink);border:1px solid var(--glass-edge-soft);border-radius:12px;padding:.95rem 1.15rem;font-size:.9rem;color:var(--ink-2);margin-top:1rem}
+    footer{margin-top:3rem;padding-top:1.35rem;border-top:1px solid var(--glass-line);font-size:.85rem;color:var(--ink-3)}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <h1>llm-docs-lab — measured results</h1>
+<nav class="nav" aria-label="Primary">
+  <div class="shell nav__in">
+    <a class="brand" href="https://llmdocs.acsaven.com/">
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 18h16c5 0 9 4 9 9v19H29c-5 0-9-4-9-9V18z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M26 28h12M26 35h9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="44" cy="22" r="6" fill="currentColor"/></svg></span>
+      <span class="brand__name">llm-docs-lab</span>
+    </a>
+    <div class="nav__links">
+      <a href="https://llmdocs.acsaven.com/">Demo</a>
+      <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
+      <a href="https://samsonpg.github.io">Portfolio</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap shell">
+
+  <header class="page">
+    <h1>Measured, <em>not</em> asserted</h1>
     <p class="lede">
       A static record of what was measured, generated from the result files themselves. The
       live demo at <a href="https://llmdocs.acsaven.com">llmdocs.acsaven.com</a> depends on
