@@ -543,7 +543,9 @@ export const PAGE = /* html */ `<!doctype html>
     font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
     margin: 0 0 1.15rem;
   }
+  .rule::before,
   .rule::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--glass-line); }
+  .srcs .rule::before { display: none; }
 
   .srcs { margin-top: 2.4rem; }
   ol.srcs__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; counter-reset: src; }
@@ -580,18 +582,20 @@ export const PAGE = /* html */ `<!doctype html>
     margin: 3.25rem 0 0;
     padding-top: 1.75rem;
     border-top: 1px solid var(--glass-line);
+    text-align: center;
   }
   .evidence__lead {
-    margin: 0 0 1.25rem;
+    margin: 0 auto 1.25rem;
     font-size: clamp(1.3rem, 2.6vw, 1.75rem);
     letter-spacing: -.025em; font-weight: 400;
     max-width: 22ch;
-    text-align: left;
+    text-align: center;
   }
   .evidence__grid {
     display: grid; gap: .75rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
+    text-align: left;
   }
   @media (min-width: 48rem) {
     .evidence__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; }
@@ -623,15 +627,22 @@ export const PAGE = /* html */ `<!doctype html>
     color: var(--ink); line-height: 1.1;
   }
   .stat span { display: block; font-size: .74rem; color: var(--ink-3); margin-top: .45rem; line-height: 1.4; }
-  .evidence__note { margin: 1.35rem 0 0; font-size: .85rem; color: var(--ink-3); max-width: 60ch; text-align: left; }
+  .evidence__note {
+    margin: 1.35rem auto 0;
+    font-size: .85rem; color: var(--ink-3);
+    max-width: 52ch;
+    text-align: center;
+  }
 
   .caution {
-    margin-top: 1.75rem; padding: .95rem 1.15rem;
+    margin: 1.75rem auto 0;
+    padding: .95rem 1.15rem;
+    max-width: 52ch;
     background: var(--warn-bg); color: var(--warn);
     border-radius: 16px; font-size: .85rem; line-height: 1.55;
     border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    text-align: left;
+    text-align: center;
   }
 
   footer {
