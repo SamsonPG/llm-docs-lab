@@ -30,7 +30,11 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT_DIR = 'G:/MY Company/Portfolio/samsonpg/static/llm-docs-lab';
+// static/llm-docs-lab/ is the landing-page clone now, matching every other product
+// folder in that repo. The measured results live one level down so both can exist:
+// the clone is noindex and canonicals to the live site, these numbers are original
+// content and stay indexable.
+const OUT_DIR = 'G:/MY Company/Portfolio/samsonpg/static/llm-docs-lab/results';
 
 const ev = JSON.parse(readFileSync(join(root, 'eval', 'results.json'), 'utf8'));
 const inj = JSON.parse(readFileSync(join(root, 'security', 'injection-results.json'), 'utf8'));
@@ -98,7 +102,7 @@ const page = `<!doctype html>
 <title>llm-docs-lab — measured results</title>
 <meta name="description" content="Retrieval, model-comparison and prompt-injection measurements for llm-docs-lab. A static record that outlives the live demo.">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://samsonpg.github.io/static/llm-docs-lab/">
+<link rel="canonical" href="https://samsonpg.github.io/static/llm-docs-lab/results/">
 <style>
   :root {
     --canvas:#F5F7FA; --surface:#FFF; --sunk:#EBEFF5; --ink:#111721; --muted:#46536A;

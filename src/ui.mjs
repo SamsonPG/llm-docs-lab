@@ -98,7 +98,7 @@ export const PAGE = /* html */ `<!doctype html>
       "@type": "Dataset",
       "name": "llm-docs-lab evaluation results",
       "description": "Retrieval and answer-quality measurements across three models on a 20-question golden set, and prompt-injection attack results across two channels.",
-      "url": "https://samsonpg.github.io/static/llm-docs-lab/",
+      "url": "https://samsonpg.github.io/static/llm-docs-lab/results/",
       "creator": { "@id": "https://samsonpg.github.io/#person" },
       "license": "https://opensource.org/licenses/MIT",
       "variableMeasured": [
@@ -772,7 +772,7 @@ export const PAGE = /* html */ `<!doctype html>
       <span class="brand__name">llm-docs-lab</span>
     </a>
     <div class="nav__links">
-      <a href="https://samsonpg.github.io/static/llm-docs-lab/">Results</a>
+      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">Results</a>
       <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
       <a href="https://samsonpg.github.io">Portfolio</a>
     </div>
@@ -836,7 +836,7 @@ export const PAGE = /* html */ `<!doctype html>
     </div>
     <p class="evidence__note">
       Every figure is produced by a script in the repository and republished as a
-      <a href="https://samsonpg.github.io/static/llm-docs-lab/">static results page</a> that
+      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">static results page</a> that
       outlives this demo. 0/10 is ten attacks against one model on one date — not immunity.
     </p>
 
@@ -850,7 +850,7 @@ export const PAGE = /* html */ `<!doctype html>
 <footer class="shell">
   Built by <a href="https://samsonpg.github.io">Samson P G</a> ·
   <a href="https://github.com/acsavenhq/llm-docs-lab">source, evals and measured limits</a> ·
-  <a href="https://samsonpg.github.io/static/llm-docs-lab/">results</a>
+  <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">results</a>
 </footer>
 
 <button type="button" class="to-top" id="totop" aria-label="Back to top" title="Back to top" hidden>
