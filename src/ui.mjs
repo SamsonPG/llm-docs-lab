@@ -41,7 +41,77 @@ export const PAGE = /* html */ `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>llm-docs-lab — ask about LLM provider pricing</title>
-<meta name="description" content="Retrieval over LLM provider pricing and rate-limit documentation, with citations and a stated snapshot date.">
+<meta name="description" content="Ask about LLM provider pricing and rate limits. Answers come from a fixed snapshot of seven provider documentation pages, every claim cited, with published retrieval and prompt-injection measurements.">
+<link rel="canonical" href="https://llmdocs.acsaven.com/">
+
+<!--
+  DISCOVERY: search engines, and the assistants that increasingly sit in front of them.
+
+  Two audiences, one set of tags. A search engine wants a title, a description and a
+  canonical. An assistant answering "is there a tool for comparing LLM provider pricing"
+  wants something it can quote and attribute — which is why the structured data below
+  states what this is, who made it, and what it measured, rather than a bag of keywords.
+
+  The measured numbers are in the JSON-LD on purpose. A claim an assistant can attribute to
+  a named source is worth more than an adjective it has to take on faith, and these are the
+  same figures the README publishes and eval/run.mjs reproduces.
+-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="llm-docs-lab">
+<meta property="og:title" content="llm-docs-lab — ask about LLM provider pricing">
+<meta property="og:description" content="Cited answers from a fixed snapshot of seven provider documentation pages. 100% recall@6 on a 20-question golden set; 0/10 prompt-injection attacks landed.">
+<meta property="og:url" content="https://llmdocs.acsaven.com/">
+<meta name="twitter:card" content="summary">
+<meta name="author" content="Samson P G">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "llm-docs-lab",
+      "applicationCategory": "DeveloperApplication",
+      "url": "https://llmdocs.acsaven.com/",
+      "description": "Retrieval over LLM provider pricing and rate-limit documentation. Answers are grounded in a fixed documentation snapshot and cite their sources, and the system's retrieval quality and prompt-injection resistance are published as measurements.",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@id": "https://samsonpg.github.io/#person" },
+      "codeRepository": "https://github.com/acsavenhq/llm-docs-lab",
+      "featureList": [
+        "Retrieval-augmented answers with numbered citations",
+        "Fixed documentation snapshot with a stated retrieval date",
+        "Published evaluation across multiple models",
+        "Measured prompt-injection resistance",
+        "Tool-calling agent with step and cost ceilings"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://samsonpg.github.io/#person",
+      "name": "Samson P G",
+      "url": "https://samsonpg.github.io",
+      "jobTitle": "Full-Stack Engineer",
+      "worksFor": { "@type": "Organization", "name": "Acsaven", "url": "https://acsaven.com" },
+      "sameAs": ["https://github.com/SamsonPG", "https://github.com/acsavenhq", "https://www.linkedin.com/in/samson-p-g-335964133"]
+    },
+    {
+      "@type": "Dataset",
+      "name": "llm-docs-lab evaluation results",
+      "description": "Retrieval and answer-quality measurements across three models on a 20-question golden set, and prompt-injection attack results across two channels.",
+      "url": "https://github.com/acsavenhq/llm-docs-lab#results",
+      "creator": { "@id": "https://samsonpg.github.io/#person" },
+      "license": "https://opensource.org/licenses/MIT",
+      "variableMeasured": [
+        { "@type": "PropertyValue", "name": "Retrieval recall@6", "value": "100%" },
+        { "@type": "PropertyValue", "name": "Mean reciprocal rank", "value": "1.00" },
+        { "@type": "PropertyValue", "name": "Prompt-injection attack success rate", "value": "0/10" }
+      ]
+    }
+  ]
+}
+</script>
 <meta name="theme-color" content="#080C0B" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F2F9F5" media="(prefers-color-scheme: light)">
 
@@ -85,49 +155,54 @@ export const PAGE = /* html */ `<!doctype html>
 
 <style>
   /*
-    TryTokka's palette, and dark-first like TryTokka.
+    ITS OWN PALETTE. Deliberately not TryTokka's, and not the portfolio's.
 
-    Same green brand, same near-black canvas, same muted text ramp — so the two products
-    read as coming from one studio rather than two unrelated side projects. The values are
-    copied from trytokka/app/theme.generated.css rather than eyeballed.
+    The first version copied TryTokka's green on near-black so the two would read as one
+    studio. That was the wrong instinct: this is a different kind of thing — a reference
+    tool you look something up in, not a dashboard you live in — and a family of products
+    that all look identical stops being a family and starts being one product with several
+    names. Shared identity should come from the quality of the work, not from every page
+    using the same hex code.
 
-    Dark is the base and light is the override, which is the inverse of most pages and
-    matches TryTokka exactly. The consequence to watch: a visitor with no stored choice and
-    a LIGHT system preference must still get light, so the media query below flips the
-    tokens back rather than assuming dark suits everyone.
+    So: LIGHT-first, which none of the other sites are, and an ink-blue accent — the colour
+    of a citation in a reference work rather than a SaaS accent. Green belongs to TryTokka
+    and purple to the portfolio; neither appears here.
+
+    Slate neutrals carry a slight blue bias so they sit with the accent rather than fighting
+    it, and the whole thing is built to be read rather than admired.
   */
   :root {
-    color-scheme: dark;
-    --canvas: #080C0B; --surface: #0F1512; --surface-2: #161F1B;
-    --ink: #ECF5F0; --muted: #A8C0B4; --faint: #8FA89A;
-    --rim: color-mix(in srgb, #34E89A 40%, #12201a);
-    --brand: #34E89A; --brand-dark: #22C55E; --on-brand: #04140D;
-    --amber: #FBBF24; --amber-bg: #211a08;
-    --shadow: 0 2px 12px rgba(0, 0, 0, .45);
+    color-scheme: light;
+    --canvas: #F5F7FA; --surface: #FFFFFF; --surface-2: #EBEFF5;
+    --ink: #111721; --muted: #46536A; --faint: #6C7A91;
+    --rim: #D7DEE9;
+    --brand: #1D4ED8; --brand-dark: #1E40AF; --on-brand: #FFFFFF;
+    --amber: #92400E; --amber-bg: #FDF6EC;
+    --shadow: 0 1px 3px rgba(17, 23, 33, .08), 0 6px 18px rgba(17, 23, 33, .06);
   }
 
-  /* No stored choice + a light system preference: light wins. */
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-      color-scheme: light;
-      --canvas: #F2F9F5; --surface: #FFFFFF; --surface-2: #E8F2EC;
-      --ink: #0A1410; --muted: #2F433A; --faint: #4A6358;
-      --rim: color-mix(in srgb, #047857 22%, #c5ddd0);
-      --brand: #047857; --brand-dark: #065F46; --on-brand: #FFFFFF;
-      --amber: #B45309; --amber-bg: #fdf3e7;
-      --shadow: 0 2px 12px rgba(10, 20, 16, .10);
+  /* No stored choice + a dark system preference. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --canvas: #0B0E14; --surface: #141A24; --surface-2: #1B2330;
+      --ink: #E7ECF4; --muted: #9DAABE; --faint: #74839A;
+      --rim: #26303F;
+      --brand: #7BA7FF; --brand-dark: #A8C4FF; --on-brand: #0A1020;
+      --amber: #E2A96B; --amber-bg: #241B0E;
+      --shadow: 0 1px 3px rgba(0, 0, 0, .5), 0 8px 24px rgba(0, 0, 0, .35);
     }
   }
 
-  /* An explicit light choice wins over a dark system. */
-  :root[data-theme="light"] {
-    color-scheme: light;
-    --canvas: #F2F9F5; --surface: #FFFFFF; --surface-2: #E8F2EC;
-    --ink: #0A1410; --muted: #2F433A; --faint: #4A6358;
-    --rim: color-mix(in srgb, #047857 22%, #c5ddd0);
-    --brand: #047857; --brand-dark: #065F46; --on-brand: #FFFFFF;
-    --amber: #B45309; --amber-bg: #fdf3e7;
-    --shadow: 0 2px 12px rgba(10, 20, 16, .10);
+  /* An explicit dark choice wins over a light system. */
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --canvas: #0B0E14; --surface: #141A24; --surface-2: #1B2330;
+    --ink: #E7ECF4; --muted: #9DAABE; --faint: #74839A;
+    --rim: #26303F;
+    --brand: #7BA7FF; --brand-dark: #A8C4FF; --on-brand: #0A1020;
+    --amber: #E2A96B; --amber-bg: #241B0E;
+    --shadow: 0 1px 3px rgba(0, 0, 0, .5), 0 8px 24px rgba(0, 0, 0, .35);
   }
 
   * { box-sizing: border-box; }

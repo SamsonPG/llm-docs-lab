@@ -103,7 +103,17 @@ test('localStorage access is guarded', () => {
     Reading localStorage throws outright in some privacy modes rather than returning null.
     An unguarded read in the boot script takes the whole page down before it paints.
   */
-  const boot = PAGE.slice(PAGE.indexOf('<script>'), PAGE.indexOf('</script>'));
+  /*
+    Located by its content, not by being the first script on the page.
+
+    This originally sliced from the first <script> tag, which worked until a JSON-LD block
+    was added above it for search and assistant discovery. The test then examined the
+    structured data, found no try/catch in it, and reported the boot script as unguarded —
+    a failure in a file that had not changed. Positional assumptions about markup break the
+    moment the markup grows.
+  */
+  const bootStart = PAGE.indexOf('localStorage.getItem(k)');
+  const boot = PAGE.slice(PAGE.lastIndexOf('<script>', bootStart), PAGE.indexOf('</script>', bootStart));
   assert.ok(boot.includes('try'), 'the boot script must tolerate localStorage throwing');
   assert.ok(boot.includes('catch'), 'and must still set a readable theme when it does');
 });

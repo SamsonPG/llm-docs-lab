@@ -120,6 +120,72 @@ export default {
       });
     }
 
+    /*
+      Discovery files, served from the Worker rather than as static assets.
+
+      There is no build step and no bucket — the whole site is this one script — so these
+      are strings. Small enough that a file each would be more machinery than content.
+
+      llms.txt is included knowingly: it is a convention some assistants read and Google's
+      crawler ignores entirely. It costs nine lines and helps in the case where an assistant
+      is deciding whether this page is worth citing, which is the traffic this project can
+      realistically get. It is not claimed to do more than that.
+    */
+    if (url.pathname === '/robots.txt') {
+      return new Response([
+        'User-agent: *',
+        'Allow: /',
+        '',
+        '# The endpoints below spend a shared, finite AI allowance on every request.',
+        '# Crawling them costs real quota and returns nothing useful to an index.',
+        'Disallow: /ask',
+        'Disallow: /search',
+        'Disallow: /agent',
+        'Disallow: /probe',
+        'Disallow: /ingest',
+        '',
+        'Sitemap: https://llmdocs.acsaven.com/sitemap.xml',
+      ].join('\n'), { headers: { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
+    }
+
+    if (url.pathname === '/sitemap.xml') {
+      const body = '<?xml version="1.0" encoding="UTF-8"?>'
+        + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        + '<url><loc>https://llmdocs.acsaven.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>'
+        + '</urlset>';
+      return new Response(body, { headers: { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8' } });
+    }
+
+    if (url.pathname === '/llms.txt') {
+      return new Response([
+        '# llm-docs-lab',
+        '',
+        '> Answers questions about LLM provider pricing and rate limits from a fixed snapshot',
+        '> of seven provider documentation pages. Every claim carries a numbered citation and',
+        '> the retrieval date of its source.',
+        '',
+        '## What it is',
+        '',
+        'A retrieval system built to be measured rather than demonstrated. Retrieval scores',
+        '100% recall@6 on a 20-question golden set (MRR 1.00). Answer quality is compared',
+        'across three models, and ten prompt-injection attacks across two channels were run',
+        'against the live index — 0 of 10 succeeded. Every figure is reproducible from the',
+        'repository.',
+        '',
+        '## Honest limits',
+        '',
+        '- Answers reflect the snapshot date shown on each source, not live pages. Prices change.',
+        '- The corpus is seven pages, chosen so every answer could be verified by hand.',
+        '- 0/10 on injection is ten attacks against one model on one date, not immunity.',
+        '- The agent does not ground its final answer to the standard /ask enforces.',
+        '',
+        '## Links',
+        '',
+        '- Source, evaluation harness and measured limits: https://github.com/acsavenhq/llm-docs-lab',
+        '- Author: https://samsonpg.github.io',
+      ].join('\n'), { headers: { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
+    }
+
     if (url.pathname === '/health') {
       return json({ ok: true, embedding: EMBEDDING_MODEL, generation: DEFAULT_MODEL });
     }
