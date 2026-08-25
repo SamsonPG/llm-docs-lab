@@ -345,25 +345,42 @@ export const PAGE = /* html */ `<!doctype html>
     .glass { background: var(--raise-solid); }
   }
 
+  /*
+    Measured against the rest of the family before changing anything, because "match the
+    other sites" is a claim about numbers:
+
+      acsaven      63px   link 15.2px/700   hairline
+      trytokka     87px   link 16px/400     hairline
+      trydevsnip   79px   link 20px/400     hairline
+      trycalcnow   79px   link 20px/400     hairline
+      here, before 65px   link 14px/400     NO hairline
+
+    So the bar was shorter than every sibling, its links were the smallest of the set, and
+    it was the only one with no rule under it until you scrolled. Those three are fixed
+    below. The glass is kept — acsaven is glass too, so it is in-family, and it is the part
+    that makes this page look like itself.
+
+    What is deliberately NOT copied is the width. The others run their nav out to
+    1232-1280px because their pages are that wide; this page is an editorial column and its
+    nav shares the same spine as the hero. Widening the bar alone would break that
+    alignment to match a number that only makes sense on a wider layout.
+  */
   .nav {
     position: sticky; top: 0; z-index: 20;
     background: var(--glass-bg);
     backdrop-filter: var(--glass);
     -webkit-backdrop-filter: var(--glass);
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid var(--glass-line);
     transition: border-color .25s ease, background .25s ease;
   }
-  .nav.is-stuck {
-    border-bottom-color: var(--glass-line);
-    background: var(--glass-bg-strong);
-  }
+  .nav.is-stuck { background: var(--glass-bg-strong); }
   @supports not (backdrop-filter: blur(1px)) {
     .nav { background: var(--ground); }
   }
 
   .nav__in {
     display: flex; align-items: center; gap: .85rem;
-    min-height: 64px; height: 64px;
+    min-height: 78px; height: 78px;   /* the utility sites sit at 79; acsaven 63, trytokka 87 */
   }
   .brand {
     display: inline-flex; align-items: center; gap: .65rem;
@@ -371,18 +388,11 @@ export const PAGE = /* html */ `<!doctype html>
   }
   .brand__mark {
     width: 32px; height: 32px; border-radius: 10px;
-    background: #0C0B10; color: var(--gold);
+    background: var(--mark-hole); color: var(--gold);
     display: grid; place-items: center; flex: 0 0 auto;
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent),
       0 10px 24px -14px var(--glow);
-  }
-  :root[data-theme="light"] .brand__mark,
-  :root:not([data-theme="dark"]) .brand__mark {
-    background: #0C0B10;
-  }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) .brand__mark { background: #0C0B10; }
   }
   .brand__mark svg { width: 18px; height: 18px; display: block; }
   .brand__name {
@@ -391,10 +401,10 @@ export const PAGE = /* html */ `<!doctype html>
   }
 
   .nav__links {
-    display: flex; gap: 1.1rem; margin-left: auto; align-items: center;
+    display: flex; gap: 1.35rem; margin-left: auto; align-items: center;
   }
   .nav__links a {
-    color: var(--ink-2); text-decoration: none; font-size: .875rem;
+    color: var(--ink-2); text-decoration: none; font-size: .9375rem; font-weight: 500;
     line-height: 1; transition: color .15s ease;
   }
   .nav__links a:hover { color: var(--ink); }
