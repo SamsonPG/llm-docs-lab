@@ -28,6 +28,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PAGE } from './ui.mjs';
+import { SECURITY_HEADERS } from './worker.mjs';
 
 /** Elements that must be explicitly closed. Void elements are excluded by construction. */
 const PAIRED = [
@@ -169,4 +170,69 @@ test('the page declares its own accessibility basics', () => {
   assert.ok(PAGE.includes('aria-live="polite"'), 'streamed answers must be announced');
   assert.ok(PAGE.includes('class="skip"'), 'a skip link must exist');
   assert.ok(PAGE.includes(':focus-visible'), 'focus must be visible');
+});
+
+/*
+  Every image on this page is a data: URI — the favicon, and the CSS mask that draws the
+  search field's clear button. The Worker sent default-src 'none' with no img-src, which
+  refuses data: along with everything else, so the favicon never rendered in production.
+  For its entire life.
+
+  Nothing caught it. A blocked image writes one console line and changes nothing a test was
+  looking at, and the page looked correct in local preview because a local file server
+  sends no CSP at all — so the only environment where the bug existed was the only one
+  nobody was measuring.
+
+  This reads the real header object rather than grepping the source for a policy string. A
+  grepped CSP is a description of a CSP, and the two drift.
+*/
+test("the CSP permits the page's own data: images and no host", () => {
+  const csp = SECURITY_HEADERS['content-security-policy'];
+  const directive = (name) => {
+    const found = csp.split(';').map((d) => d.trim())
+      .find((d) => d === name || d.startsWith(name + ' '));
+    return found === undefined ? null : found.slice(name.length).trim();
+  };
+
+  const usesDataImages = /src="data:image|href="data:image|url\("data:image/.test(PAGE);
+  assert.ok(usesDataImages, 'this test is pointless if the page stopped using data: images');
+
+  const img = directive('img-src');
+  assert.ok(img !== null, 'img-src is absent, so default-src applies and data: images are blocked');
+  assert.ok(/(^|\s)data:/.test(img), `img-src does not allow data: — got "${img}"`);
+
+  // Allowing data: must not have quietly allowed the network along with it.
+  assert.ok(!/https?:|\*/.test(img), `img-src should permit inline bytes only — got "${img}"`);
+  assert.equal(directive('default-src'), "'none'");
+});
+
+test("the CSP still refuses third-party script, including Cloudflare's own beacon", () => {
+  /*
+    Cloudflare injects a Web Analytics beacon from static.cloudflareinsights.com. This page
+    promises that nothing third-party loads, so script-src has to keep turning it away. The
+    test exists so that a future "clean up the console errors" cannot quietly allow the host
+    and silently break the promise the README makes.
+  */
+  const script = SECURITY_HEADERS['content-security-policy']
+    .split(';').map((d) => d.trim()).find((d) => d.startsWith('script-src'));
+  assert.ok(script, 'script-src is missing');
+  assert.ok(!/cloudflareinsights|https?:|\*/.test(script), `script-src must name no host — got "${script}"`);
+});
+
+test('the CSP tests can actually fail', () => {
+  /*
+    The two checks above are string assertions against a constant, which is exactly the kind
+    of check that can be written wrong and pass forever. Run their logic against policies
+    known to be broken and require it to reject each one.
+  */
+  const allows = (csp) => {
+    const d = csp.split(';').map((x) => x.trim()).find((x) => x.startsWith('img-src'));
+    if (!d) return false;
+    const v = d.slice('img-src'.length).trim();
+    return /(^|\s)data:/.test(v) && !/https?:|\*/.test(v);
+  };
+  assert.equal(allows("default-src 'none'"), false, 'a policy with no img-src must be rejected');
+  assert.equal(allows("default-src 'none'; img-src 'self'"), false, 'img-src without data: must be rejected');
+  assert.equal(allows("default-src 'none'; img-src data: https://cdn.example.com"), false, 'a remote host must be rejected');
+  assert.equal(allows("default-src 'none'; img-src data:"), true, 'the policy actually shipped must be accepted');
 });

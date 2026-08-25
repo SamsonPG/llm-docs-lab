@@ -90,16 +90,27 @@ function tokenMatches(given, expected) {
   return diff === 0;
 }
 
-const SECURITY_HEADERS = {
+export const SECURITY_HEADERS = {
   /*
     The page inlines its own CSS and script and loads nothing from anywhere else, so the
     policy can be strict rather than permissive. 'unsafe-inline' is required because the
     style and script are inline; a nonce would be better and is noted in the README as the
     honest next step rather than claimed as done.
+    img-src data: is NOT a loosening. default-src 'none' with no img-src blocked every
+    image on the page, including two that are part of it: the favicon and the CSS mask that
+    draws the search field's clear button. Both are data: URIs — bytes already inside the
+    HTML — so they were refused as if they came from somewhere else. The favicon had never
+    once rendered in production and nothing said so, because a blocked image logs to the
+    console and changes nothing else on the page.
+
+    'data:' permits inline bytes and no host at all, so the promise that nothing
+    third-party loads still holds exactly. Note what is deliberately still refused:
+    Cloudflare injects a Web Analytics beacon from static.cloudflareinsights.com and
+    script-src turns it away. That refusal is the policy working, not a bug to fix.
   */
   'content-security-policy':
     "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; "
-    + "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    + "img-src data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
   'x-content-type-options': 'nosniff',
   'referrer-policy': 'no-referrer',
   'x-frame-options': 'DENY',
