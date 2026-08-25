@@ -120,7 +120,29 @@ export const SECURITY_HEADERS = {
 const json = (data, status = 200) =>
   Response.json(data, { status, headers: { ...SECURITY_HEADERS, 'cache-control': 'no-store' } });
 
-export default {
+/*
+  Is this the daily Workers AI allowance running out, rather than a fault?
+
+  Workers AI raises AiError 4006 once the free 10,000 neurons for the day are spent. With
+  no boundary that propagates as an unhandled exception, Cloudflare turns it into error
+  1101, and the page tells a visitor "Something went wrong: HTTP 500" — which reads as a
+  broken demo when in fact the system is working exactly as its README describes.
+
+  Matched on the code AND on the wording, because a message can be reworded and a code can
+  be joined by a sibling. Getting this wrong in the generous direction is the safer error:
+  the worst case is a real fault being described as a quota pause, which the logs still
+  record in full.
+*/
+function isQuotaError(err) {
+  for (let e = err, hops = 0; e && hops < 4; e = e.cause, hops += 1) {
+    const text = `${e.name ?? ''} ${e.message ?? ''}`;
+    if (/\b(4006|3040)\b/.test(text)) return true;
+    if (/daily free allocation|free allocation of|out of neurons|neurons/i.test(text)) return true;
+  }
+  return false;
+}
+
+const routes = {
   async fetch(request, env) {
     const url = new URL(request.url);
     const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
@@ -378,5 +400,31 @@ export default {
     }
 
     return new Response('Not found', { status: 404, headers: SECURITY_HEADERS });
+  },
+};
+
+export default {
+  async fetch(request, env) {
+    try {
+      return await routes.fetch(request, env);
+    } catch (err) {
+      /*
+        503 with an explanation, not 500 with a shrug. The allowance resets daily, so this
+        is a "come back later", and Retry-After says when in a form a machine can read.
+      */
+      if (isQuotaError(err)) {
+        console.warn(`quota exhausted: ${err?.message ?? err}`);
+        return json({
+          error: "The daily free AI allowance for this demo is used up. It resets at 00:00 UTC — the retrieval and evaluation numbers on this page were measured earlier and still stand.",
+          reason: 'quota',
+        }, 503);
+      }
+      /*
+        Anything else is a real fault. The visitor gets nothing specific — an internal
+        message can leak structure — but the full stack goes to the log where it is useful.
+      */
+      console.error('unhandled', err?.stack ?? String(err));
+      return json({ error: 'Something failed inside the worker. It has been logged.' }, 500);
+    }
   },
 };

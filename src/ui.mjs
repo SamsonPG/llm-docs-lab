@@ -1135,6 +1135,19 @@ export const PAGE = /* html */ `<!doctype html>
         out.textContent = 'Rate limited. This runs on a free allowance shared by everyone who visits — wait about a minute and ask again.';
         return;
       }
+      /*
+        Same reasoning as the 429 above, one step further along. When the free allowance
+        for the day is gone the server says so in words; showing "HTTP 500" instead would
+        describe a working system as a broken one, which is the single worst thing this
+        page could do to someone evaluating it.
+      */
+      if (res.status === 503) {
+        let said = '';
+        try { said = (await res.clone().json()).error || ''; } catch (e) { /* fall through to the default */ }
+        out.classList.remove('is-waiting');
+        out.textContent = said || 'The daily free AI allowance for this demo is used up. It resets at 00:00 UTC.';
+        return;
+      }
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
       let sources = [];
