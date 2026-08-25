@@ -144,6 +144,8 @@ export const PAGE = /* html */ `<!doctype html>
   */
   :root {
     color-scheme: light;
+    /* the clear-button glyph: geometry, not colour, so it is declared once for both themes */
+    --x-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 2 14 14M14 2 2 14' stroke='%23000' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
     --ground: #F7F8F6;
     --raise: #FFFFFF;
     --sink: #EDEEEA;
@@ -157,6 +159,7 @@ export const PAGE = /* html */ `<!doctype html>
     --glow: rgba(138, 102, 18, .10);
     --warn: #8A4B12;
     --warn-bg: #FBF3E6;
+    --pill: 0 1px 2px rgba(20, 20, 15, .18);
     --lift: 0 1px 2px rgba(20, 20, 15, .05), 0 12px 32px -12px rgba(20, 20, 15, .14);
   }
 
@@ -176,6 +179,7 @@ export const PAGE = /* html */ `<!doctype html>
       --glow: rgba(232, 180, 74, .13);
       --warn: #E0A868;
       --warn-bg: #221A0E;
+      --pill: 0 1px 2px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .07);
       --lift: 0 1px 2px rgba(0, 0, 0, .6), 0 18px 44px -16px rgba(0, 0, 0, .7);
     }
   }
@@ -195,6 +199,7 @@ export const PAGE = /* html */ `<!doctype html>
     --glow: rgba(232, 180, 74, .13);
     --warn: #E0A868;
     --warn-bg: #221A0E;
+    --pill: 0 1px 2px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .07);
     --lift: 0 1px 2px rgba(0, 0, 0, .6), 0 18px 44px -16px rgba(0, 0, 0, .7);
   }
 
@@ -257,7 +262,12 @@ export const PAGE = /* html */ `<!doctype html>
   }
   .theme-switch-btn:hover { color: var(--ink); }
   .theme-switch-btn .theme-switch-icon { width: 15px; height: 15px; }
-  .theme-switch-btn[aria-pressed="true"] { background: var(--raise); color: var(--gold); box-shadow: 0 1px 2px rgba(0,0,0,.18); }
+  /*
+    The pressed pill has to lift off the switch ground. A black drop shadow does that on a
+    light ground and is completely invisible on #0B0A0E, so dark gets a hairline inset
+    instead — which is why this is a token and not a literal.
+  */
+  .theme-switch-btn[aria-pressed="true"] { background: var(--raise); color: var(--gold); box-shadow: var(--pill); }
 
   /* ── Hero: the question is the product ─────────────────────────────────── */
 
@@ -315,6 +325,24 @@ export const PAGE = /* html */ `<!doctype html>
   }
   .field input::placeholder { color: var(--ink-3); }
   .field input:focus { outline: none; }
+  /*
+    type="search" gives a free clear button and Chromium paints it with the UA accent,
+    which came out blue on the light ground and white on the dark one — a stray browser
+    colour on an otherwise designed page, visible in a screenshot and invisible to a test.
+
+    Redrawn as a mask so the glyph takes --ink-3 like every other quiet control, with a
+    real hit area. A mask is the only way to recolour a UA pseudo-element; the vendor
+    prefix is required, and Firefox renders no button at all, which is fine.
+  */
+  .field input::-webkit-search-cancel-button {
+    -webkit-appearance: none; appearance: none;
+    width: 1.15rem; height: 1.15rem; margin-right: .2rem; cursor: pointer;
+    background: var(--ink-3);
+    -webkit-mask: var(--x-glyph) center / 62% no-repeat;
+    mask: var(--x-glyph) center / 62% no-repeat;
+    opacity: .75; transition: opacity .15s ease, background .15s ease;
+  }
+  .field input::-webkit-search-cancel-button:hover { opacity: 1; background: var(--ink); }
   .go {
     flex: 0 0 auto; border: 0; cursor: pointer;
     background: var(--gold); color: var(--on-gold);
