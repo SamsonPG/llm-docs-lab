@@ -125,6 +125,20 @@ Objects.
 **The CSP allows `unsafe-inline`** because the page's CSS and script are inline. A nonce
 would be better.
 
+It also allows `img-src data:`, which is not the loosening it looks like — it permits
+inline bytes and no host at all. It had to be added because `default-src 'none'` was
+refusing the two images the page is made of: the favicon and the CSS mask that draws the
+search field's clear button. The favicon had never rendered in production, and nothing
+said so, because a blocked image writes one console line and changes nothing else. The
+page looked correct in local preview because a local file server sends no CSP at all, so
+the only environment where the bug existed was the only one nobody was measuring.
+
+**Cloudflare injects a Web Analytics beacon** from `static.cloudflareinsights.com`, and
+`script-src` refuses it. That refusal is deliberate and there is a test pinning it: this
+page promises nothing third-party loads, and a future tidy-up of the console errors must
+not quietly allow the host. The console line on every page load is the visible cost of
+keeping that promise.
+
 ---
 
 ## Three bugs worth reading about
