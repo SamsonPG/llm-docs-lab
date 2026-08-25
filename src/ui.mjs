@@ -21,6 +21,9 @@
  *     are load-bearing — a price without a date is a rumour.
  *   - An editorial serif carries the display type against a clean system sans, with mono for
  *     every number. The numbers are the argument, so they get their own voice.
+ *   - Atmosphere is local: mesh + soft orbs, glass on nav / ask / metric tiles only. Full-page
+ *     frosting would muddy AA contrast; restrained glass (Apple-style) keeps the instrument
+ *     readable in both themes. No third-party fonts or assets — CSP stays closed.
  *
  * NO WEB FONTS, DELIBERATELY
  * ──────────────────────────
@@ -64,7 +67,7 @@ export const PAGE = /* html */ `<!doctype html>
 <meta name="twitter:card" content="summary">
 <meta name="author" content="Samson P G">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0A0E'/%3E%3Cpath d='M18 44V20h6v18h11v6H18Z' fill='%23E8B44A'/%3E%3Ccircle cx='44' cy='24' r='5' fill='%23E8B44A'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0A0E'/%3E%3Crect x='16' y='12' width='26' height='40' rx='5' fill='%231C1A22' stroke='%23E8B44A' stroke-width='2.5'/%3E%3Cpath d='M23 24h12M23 32h12M23 40h8' stroke='%23E8B44A' stroke-width='2.2' stroke-linecap='round'/%3E%3Ccircle cx='46' cy='20' r='8' fill='%23E8B44A'/%3E%3Ccircle cx='46' cy='20' r='3.2' fill='%230B0A0E'/%3E%3C/svg%3E">
 
 <script type="application/ld+json">
 {
@@ -133,149 +136,204 @@ export const PAGE = /* html */ `<!doctype html>
 </script>
 
 <style>
+
   /*
     Light is the base; dark is layered twice — once for the system preference, once for an
-    explicit choice — so the switch wins in both directions. A colour defined only inside a
-    media query never applies once data-theme is set, which is how themed pages render one
-    theme's text on the other theme's ground.
-
-    The neutrals are warm-biased toward the gold rather than being pure grey, so the accent
-    sits inside the palette instead of on top of it.
+    explicit choice — so the switch wins in both directions.
   */
   :root {
     color-scheme: light;
-    /* the clear-button glyph: geometry, not colour, so it is declared once for both themes */
     --x-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2 2 14 14M14 2 2 14' stroke='%23000' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
-    --ground: #F7F8F6;
-    --raise: #FFFFFF;
-    --sink: #EDEEEA;
-    --ink: #14140F;
-    --ink-2: #4A4A41;
-    --ink-3: #6B6B60;   /* 5.06:1 on --ground; #75756A measured 4.37:1, just under AA */
-    --line: #DCDDD5;
+    --ground: #F3F1ED;
+    --raise: rgba(255, 255, 255, .72);
+    --raise-solid: #FFFFFF;
+    --sink: rgba(237, 234, 226, .85);
+    --ink: #14120E;
+    --ink-2: #4A463C;
+    --ink-3: #6B665A;
+    --line: rgba(20, 18, 14, .10);
+    --line-strong: rgba(20, 18, 14, .16);
     --gold: #8A6612;
     --gold-lit: #6E5010;
     --on-gold: #FFFFFF;
-    --glow: rgba(138, 102, 18, .10);
+    --glow: rgba(138, 102, 18, .14);
+    --glow-2: rgba(138, 102, 18, .08);
     --warn: #8A4B12;
     --warn-bg: #FBF3E6;
-    --pill: 0 1px 2px rgba(20, 20, 15, .18);
-    --lift: 0 1px 2px rgba(20, 20, 15, .05), 0 12px 32px -12px rgba(20, 20, 15, .14);
+    --pill: 0 1px 2px rgba(20, 20, 15, .14);
+    --lift: 0 1px 2px rgba(20, 18, 14, .04), 0 18px 48px -18px rgba(20, 18, 14, .22);
+    --glass: saturate(1.55) blur(18px);
+    --haven-a: rgba(138, 102, 18, .11);
+    --haven-b: rgba(90, 110, 140, .07);
+    --mark-hole: #FFFFFF;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --ground: #0B0A0E;
-      --raise: #141319;
-      --sink: #1B1A21;
+      --ground: #07060A;
+      --raise: rgba(22, 20, 28, .62);
+      --raise-solid: #141219;
+      --sink: rgba(28, 26, 36, .72);
       --ink: #F2F0EA;
-      --ink-2: #AFACA2;
-      --ink-3: #85837A;
-      --line: #262530;
+      --ink-2: #B0ACA2;
+      --ink-3: #85827A;
+      --line: rgba(242, 240, 234, .10);
+      --line-strong: rgba(242, 240, 234, .16);
       --gold: #E8B44A;
       --gold-lit: #F5C96B;
       --on-gold: #17130A;
-      --glow: rgba(232, 180, 74, .13);
+      --glow: rgba(232, 180, 74, .16);
+      --glow-2: rgba(232, 180, 74, .08);
       --warn: #E0A868;
       --warn-bg: #221A0E;
       --pill: 0 1px 2px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .07);
-      --lift: 0 1px 2px rgba(0, 0, 0, .6), 0 18px 44px -16px rgba(0, 0, 0, .7);
+      --lift: 0 1px 2px rgba(0, 0, 0, .55), 0 24px 56px -20px rgba(0, 0, 0, .75);
+      --haven-a: rgba(232, 180, 74, .14);
+      --haven-b: rgba(120, 90, 180, .10);
+      --mark-hole: #0B0A0E;
     }
   }
 
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --ground: #0B0A0E;
-    --raise: #141319;
-    --sink: #1B1A21;
+    --ground: #07060A;
+    --raise: rgba(22, 20, 28, .62);
+    --raise-solid: #141219;
+    --sink: rgba(28, 26, 36, .72);
     --ink: #F2F0EA;
-    --ink-2: #AFACA2;
-    --ink-3: #85837A;
-    --line: #262530;
+    --ink-2: #B0ACA2;
+    --ink-3: #85827A;
+    --line: rgba(242, 240, 234, .10);
+    --line-strong: rgba(242, 240, 234, .16);
     --gold: #E8B44A;
     --gold-lit: #F5C96B;
     --on-gold: #17130A;
-    --glow: rgba(232, 180, 74, .13);
+    --glow: rgba(232, 180, 74, .16);
+    --glow-2: rgba(232, 180, 74, .08);
     --warn: #E0A868;
     --warn-bg: #221A0E;
     --pill: 0 1px 2px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 255, 255, .07);
-    --lift: 0 1px 2px rgba(0, 0, 0, .6), 0 18px 44px -16px rgba(0, 0, 0, .7);
+    --lift: 0 1px 2px rgba(0, 0, 0, .55), 0 24px 56px -20px rgba(0, 0, 0, .75);
+    --haven-a: rgba(232, 180, 74, .14);
+    --haven-b: rgba(120, 90, 180, .10);
+    --mark-hole: #0B0A0E;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
   /*
-    The hero's glow is a ::before inset -30% on each side, so it deliberately bleeds past
-    the content column. That bleed was landing in the page's scroll width: 456px against a
-    375px phone. Nothing actually scrolled sideways — decorative overflow is not reachable,
-    and scrollTo(300, 0) left scrollX at 0 — but the layout viewport widened to match, and
-    every fixed element was then positioned against 456 instead of 375. The back-to-top
-    button sat at 397..438, past the right edge of the screen and unreachable.
-
-    clip, not hidden: hidden here would make the root a scroll container and break the
-    sticky nav, while clip trims the paint without creating one. There is a test for the
-    nav still sticking, because that breakage would be invisible in a screenshot.
-
-    Both html and body need it, which took three deploys to establish. On body alone the
-    value computes to clip and never reaches the viewport. On html alone the root clips,
-    but the layout viewport has already been widened by body's content, and the fixed
-    back-to-top button then holds it open by itself. Setting both gives 375.
-
-    Worth remembering how long this took to find. The glow is a pseudo-element, so every
-    pass that bisected the DOM by removing children walked straight past it.
+    clip, not hidden: hidden would make the root a scroll container and break sticky nav.
+    Both html and body need it (hero glow bleed).
   */
   html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 
   body {
     margin: 0;
-    overflow-x: clip;   /* the other half of the rule on html above; neither works alone */
+    overflow-x: clip;
     background: var(--ground);
     color: var(--ink);
     font: 400 clamp(15px, 0.55vw + 13.4px, 17px)/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
 
-  /*
-    The serif is the system's own. Georgia and its relatives ship everywhere and are properly
-    drawn; a font CDN would be one third-party request on a page whose argument is that it
-    makes none.
-  */
+  /* Atmospheric mesh — Bland-like presence without a third-party asset */
+  .haven {
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 78% 8%, var(--haven-a), transparent 62%),
+      radial-gradient(ellipse 55% 45% at 12% 72%, var(--haven-b), transparent 58%),
+      radial-gradient(ellipse 40% 35% at 50% 100%, var(--glow-2), transparent 70%),
+      var(--ground);
+  }
+  .haven__orb {
+    position: absolute; border-radius: 50%; filter: blur(48px);
+    opacity: .55; will-change: transform;
+  }
+  .haven__orb--a {
+    width: min(42vw, 28rem); height: min(42vw, 28rem);
+    top: -8%; right: -6%;
+    background: var(--haven-a);
+    animation: orb-drift 18s ease-in-out infinite alternate;
+  }
+  .haven__orb--b {
+    width: min(36vw, 22rem); height: min(36vw, 22rem);
+    bottom: 12%; left: -10%;
+    background: var(--haven-b);
+    animation: orb-drift 22s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes orb-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(3%, 4%, 0) scale(1.06); }
+  }
+
+  /* Unbundl-style reading progress */
+  .read-progress {
+    position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 40;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--line-strong) 70%, transparent);
+  }
+  .read-progress__bar {
+    display: block; width: 100%; height: 100%;
+    transform: scaleX(0); transform-origin: left center;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-lit) 55%, var(--gold) 100%);
+    box-shadow: 0 0 14px var(--glow);
+  }
+
   .serif { font-family: ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; }
   .mono { font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace; }
 
-  .shell { width: min(100% - 2.5rem, 54rem); margin-inline: auto; }
+  .shell { width: min(100% - 2.5rem, 56rem); margin-inline: auto; }
 
   a { color: var(--gold); text-underline-offset: 3px; text-decoration-thickness: 1px; }
   a:hover { color: var(--gold-lit); }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
 
   .skip { position: absolute; left: -9999px; }
-  .skip:focus { left: .75rem; top: .75rem; z-index: 40; background: var(--gold); color: var(--on-gold); padding: .6rem 1rem; border-radius: 6px; font-weight: 600; }
+  .skip:focus { left: .75rem; top: .75rem; z-index: 50; background: var(--gold); color: var(--on-gold); padding: .6rem 1rem; border-radius: 6px; font-weight: 600; }
 
-  /* ── Nav ───────────────────────────────────────────────────────────────── */
-
+  /* Glass nav */
   .nav {
     position: sticky; top: 0; z-index: 20;
-    background: color-mix(in srgb, var(--ground) 86%, transparent);
-    backdrop-filter: saturate(1.6) blur(14px);
+    background: color-mix(in srgb, var(--ground) 55%, transparent);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
     border-bottom: 1px solid transparent;
-    transition: border-color .25s ease;
+    transition: border-color .25s ease, background .25s ease;
   }
-  .nav.is-stuck { border-bottom-color: var(--line); }
-  @supports not (backdrop-filter: blur(1px)) { .nav { background: var(--ground); } }
+  .nav.is-stuck {
+    border-bottom-color: var(--line);
+    background: color-mix(in srgb, var(--ground) 72%, transparent);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .nav { background: var(--ground); }
+  }
 
-  .nav__in { display: flex; align-items: center; gap: 1rem; height: 60px; }
-  .brand { display: inline-flex; align-items: center; gap: .55rem; text-decoration: none; color: var(--ink); }
-  .brand__mark { width: 26px; height: 26px; border-radius: 7px; background: var(--ink); display: grid; place-items: center; flex: 0 0 auto; }
-  .brand__mark svg { width: 15px; height: 15px; fill: var(--gold); }
-  .brand__name { font-weight: 620; letter-spacing: -.015em; font-size: .96rem; }
+  .nav__in { display: flex; align-items: center; gap: 1rem; height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--ink); }
+  .brand__mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: var(--ink); color: var(--gold);
+    display: grid; place-items: center; flex: 0 0 auto;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 28%, transparent), 0 8px 20px -12px var(--glow);
+  }
+  .brand__mark svg { width: 18px; height: 18px; display: block; }
+  .brand__cite-hole { fill: var(--mark-hole); }
+  .brand__name { font-weight: 650; letter-spacing: -.02em; font-size: .98rem; }
+  .brand__tag {
+    display: none; font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-3); margin-left: .15rem;
+  }
+  @media (min-width: 40rem) {
+    .brand__tag { display: inline; }
+  }
 
   .nav__links { display: flex; gap: 1.15rem; margin-left: auto; align-items: center; }
   .nav__links a { color: var(--ink-2); text-decoration: none; font-size: .875rem; transition: color .15s ease; }
   .nav__links a:hover { color: var(--ink); }
   @media (max-width: 34rem) { .nav__links a { display: none; } }
 
-  .theme-switch { display: inline-flex; gap: 1px; padding: 3px; background: var(--sink); border: 1px solid var(--line); border-radius: 999px; flex: 0 0 auto; }
+  .theme-switch { display: inline-flex; gap: 1px; padding: 3px; background: var(--sink); border: 1px solid var(--line); border-radius: 999px; flex: 0 0 auto; backdrop-filter: blur(8px); }
   .theme-switch-btn {
     display: grid; place-items: center; width: 28px; height: 28px; padding: 0;
     background: none; border: 0; border-radius: 999px; cursor: pointer; color: var(--ink-3);
@@ -283,78 +341,68 @@ export const PAGE = /* html */ `<!doctype html>
   }
   .theme-switch-btn:hover { color: var(--ink); }
   .theme-switch-btn .theme-switch-icon { width: 15px; height: 15px; }
-  /*
-    The pressed pill has to lift off the switch ground. A black drop shadow does that on a
-    light ground and is completely invisible on #0B0A0E, so dark gets a hairline inset
-    instead — which is why this is a token and not a literal.
-  */
-  .theme-switch-btn[aria-pressed="true"] { background: var(--raise); color: var(--gold); box-shadow: var(--pill); }
+  .theme-switch-btn[aria-pressed="true"] { background: var(--raise-solid); color: var(--gold); box-shadow: var(--pill); }
 
-  /* ── Hero: the question is the product ─────────────────────────────────── */
+  /* Hero */
+  .hero { position: relative; padding: clamp(2.5rem, 7vw, 5rem) 0 2rem; }
 
-  .hero { position: relative; padding: clamp(2.75rem, 8vw, 5.5rem) 0 2rem; }
-
-  /*
-    One soft light source behind the question, keyed to the accent.
-
-    Not decoration for its own sake: it puts the brightest point of the page exactly where
-    the eye should start, which here is the input rather than a headline.
-  */
   .hero::before {
     content: "";
-    position: absolute; inset: -18% -30% auto -30%; height: 32rem;
-    background: radial-gradient(46% 50% at 50% 30%, var(--glow), transparent 72%);
+    position: absolute; inset: -18% -30% auto -30%; height: 34rem;
+    background: radial-gradient(46% 50% at 50% 28%, var(--glow), transparent 72%);
     pointer-events: none; z-index: -1;
   }
 
   .eyebrow {
     display: inline-flex; align-items: center; gap: .6rem;
     font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink-3); margin: 0 0 1.15rem;
+    color: var(--ink-3); margin: 0 0 1.25rem;
   }
   .eyebrow::before { content: ""; width: 1.6rem; height: 1px; background: var(--gold); }
 
   h1 {
     margin: 0;
-    font-size: clamp(2.1rem, 5.4vw, 3.4rem);
-    line-height: 1.05;
-    letter-spacing: -.028em;
+    font-size: clamp(2.35rem, 6.2vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -.032em;
     font-weight: 400;
     text-wrap: balance;
-    max-width: 20ch;
+    max-width: 14ch;
   }
-  h1 em { font-style: italic; color: var(--gold); }
+  h1 em {
+    font-style: italic; color: var(--gold);
+    position: relative;
+  }
 
-  .hero__sub { margin: 1.05rem 0 0; color: var(--ink-2); max-width: 50ch; font-size: 1.02rem; }
+  .hero__sub { margin: 1.15rem 0 0; color: var(--ink-2); max-width: 48ch; font-size: 1.05rem; line-height: 1.55; }
 
-  /* ── Ask ───────────────────────────────────────────────────────────────── */
-
-  .ask { margin-top: 2.1rem; }
+  /* Glass ask panel */
+  .ask { margin-top: 2.25rem; }
   .field {
     display: flex; align-items: center; gap: .55rem;
-    background: var(--raise); border: 1px solid var(--line);
-    border-radius: 14px; padding: .4rem .4rem .4rem 1rem;
-    box-shadow: var(--lift);
+    background: var(--raise);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px; padding: .45rem .45rem .45rem 1.05rem;
+    box-shadow: var(--lift), inset 0 1px 0 rgba(255,255,255,.12);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
     transition: border-color .18s ease, box-shadow .18s ease;
   }
-  .field:focus-within { border-color: var(--gold); box-shadow: var(--lift), 0 0 0 4px var(--glow); }
+  .field:focus-within {
+    border-color: color-mix(in srgb, var(--gold) 55%, var(--line));
+    box-shadow: var(--lift), 0 0 0 4px var(--glow);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .field { background: var(--raise-solid); }
+  }
   .field .search { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: var(--ink-3); stroke-width: 2; }
   .field input {
     flex: 1 1 auto; min-width: 0;
     border: 0; background: none; color: var(--ink);
-    font: inherit; padding: .7rem .2rem;
+    font: inherit; padding: .75rem .2rem;
   }
   .field input::placeholder { color: var(--ink-3); }
   .field input:focus { outline: none; }
-  /*
-    type="search" gives a free clear button and Chromium paints it with the UA accent,
-    which came out blue on the light ground and white on the dark one — a stray browser
-    colour on an otherwise designed page, visible in a screenshot and invisible to a test.
-
-    Redrawn as a mask so the glyph takes --ink-3 like every other quiet control, with a
-    real hit area. A mask is the only way to recolour a UA pseudo-element; the vendor
-    prefix is required, and Firefox renders no button at all, which is fine.
-  */
   .field input::-webkit-search-cancel-button {
     -webkit-appearance: none; appearance: none;
     width: 1.15rem; height: 1.15rem; margin-right: .2rem; cursor: pointer;
@@ -367,44 +415,39 @@ export const PAGE = /* html */ `<!doctype html>
   .go {
     flex: 0 0 auto; border: 0; cursor: pointer;
     background: var(--gold); color: var(--on-gold);
-    font: inherit; font-weight: 620; font-size: .92rem;
-    padding: .64rem 1.15rem; border-radius: 10px;
+    font: inherit; font-weight: 650; font-size: .92rem;
+    padding: .7rem 1.25rem; border-radius: 12px; min-height: 44px;
+    box-shadow: 0 10px 28px -14px color-mix(in srgb, var(--gold) 70%, transparent);
     transition: background .15s ease, transform .08s ease;
   }
   .go:hover { background: var(--gold-lit); }
   .go:active { transform: translateY(1px); }
   .go[disabled] { opacity: .5; cursor: progress; }
 
-  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .85rem 0 0; padding: 0; list-style: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: 1rem 0 0; padding: 0; list-style: none; }
   .chips button {
     font: inherit; font-size: .8rem; cursor: pointer;
-    background: none; color: var(--ink-2);
-    border: 1px solid var(--line); border-radius: 999px; padding: .3rem .7rem;
-    transition: border-color .15s ease, color .15s ease, background .15s ease;
+    background: var(--sink); color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: .38rem .8rem;
+    backdrop-filter: blur(8px);
+    transition: border-color .15s ease, color .15s ease, background .15s ease, transform .12s ease;
   }
-  .chips button:hover { color: var(--ink); border-color: var(--ink-3); background: var(--sink); }
+  .chips button:hover { color: var(--ink); border-color: var(--ink-3); transform: translateY(-1px); }
 
-  /* ── Answer: an editorial passage, not a chat bubble ───────────────────── */
-
-  .answer-wrap { margin-top: 2.4rem; }
+  .answer-wrap { margin-top: 2.5rem; }
 
   .answer {
-    font-size: clamp(1.05rem, .5vw + .95rem, 1.2rem);
+    font-size: clamp(1.05rem, .5vw + .95rem, 1.22rem);
     line-height: 1.62;
     white-space: pre-wrap;
     max-width: 62ch;
     border-left: 2px solid var(--gold);
-    padding-left: clamp(1rem, 3vw, 1.6rem);
+    padding: .15rem 0 .15rem clamp(1rem, 3vw, 1.6rem);
+    background: linear-gradient(90deg, var(--glow-2), transparent 42%);
+    border-radius: 0 12px 12px 0;
   }
-  .answer.is-waiting { color: var(--ink-3); border-left-color: var(--line); font-style: italic; }
+  .answer.is-waiting { color: var(--ink-3); border-left-color: var(--line); font-style: italic; background: none; }
 
-  /*
-    Citations are links, not decoration.
-
-    Hovering or focusing one lifts its source in the list below. That connection — a claim
-    you can walk back to its evidence — is the entire argument of the project, so it is built
-    as an interaction rather than left as a printing convention.
-  */
   .cite {
     font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, monospace;
     font-size: .62em; vertical-align: super; line-height: 0;
@@ -412,8 +455,6 @@ export const PAGE = /* html */ `<!doctype html>
     padding: 0 .12em; border-radius: 3px;
   }
   .cite:hover, .cite:focus-visible { background: var(--glow); color: var(--gold-lit); }
-
-  /* ── Sources: a bibliography ───────────────────────────────────────────── */
 
   .rule {
     display: flex; align-items: center; gap: .9rem;
@@ -423,22 +464,14 @@ export const PAGE = /* html */ `<!doctype html>
   .rule::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--line); }
 
   .srcs { margin-top: 2.4rem; }
-  ol.srcs__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; counter-reset: src; }
-  /*
-    Two grid items per row, not three.
-
-    The first version placed ::before, the snippet and the metadata directly in a
-    two-column grid — three items, so the metadata wrapped onto a second row INTO the
-    1.9rem number column and the retrieval date broke one character per line: "2026-",
-    "08-", "24". It looked like a text-wrapping bug and was a grid-counting one. The body
-    is now a single wrapper, so the row is always number + body.
-  */
+  ol.srcs__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; counter-reset: src; }
   ol.srcs__list li {
     counter-increment: src;
     display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); gap: .8rem;
     align-items: start;
-    padding: .8rem .9rem .8rem .5rem; border-radius: 10px;
-    transition: background .18s ease;
+    padding: .85rem 1rem .85rem .55rem; border-radius: 14px;
+    border: 1px solid transparent;
+    transition: background .18s ease, border-color .18s ease;
   }
   .srcs__body { min-width: 0; }
   ol.srcs__list li::before {
@@ -447,7 +480,10 @@ export const PAGE = /* html */ `<!doctype html>
     font-size: .78rem; color: var(--gold);
     text-align: right; padding-top: .1rem;
   }
-  ol.srcs__list li.is-lit { background: var(--sink); }
+  ol.srcs__list li.is-lit {
+    background: var(--sink);
+    border-color: var(--line);
+  }
   .srcs__text { margin: 0; font-size: .92rem; color: var(--ink-2); line-height: 1.55; }
   .srcs__meta { margin: .3rem 0 0; font-size: .75rem; color: var(--ink-3); display: flex; flex-wrap: wrap; align-items: baseline; }
   .srcs__meta .mono { white-space: nowrap; }
@@ -455,53 +491,92 @@ export const PAGE = /* html */ `<!doctype html>
   .srcs__meta a:hover { color: var(--gold); }
   .srcs__meta .dot { opacity: .5; padding: 0 .35rem; }
 
-  /* ── Evidence ──────────────────────────────────────────────────────────── */
-
-  .evidence { margin: 3.25rem 0 0; padding-top: 1.35rem; border-top: 1px solid var(--line); }
-  .evidence__grid { display: grid; gap: 1.35rem 2rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
-  .stat b { display: block; font-size: 1.6rem; letter-spacing: -.03em; font-variant-numeric: tabular-nums; font-weight: 500; }
-  .stat span { display: block; font-size: .78rem; color: var(--ink-3); margin-top: .15rem; line-height: 1.45; }
+  /* Measured — glass metric tiles */
+  .evidence { margin: 3.5rem 0 0; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+  .evidence__lead {
+    margin: 0 0 1.35rem;
+    font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+    letter-spacing: -.025em; font-weight: 400; max-width: 22ch;
+  }
+  .evidence__grid {
+    display: grid; gap: .85rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 48rem) {
+    .evidence__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .stat {
+    padding: 1.05rem 1.1rem 1.15rem;
+    border-radius: 16px;
+    background: var(--raise);
+    border: 1px solid var(--line);
+    box-shadow: var(--lift);
+    backdrop-filter: var(--glass);
+    -webkit-backdrop-filter: var(--glass);
+    min-height: 7.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .stat:hover { border-color: color-mix(in srgb, var(--gold) 35%, var(--line)); transform: translateY(-2px); }
+  @supports not (backdrop-filter: blur(1px)) {
+    .stat { background: var(--raise-solid); }
+  }
+  .stat b {
+    display: block; font-size: clamp(1.55rem, 3vw, 2rem);
+    letter-spacing: -.04em; font-variant-numeric: tabular-nums; font-weight: 550;
+    color: var(--ink); line-height: 1.1;
+  }
+  .stat span { display: block; font-size: .76rem; color: var(--ink-3); margin-top: .45rem; line-height: 1.4; }
   .evidence__note { margin: 1.35rem 0 0; font-size: .85rem; color: var(--ink-3); max-width: 60ch; }
 
   .caution {
-    margin-top: 1.9rem; padding: .85rem 1.05rem;
+    margin-top: 1.9rem; padding: .95rem 1.15rem;
     background: var(--warn-bg); color: var(--warn);
-    border-radius: 10px; font-size: .85rem; line-height: 1.55;
+    border-radius: 14px; font-size: .85rem; line-height: 1.55;
+    border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent);
   }
 
   footer { margin-top: 2.75rem; padding: 1.35rem 0 4.5rem; border-top: 1px solid var(--line); font-size: .84rem; color: var(--ink-3); }
   footer a { color: var(--ink-3); }
   footer a:hover { color: var(--gold); }
 
-  /* ── Back to top ───────────────────────────────────────────────────────── */
-
   .to-top {
     position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 20;
-    display: grid; place-items: center; width: 42px; height: 42px; padding: 0;
+    display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
     background: var(--raise); color: var(--gold);
-    border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--lift);
+    border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--lift);
+    backdrop-filter: var(--glass); -webkit-backdrop-filter: var(--glass);
     cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(10px) scale(.96);
     transition: opacity .2s ease, transform .2s ease, visibility .2s;
   }
   .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
   .to-top svg { width: 17px; height: 17px; fill: currentColor; }
 
-  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .rise { animation: rise .32s cubic-bezier(.22,.7,.3,1) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .rise { animation: rise .36s cubic-bezier(.22,.7,.3,1) both; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .haven__orb { filter: none; opacity: .35; }
+    .read-progress { display: none; }
   }
+
 </style>
 </head>
 <body>
 <a class="skip" href="#q">Skip to the question</a>
 
+<div class="haven" aria-hidden="true">
+  <span class="haven__orb haven__orb--a"></span>
+  <span class="haven__orb haven__orb--b"></span>
+</div>
+<div class="read-progress" aria-hidden="true"><span class="read-progress__bar" id="read-bar"></span></div>
+
 <nav class="nav" id="nav" aria-label="Primary">
   <div class="shell nav__in">
     <a class="brand" href="/">
-      <span class="brand__mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 44V20h6v18h11v6H18Z"/><circle cx="44" cy="24" r="5"/></svg></span>
-      <span class="brand__name">llm-docs-lab</span>
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="10" width="26" height="42" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M22 24h12M22 33h12M22 42h8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle class="brand__cite" cx="46" cy="20" r="8" fill="currentColor"/><circle class="brand__cite-hole" cx="46" cy="20" r="3"/></svg></span>
+      <span class="brand__name">llm-docs-lab</span><span class="brand__tag">cited</span>
     </a>
     <div class="nav__links">
       <a href="https://samsonpg.github.io/static/llm-docs-lab/">Results</a>
@@ -630,9 +705,15 @@ export const PAGE = /* html */ `<!doctype html>
   const SHOW_AFTER = 320;
   let ticking = false;
 
+  const readBar = document.getElementById('read-bar');
+
   function onScrollFrame() {
     const y = window.scrollY;
     nav.classList.toggle('is-stuck', y > 4);
+    if (readBar) {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      readBar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, y / max)) + ')';
+    }
 
     /*
       The threshold adapts to how far the page can actually scroll. A fixed 320px was wrong

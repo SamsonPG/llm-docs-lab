@@ -25,6 +25,20 @@ compatibility_date = "2026-08-24"
 # served now; only the custom domain is advertised.
 workers_dev = true
 
+# Every deployed version otherwise gets its own public URL
+# (<version>-llm-docs-lab.acsaven.workers.dev), and those stay live forever. Three were
+# reachable and returning 200, including builds from before the redesign and one whose CSP
+# blocked the page's own favicon.
+#
+# The SEO cost is small — every version sends canonical to llmdocs.acsaven.com. The real
+# cost is quota: preview URLs share this Worker's AI and Vectorize bindings, and the rate
+# limit is per-isolate, so anyone who finds one spends the free allowance the README already
+# names as the binding constraint.
+#
+# This key must stay ABOVE the first [table] header. Appended at the end of the file it is
+# read as observability.preview_urls, and wrangler only warns.
+preview_urls = false
+
 # Custom domain, so the public URL is not derived from an email address.
 #
 # The account subdomain was samsonpg077.workers.dev, derived from the account email, which
