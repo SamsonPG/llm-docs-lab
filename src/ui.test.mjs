@@ -60,13 +60,29 @@ test('the theme is defined for all three states', () => {
   /*
     A viewer has three states, not two: an explicit light choice, an explicit dark choice,
     and no choice at all — where only the system preference decides. A colour defined only
-    inside the media query never applies once data-theme is set, which is how a themed page
-    ends up rendering one theme's text on the other theme's background.
+    inside a media query never applies once data-theme is set, which is how a themed page
+    renders one theme's text on the other theme's background.
+
+    Asserted without assuming which theme is the base. This page is dark-first, matching
+    TryTokka, and an earlier version of this test hard-coded the light-first selectors and
+    failed the moment the palette was inverted — reporting a bug in a page whose theming was
+    entirely correct. The requirement is that all three states resolve, not that they are
+    written in a particular order.
   */
   assert.ok(PAGE.includes(':root {'), 'a base palette must exist');
-  assert.ok(PAGE.includes('prefers-color-scheme: dark'), 'the system preference must be honoured');
-  assert.ok(PAGE.includes(':root[data-theme="dark"]'), 'an explicit dark choice must win over a light system');
-  assert.ok(PAGE.includes(':root:not([data-theme="light"])'), 'an explicit light choice must win over a dark system');
+  assert.match(PAGE, /prefers-color-scheme:\s*(dark|light)/, 'the system preference must be honoured');
+
+  // Both explicit choices must be able to override the system, whichever way round.
+  assert.ok(PAGE.includes(':root[data-theme="light"]') || PAGE.includes(':root[data-theme="dark"]'),
+    'an explicit choice must have its own block');
+  assert.match(PAGE, /:root:not\(\[data-theme="(light|dark)"\]\)/,
+    'the media query must be guarded so an explicit choice beats the system preference');
+
+  // The guard must name the OPPOSITE theme to the one the media query is for, or it does nothing.
+  const media = PAGE.match(/prefers-color-scheme:\s*(dark|light)\s*\)\s*\{\s*:root:not\(\[data-theme="(light|dark)"\]\)/);
+  assert.ok(media, 'the guarded media query must be findable');
+  assert.notEqual(media[1], media[2],
+    'guarding a dark media query with :not([data-theme="dark"]) would be a no-op');
 });
 
 test('the theme is applied before first paint', () => {

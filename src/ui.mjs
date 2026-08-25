@@ -42,7 +42,19 @@ export const PAGE = /* html */ `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>llm-docs-lab — ask about LLM provider pricing</title>
 <meta name="description" content="Retrieval over LLM provider pricing and rate-limit documentation, with citations and a stated snapshot date.">
-<meta name="theme-color" content="#f7f8f8">
+<meta name="theme-color" content="#080C0B" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F2F9F5" media="(prefers-color-scheme: light)">
+
+<!--
+  Favicon as an inline SVG data URI.
+
+  The page is deliberately a single response with no sub-resources, and a separate
+  favicon.ico would be the only thing breaking that — one extra request, one more file to
+  deploy, one more thing to 404. The mark is the brand green on the near-black canvas,
+  matching TryTokka, and an SVG stays sharp on every display.
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080C0B'/%3E%3Cpath d='M18 44V20h6v18h11v6H18Z' fill='%2334E89A'/%3E%3Ccircle cx='44' cy='24' r='5' fill='%2334E89A'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080C0B'/%3E%3Cpath d='M18 44V20h6v18h11v6H18Z' fill='%2334E89A'/%3E%3Ccircle cx='44' cy='24' r='5' fill='%2334E89A'/%3E%3C/svg%3E">
 
 <script>
   /*
@@ -73,58 +85,111 @@ export const PAGE = /* html */ `<!doctype html>
 
 <style>
   /*
-    Light is the base palette; dark is layered twice — once for the system preference and
-    once for an explicit choice — so the toggle wins in both directions. A colour defined
-    only inside a media query never applies when the attribute is set, which is how themed
-    pages end up rendering one theme's text on the other theme's background.
+    TryTokka's palette, and dark-first like TryTokka.
+
+    Same green brand, same near-black canvas, same muted text ramp — so the two products
+    read as coming from one studio rather than two unrelated side projects. The values are
+    copied from trytokka/app/theme.generated.css rather than eyeballed.
+
+    Dark is the base and light is the override, which is the inverse of most pages and
+    matches TryTokka exactly. The consequence to watch: a visitor with no stored choice and
+    a LIGHT system preference must still get light, so the media query below flips the
+    tokens back rather than assuming dark suits everyone.
   */
   :root {
-    --bg: #f7f8f8; --panel: #fff; --sunk: #eef1f2; --ink: #14191c; --muted: #55636b;
-    --faint: #7d8b93; --rule: #dbe1e4; --accent: #0f5f66; --accent-ink: #fff;
-    --warn-bg: #fdf3e7; --warn-ink: #8a4b12; --shadow: 0 2px 10px rgba(20, 25, 28, .10);
+    color-scheme: dark;
+    --canvas: #080C0B; --surface: #0F1512; --surface-2: #161F1B;
+    --ink: #ECF5F0; --muted: #A8C0B4; --faint: #8FA89A;
+    --rim: color-mix(in srgb, #34E89A 40%, #12201a);
+    --brand: #34E89A; --brand-dark: #22C55E; --on-brand: #04140D;
+    --amber: #FBBF24; --amber-bg: #211a08;
+    --shadow: 0 2px 12px rgba(0, 0, 0, .45);
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0d1316; --panel: #141c20; --sunk: #1a2429; --ink: #e9eff1; --muted: #9aa8ae;
-      --faint: #6f7f87; --rule: #26333a; --accent: #5cc4cc; --accent-ink: #06222a;
-      --warn-bg: #2a1d10; --warn-ink: #e0a668; --shadow: 0 2px 10px rgba(0, 0, 0, .45);
+
+  /* No stored choice + a light system preference: light wins. */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --canvas: #F2F9F5; --surface: #FFFFFF; --surface-2: #E8F2EC;
+      --ink: #0A1410; --muted: #2F433A; --faint: #4A6358;
+      --rim: color-mix(in srgb, #047857 22%, #c5ddd0);
+      --brand: #047857; --brand-dark: #065F46; --on-brand: #FFFFFF;
+      --amber: #B45309; --amber-bg: #fdf3e7;
+      --shadow: 0 2px 12px rgba(10, 20, 16, .10);
     }
   }
-  :root[data-theme="dark"] {
-    --bg: #0d1316; --panel: #141c20; --sunk: #1a2429; --ink: #e9eff1; --muted: #9aa8ae;
-    --faint: #6f7f87; --rule: #26333a; --accent: #5cc4cc; --accent-ink: #06222a;
-    --warn-bg: #2a1d10; --warn-ink: #e0a668; --shadow: 0 2px 10px rgba(0, 0, 0, .45);
+
+  /* An explicit light choice wins over a dark system. */
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --canvas: #F2F9F5; --surface: #FFFFFF; --surface-2: #E8F2EC;
+    --ink: #0A1410; --muted: #2F433A; --faint: #4A6358;
+    --rim: color-mix(in srgb, #047857 22%, #c5ddd0);
+    --brand: #047857; --brand-dark: #065F46; --on-brand: #FFFFFF;
+    --amber: #B45309; --amber-bg: #fdf3e7;
+    --shadow: 0 2px 12px rgba(10, 20, 16, .10);
   }
 
   * { box-sizing: border-box; }
   body {
-    margin: 0; background: var(--bg); color: var(--ink);
+    margin: 0; background: var(--canvas); color: var(--ink);
     font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   .wrap { width: min(100% - 2rem, 46rem); margin-inline: auto; padding-bottom: 4rem; }
-  a { color: var(--accent); }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  a { color: var(--brand); }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
   .skip { position: absolute; left: -9999px; }
-  .skip:focus { left: 0; top: 0; background: var(--accent); color: var(--accent-ink); padding: .6rem 1rem; z-index: 6; }
+  .skip:focus { left: 0; top: 0; background: var(--brand); color: var(--on-brand); padding: .6rem 1rem; z-index: 6; }
 
-  /* Header + theme switch ------------------------------------------------- */
+  /* Navbar ---------------------------------------------------------------- */
 
-  header { padding: 2rem 0 1.25rem; border-bottom: 1px solid var(--rule); }
-  .head-row { display: flex; gap: 1rem; align-items: flex-start; justify-content: space-between; }
-  h1 { margin: 0; font-size: 1.5rem; letter-spacing: -.02em; }
-  .sub { margin: .4rem 0 0; color: var(--muted); font-size: .95rem; }
+  /*
+    Sticky, and translucent over the canvas.
+
+    A demo page with one form does not obviously need a navbar — but this one is opened
+    from a CV, and a visitor who has scrolled into the sources needs a way back to the
+    source code and the theme control without hunting. Sticky keeps both one click away at
+    any scroll position; backdrop-filter keeps the answer readable behind it.
+  */
+  .nav {
+    position: sticky; top: 0; z-index: 4;
+    background: color-mix(in srgb, var(--canvas) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rim);
+  }
+  @supports not (backdrop-filter: blur(1px)) { .nav { background: var(--canvas); } }
+
+  .nav__inner {
+    width: min(100% - 2rem, 46rem); margin-inline: auto;
+    display: flex; align-items: center; gap: 1rem; height: 56px;
+  }
+  .brand { display: inline-flex; align-items: center; gap: .5rem; font-weight: 650; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  .brand svg { width: 22px; height: 22px; flex: 0 0 auto; }
+  .brand span { font-size: .98rem; }
+
+  .nav__links { display: flex; gap: 1rem; margin-left: auto; align-items: center; }
+  .nav__links a { color: var(--muted); text-decoration: none; font-size: .88rem; }
+  .nav__links a:hover { color: var(--brand); }
+  /* Below 30rem the links crowd the brand out; the footer still carries them. */
+  @media (max-width: 30rem) { .nav__links a { display: none; } }
+
+  /* Header ---------------------------------------------------------------- */
+
+  header { padding: 2.25rem 0 1.25rem; border-bottom: 1px solid var(--rim); }
+  h1 { margin: 0; font-size: 1.6rem; letter-spacing: -.025em; }
+  .sub { margin: .5rem 0 0; color: var(--muted); font-size: .95rem; max-width: 42rem; }
 
   .theme-switch {
     display: inline-flex; gap: 2px; padding: 2px; flex: 0 0 auto;
-    background: var(--sunk); border: 1px solid var(--rule); border-radius: 999px;
+    background: var(--surface-2); border: 1px solid var(--rim); border-radius: 999px;
   }
   .theme-switch button {
-    display: grid; place-items: center; width: 30px; height: 30px; padding: 0;
+    display: grid; place-items: center; width: 28px; height: 28px; padding: 0;
     background: none; border: 0; border-radius: 999px; cursor: pointer; color: var(--muted);
   }
-  .theme-switch button svg { width: 15px; height: 15px; fill: currentColor; }
-  .theme-switch button[aria-pressed="true"] { background: var(--panel); color: var(--accent); box-shadow: var(--shadow); }
+  .theme-switch button svg { width: 14px; height: 14px; fill: currentColor; }
+  .theme-switch button[aria-pressed="true"] { background: var(--surface); color: var(--brand); box-shadow: var(--shadow); }
 
   /* Form ------------------------------------------------------------------ */
 
@@ -133,26 +198,26 @@ export const PAGE = /* html */ `<!doctype html>
   .lbl { display: block; font-size: .82rem; color: var(--muted); margin-bottom: .3rem; }
   input[type=search] {
     width: 100%; padding: .7rem .85rem; font: inherit; color: var(--ink);
-    background: var(--panel); border: 1px solid var(--rule); border-radius: 7px;
+    background: var(--surface); border: 1px solid var(--rim); border-radius: 7px;
   }
   .ask {
     padding: .7rem 1.3rem; font: inherit; font-weight: 600; cursor: pointer;
-    background: var(--accent); color: var(--accent-ink);
+    background: var(--brand); color: var(--on-brand);
     border: 1px solid transparent; border-radius: 7px; align-self: flex-end;
   }
   .ask[disabled] { opacity: .55; cursor: progress; }
 
   .examples { display: flex; flex-wrap: wrap; gap: .4rem; margin: .3rem 0 0; padding: 0; list-style: none; }
   .examples button {
-    background: var(--sunk); color: var(--muted); font: inherit; font-size: .82rem;
-    padding: .3rem .6rem; border: 1px solid var(--rule); border-radius: 999px; cursor: pointer;
+    background: var(--surface-2); color: var(--muted); font: inherit; font-size: .82rem;
+    padding: .3rem .6rem; border: 1px solid var(--rim); border-radius: 999px; cursor: pointer;
   }
 
   /* Answer + sources ------------------------------------------------------ */
 
   .answer {
-    margin-top: 1.5rem; padding: 1.1rem 1.2rem; background: var(--panel);
-    border: 1px solid var(--rule); border-radius: 9px; min-height: 3rem; white-space: pre-wrap;
+    margin-top: 1.5rem; padding: 1.1rem 1.2rem; background: var(--surface);
+    border: 1px solid var(--rim); border-radius: 9px; min-height: 3rem; white-space: pre-wrap;
   }
   .answer:empty { display: none; }
   .placeholder { color: var(--faint); }
@@ -164,18 +229,18 @@ export const PAGE = /* html */ `<!doctype html>
   ol.sources .meta { font-size: .78rem; color: var(--faint); }
 
   .note {
-    margin-top: 2rem; padding: .8rem 1rem; background: var(--warn-bg); color: var(--warn-ink);
+    margin-top: 2rem; padding: .8rem 1rem; background: var(--amber-bg); color: var(--amber);
     border-radius: 7px; font-size: .85rem;
   }
-  footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: .84rem; color: var(--faint); }
+  footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rim); font-size: .84rem; color: var(--faint); }
 
   /* Back to top ----------------------------------------------------------- */
 
   .to-top {
     position: fixed; right: 1rem; bottom: 1rem; z-index: 5;
     display: grid; place-items: center; width: 42px; height: 42px; padding: 0;
-    background: var(--panel); color: var(--accent);
-    border: 1px solid var(--rule); border-radius: 999px; box-shadow: var(--shadow);
+    background: var(--surface); color: var(--brand);
+    border: 1px solid var(--rim); border-radius: 999px; box-shadow: var(--shadow);
     cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(8px);
     transition: opacity .18s ease, transform .18s ease, visibility .18s;
   }
@@ -190,30 +255,33 @@ export const PAGE = /* html */ `<!doctype html>
 </head>
 <body>
 <a class="skip" href="#q">Skip to the question</a>
+<nav class="nav" aria-label="Primary">
+  <div class="nav__inner">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor" opacity=".12"/><path d="M18 44V20h6v18h11v6H18Z" fill="currentColor"/><circle cx="44" cy="24" r="5" fill="currentColor"/></svg>
+      <span>llm-docs-lab</span>
+    </a>
+    <div class="nav__links">
+      <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
+      <a href="https://github.com/acsavenhq/llm-docs-lab#results">Results</a>
+      <a href="https://samsonpg.github.io">Portfolio</a>
+    </div>
+    <div class="theme-switch" role="group" aria-label="Colour theme">
+      <button type="button" data-theme-pref="light" aria-pressed="false" title="Light" aria-label="Light theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-13a1 1 0 0 1-1-1V1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1Zm0 19a1 1 0 0 1-1-1v-2a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1ZM4 13H2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2Zm18 0h-2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2ZM5.6 6.99 4.19 5.58a1 1 0 0 1 1.42-1.42L7.02 5.58A1 1 0 1 1 5.6 6.99Zm12.79 12.8-1.41-1.42a1 1 0 0 1 1.41-1.41l1.42 1.41a1 1 0 0 1-1.42 1.42ZM7.02 18.4l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.42-1.41A1 1 0 0 1 7.02 18.4ZM19.8 5.58 18.4 7a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 1 1 1.41 1.41Z"/></svg></button>
+      <button type="button" data-theme-pref="system" aria-pressed="true" title="Match system" aria-label="Match system theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5v2h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-2H5a2 2 0 0 1-2-2V5Zm2 0v9h14V5H5Z"/></svg></button>
+      <button type="button" data-theme-pref="dark" aria-pressed="false" title="Dark" aria-label="Dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 0 1-10.45-10.4A1 1 0 0 0 9 1.11 10 10 0 1 0 22 14.05a1 1 0 0 0-.36-1.05Z"/></svg></button>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
 
   <header>
-    <div class="head-row">
-      <div>
-        <h1>llm-docs-lab</h1>
-        <p class="sub">
-          Ask about LLM provider pricing and rate limits. Answers come only from a fixed
-          snapshot of seven provider documentation pages, and every claim is cited.
-        </p>
-      </div>
-
-      <div class="theme-switch" role="group" aria-label="Colour theme">
-        <button type="button" data-theme-pref="light" aria-pressed="false" title="Light" aria-label="Light theme">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-13a1 1 0 0 1-1-1V1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1Zm0 19a1 1 0 0 1-1-1v-2a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1ZM4 13H2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2Zm18 0h-2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2ZM5.6 6.99 4.19 5.58a1 1 0 0 1 1.42-1.42L7.02 5.58A1 1 0 1 1 5.6 6.99Zm12.79 12.8-1.41-1.42a1 1 0 0 1 1.41-1.41l1.42 1.41a1 1 0 0 1-1.42 1.42ZM7.02 18.4l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.42-1.41A1 1 0 0 1 7.02 18.4ZM19.8 5.58 18.4 7a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 1 1 1.41 1.41Z"/></svg>
-        </button>
-        <button type="button" data-theme-pref="system" aria-pressed="true" title="Match system" aria-label="Match system theme">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5v2h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-2H5a2 2 0 0 1-2-2V5Zm2 0v9h14V5H5Z"/></svg>
-        </button>
-        <button type="button" data-theme-pref="dark" aria-pressed="false" title="Dark" aria-label="Dark theme">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 0 1-10.45-10.4A1 1 0 0 0 9 1.11 10 10 0 1 0 22 14.05a1 1 0 0 0-.36-1.05Z"/></svg>
-        </button>
-      </div>
-    </div>
+    <h1>Ask about LLM provider pricing</h1>
+    <p class="sub">
+      Answers come only from a fixed snapshot of seven provider documentation pages, and
+      every claim is cited. Retrieval scores 100% recall@6 on a 20-question golden set; ten
+      prompt-injection attacks were measured against it.
+    </p>
   </header>
 
   <main id="main">
