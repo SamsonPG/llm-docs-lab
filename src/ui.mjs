@@ -259,12 +259,12 @@ export const PAGE = /* html */ `<!doctype html>
     display: inline-flex; gap: 2px; padding: 2px; flex: 0 0 auto;
     background: var(--surface-2); border: 1px solid var(--rim); border-radius: 999px;
   }
-  .theme-switch button {
+  .theme-switch-btn {
     display: grid; place-items: center; width: 28px; height: 28px; padding: 0;
     background: none; border: 0; border-radius: 999px; cursor: pointer; color: var(--muted);
   }
-  .theme-switch button svg { width: 14px; height: 14px; fill: currentColor; }
-  .theme-switch button[aria-pressed="true"] { background: var(--surface); color: var(--brand); box-shadow: var(--shadow); }
+  .theme-switch-btn .theme-switch-icon { width: 15px; height: 15px; }
+  .theme-switch-btn[aria-pressed="true"] { background: var(--surface); color: var(--brand); box-shadow: var(--shadow); }
 
   /* Form ------------------------------------------------------------------ */
 
@@ -341,10 +341,18 @@ export const PAGE = /* html */ `<!doctype html>
       <a href="https://github.com/acsavenhq/llm-docs-lab#results">Results</a>
       <a href="https://samsonpg.github.io">Portfolio</a>
     </div>
-    <div class="theme-switch" role="group" aria-label="Colour theme">
-      <button type="button" data-theme-pref="light" aria-pressed="false" title="Light" aria-label="Light theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-13a1 1 0 0 1-1-1V1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1Zm0 19a1 1 0 0 1-1-1v-2a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1ZM4 13H2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2Zm18 0h-2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2ZM5.6 6.99 4.19 5.58a1 1 0 0 1 1.42-1.42L7.02 5.58A1 1 0 1 1 5.6 6.99Zm12.79 12.8-1.41-1.42a1 1 0 0 1 1.41-1.41l1.42 1.41a1 1 0 0 1-1.42 1.42ZM7.02 18.4l-1.41 1.42a1 1 0 0 1-1.42-1.42l1.42-1.41A1 1 0 0 1 7.02 18.4ZM19.8 5.58 18.4 7a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 1 1 1.41 1.41Z"/></svg></button>
-      <button type="button" data-theme-pref="system" aria-pressed="true" title="Match system" aria-label="Match system theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5v2h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-2H5a2 2 0 0 1-2-2V5Zm2 0v9h14V5H5Z"/></svg></button>
-      <button type="button" data-theme-pref="dark" aria-pressed="false" title="Dark" aria-label="Dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8 8 0 0 1-10.45-10.4A1 1 0 0 0 9 1.11 10 10 0 1 0 22 14.05a1 1 0 0 0-.36-1.05Z"/></svg></button>
+    <!--
+      The theme switch, matching the other sites exactly.
+    
+      Same order (light, dark, system), same class names, and the stroked icons taken from
+      acsaven's markup rather than redrawn. The earlier version used filled icons in a
+      light/system/dark order: fine on its own, wrong the moment you move between two of
+      these sites, because muscle memory reaches for the position rather than the picture.
+    -->
+    <div class="theme-switch theme-switch--compact" role="group" aria-label="Theme">
+      <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Light" aria-label="Use light theme" aria-pressed="false"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></button>
+      <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Dark" aria-label="Use dark theme" aria-pressed="false"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 14.5A8.5 8.5 0 1111.5 4a6.5 6.5 0 109.5 10.5z"></path></svg></button>
+      <button type="button" class="theme-switch-btn" data-theme-pref="system" title="System" aria-label="Use system theme" aria-pressed="true"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"></rect><path stroke-linecap="round" d="M8 19h8M12 17v2"></path></svg></button>
     </div>
   </div>
 </nav>
@@ -429,7 +437,7 @@ export const PAGE = /* html */ `<!doctype html>
   } catch (e) { /* private mode; fall back to system */ }
   applyTheme(stored);
 
-  document.querySelectorAll('.theme-switch [data-theme-pref]').forEach((btn) => {
+  document.querySelectorAll('.theme-switch-btn[data-theme-pref]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const pref = btn.dataset.themePref;
       applyTheme(pref);
