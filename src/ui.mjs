@@ -48,7 +48,7 @@
  * LAYER: Delivery (presentation).
  */
 
-import { THEME_TOKENS } from './theme.mjs';
+import { THEME_TOKENS, THEME_SWITCH_CSS, THEME_SWITCH_HTML, THEME_SWITCH_JS } from './theme.mjs';
 
 export const PAGE = /* html */ `<!doctype html>
 <html lang="en">
@@ -317,22 +317,7 @@ ${THEME_TOKENS}
   .nav__links a:hover { color: var(--ink); }
   @media (max-width: 34rem) { .nav__links a { display: none; } }
 
-  .theme-switch {
-    display: inline-flex; align-items: center; gap: 1px; padding: 3px;
-    background: var(--sink); border: 1px solid var(--glass-edge-soft);
-    border-radius: 999px; flex: 0 0 auto;
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  }
-  .theme-switch-btn {
-    display: grid; place-items: center; width: 28px; height: 28px; padding: 0;
-    background: none; border: 0; border-radius: 999px; cursor: pointer; color: var(--ink-3);
-    transition: color .15s ease, background .15s ease;
-  }
-  .theme-switch-btn:hover { color: var(--ink); }
-  .theme-switch-btn .theme-switch-icon { width: 15px; height: 15px; }
-  .theme-switch-btn[aria-pressed="true"] {
-    background: var(--glass-bg-strong); color: var(--gold); box-shadow: var(--pill);
-  }
+${THEME_SWITCH_CSS}
 
   /* Hero — centered column so mass matches evidence below */
   .hero {
@@ -693,11 +678,7 @@ ${THEME_TOKENS}
       <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
       <a href="https://samsonpg.github.io">Portfolio</a>
     </div>
-    <div class="theme-switch theme-switch--compact" role="group" aria-label="Theme">
-      <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Light" aria-label="Use light theme" aria-pressed="false"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></button>
-      <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Dark" aria-label="Use dark theme" aria-pressed="false"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 14.5A8.5 8.5 0 1111.5 4a6.5 6.5 0 109.5 10.5z"></path></svg></button>
-      <button type="button" class="theme-switch-btn" data-theme-pref="system" title="System" aria-label="Use system theme" aria-pressed="true"><svg class="theme-switch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"></rect><path stroke-linecap="round" d="M8 19h8M12 17v2"></path></svg></button>
-    </div>
+${THEME_SWITCH_HTML}
   </div>
 </nav>
 
@@ -778,40 +759,7 @@ ${THEME_TOKENS}
 (() => {
   /* ── Theme ──────────────────────────────────────────────────────────── */
 
-  const KEY = 'samsonpg-theme';
-  const root = document.documentElement;
-  const media = window.matchMedia('(prefers-color-scheme: dark)');
-
-  const resolve = (pref) => (pref === 'system' ? (media.matches ? 'dark' : 'light') : pref);
-
-  function applyTheme(pref) {
-    const theme = resolve(pref);
-    root.setAttribute('data-theme', theme);
-    root.setAttribute('data-theme-pref', pref);
-    root.style.colorScheme = theme;
-    document.querySelectorAll('.theme-switch-btn[data-theme-pref]').forEach((b) => {
-      b.setAttribute('aria-pressed', String(b.dataset.themePref === pref));
-    });
-  }
-
-  let stored = 'system';
-  try {
-    const s = localStorage.getItem(KEY);
-    if (s === 'light' || s === 'dark' || s === 'system') stored = s;
-  } catch (e) { /* private mode; session-only */ }
-  applyTheme(stored);
-
-  document.querySelectorAll('.theme-switch-btn[data-theme-pref]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      applyTheme(btn.dataset.themePref);
-      try { localStorage.setItem(KEY, btn.dataset.themePref); } catch (e) { /* session-only */ }
-    });
-  });
-  media.addEventListener('change', () => {
-    if (root.getAttribute('data-theme-pref') === 'system') applyTheme('system');
-  });
-
-  /* ── Scroll: nav border, and back to top ────────────────────────────── */
+${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────────────────────────────── */
 
   const nav = document.getElementById('nav');
   const toTop = document.getElementById('totop');

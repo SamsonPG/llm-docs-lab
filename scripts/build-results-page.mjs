@@ -26,7 +26,7 @@
  * LAYER: Developer tooling (manual, local only).
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { THEME_TOKENS } from '../src/theme.mjs';
+import { THEME_TOKENS, THEME_SWITCH_CSS, THEME_SWITCH_HTML, THEME_SWITCH_JS } from '../src/theme.mjs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -153,6 +153,8 @@ const page = `<!doctype html>
     .nav__links a:hover{color:var(--ink)}
     @media (max-width:34rem){.nav__links a{display:none}}
 
+    ${THEME_SWITCH_CSS}
+
     /* Display type is the serif the site uses; numbers are mono, because they are the argument. */
     header.page{padding:3rem 0 1.5rem;border-bottom:1px solid var(--glass-line)}
     h1{margin:0;font-family:ui-serif,Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(2rem,4vw,2.9rem);line-height:1.08;letter-spacing:-.02em}
@@ -192,6 +194,7 @@ const page = `<!doctype html>
       <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
       <a href="https://samsonpg.github.io">Portfolio</a>
     </div>
+${THEME_SWITCH_HTML}
   </div>
 </nav>
 
@@ -275,6 +278,12 @@ const page = `<!doctype html>
   </footer>
 
 </div>
+
+<script>
+(() => {
+${THEME_SWITCH_JS}})();
+</script>
+
 </body>
 </html>
 `;
