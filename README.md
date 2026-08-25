@@ -22,6 +22,10 @@ Six interconnected sections on one shared core:
 | 5 | **Security** | Prompt-injection attacks against the live index | [`security/`](security/) |
 | 6 | **Agent** | Tool-calling loop with ceilings and a full trace | [`src/agent/`](src/agent/) |
 
+**New to this, or to AI generally?** Read [CODE_GUIDE.md](CODE_GUIDE.md) first. It assumes
+no knowledge of embeddings, vector databases, RAG or evaluation, defines every term the
+first time it appears, and lists the mistakes that have actually cost time here.
+
 The rule that makes it one system rather than six scripts sharing a folder: **nothing
 reimplements anything.** The eval calls the deployed HTTP endpoints. The security tests
 poison the real index. The agent calls the same `retrieve()` the UI uses. See
