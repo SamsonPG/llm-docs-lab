@@ -87,6 +87,57 @@ for (let i = 0; i < chunks.length; i += BATCH) {
 console.log(`\n  ${sent}/${chunks.length} vectors upserted${failed ? `, ${failed} failed` : ''}`);
 
 /*
+  Sweep orphans left behind when a document produces fewer chunks than last time.
+
+  Chunk ids are deterministic and sequential - docId#0, docId#1, and so on - so an upsert
+  overwrites the ids that still exist and silently abandons the ones that no longer do. A
+  chunking change that merges two chunks into one leaves the highest id orphaned in the
+  index with its OLD text, still embedded and still retrievable. Nothing errors; answers
+  simply cite a version of the corpus that no longer exists, which is the least debuggable
+  kind of wrong.
+
+  Deleting a fixed window past the current count is cheap and covers any realistic
+  shrinkage. Deleting an id that was never created is a no-op, so over-reaching is safe
+  while under-reaching is not.
+*/
+const SWEEP = 25;
+const perDoc = new Map();
+for (const c of chunks) perDoc.set(c.docId, (perDoc.get(c.docId) ?? 0) + 1);
+
+const stale = [];
+for (const [docId, count] of perDoc) {
+  for (let i = count; i < count + SWEEP; i += 1) stale.push(docId + '#' + i);
+}
+
+/*
+  Deleted in batches, because the first attempt sent 175 ids in one call and got HTTP 500.
+
+  Deleting an id that does not exist is fine - verified directly, it returns 200 and
+  reports one deleted - so the failure was volume, not the missing ids. Worth checking
+  rather than assuming: the obvious reading of that 500 was "you cannot delete what is not
+  there", which would have sent me redesigning the sweep around listing the index first.
+*/
+const DELETE_BATCH = 50;
+let swept = 0;
+let sweepFailed = 0;
+
+for (let i = 0; i < stale.length; i += DELETE_BATCH) {
+  const batch = stale.slice(i, i + DELETE_BATCH);
+  const del = await fetch(base + '/ingest/delete', {
+    method: 'POST',
+    headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' },
+    body: JSON.stringify({ ids: batch }),
+  });
+  if (del.ok) swept += batch.length;
+  else sweepFailed += batch.length;
+}
+
+console.log(sweepFailed
+  ? '  orphan sweep PARTIAL: ' + swept + ' swept, ' + sweepFailed + ' failed - stale chunks may remain'
+  : '  swept ' + swept + ' possible orphan ids (' + SWEEP + ' past the end of each document)');
+
+
+/*
   Vectorize applies upserts asynchronously. A query immediately after this returns fewer
   results than expected, which reads exactly like broken retrieval — so say so here rather
   than let it be debugged as a bug.

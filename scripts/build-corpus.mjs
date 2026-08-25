@@ -62,9 +62,46 @@ function decode(s) {
     .replace(/&[a-z]+;/gi, ' ');
 }
 
-/** Strip tags from a fragment and normalise whitespace to a single line. */
+/*
+  Characters that must not reach the corpus.
+
+  PRIVATE USE AREA (U+E000–U+F8FF and the two supplementary planes). Documentation sites
+  render icon fonts by mapping glyphs into this range, so an anchor icon or a chevron
+  arrives as a code point with no meaning outside that site's stylesheet. Anthropic's pages
+  contributed 161 of them, and they surfaced in the UI as tofu boxes inside otherwise
+  correct answers: "Pricing > ▯ Claude Managed Agents pricing". They also waste embedding
+  tokens and can only hurt similarity.
+
+  ZERO-WIDTH characters and the BOM. Invisible, so nothing looks wrong, and they silently
+  break exact matching — a golden-set assertion can fail on a string that appears identical
+  in every way a person can check.
+
+  Emoji are deliberately NOT stripped: Gemini ships a model called Nano Banana and the
+  corpus contains 52 bananas that are genuinely part of the content.
+*/
+/*
+  Written as escapes, not literal characters.
+
+  The first version pasted the actual code points into the class. They are invisible by
+  definition, so the source showed an empty-looking range that no reviewer could verify
+  and no diff could usefully display. Escapes are longer and can be read.
+*/
+const JUNK = new RegExp(
+  '[\u{E000}-\u{F8FF}]'         // private use area - icon-font glyphs
+  + '|[\u{F0000}-\u{FFFFD}]'    // supplementary private use area A
+  + '|[\u{100000}-\u{10FFFD}]'  // supplementary private use area B
+  + '|[\u200B-\u200D]'          // zero-width space, non-joiner, joiner
+  + '|\uFEFF'                    // byte order mark
+  + '|\u00AD',                   // soft hyphen
+  'gu',
+);
+
+/** Strip tags from a fragment, drop meaningless glyphs, and normalise whitespace. */
 function text(fragment) {
-  return decode(fragment.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+  return decode(fragment.replace(/<[^>]*>/g, ' '))
+    .replace(JUNK, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**

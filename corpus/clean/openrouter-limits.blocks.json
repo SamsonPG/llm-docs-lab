@@ -44,108 +44,108 @@
   {
    "type": "heading",
    "level": 2,
-   "section": "Limits > ​ Checking your limits",
-   "text": "​ Checking your limits"
+   "section": "Limits > Checking your limits",
+   "text": "Checking your limits"
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Limits > ​ Credit limits",
-   "text": "​ Credit limits"
+   "section": "Limits > Credit limits",
+   "text": "Credit limits"
   },
   {
    "type": "list",
-   "section": "Limits > ​ Credit limits",
+   "section": "Limits > Credit limits",
    "text": "Account balance , your available credits across the account. If your account has a negative credit balance, you may see errors, including for free models. Adding credits to put your balance above zero allows you to use those models again."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Credit limits",
+   "section": "Limits > Credit limits",
    "text": "Per-key credit limits , an optional spending cap configured on an individual API key. The limit , limit_reset , and limit_remaining fields in the GET /api/v1/key response above describe this cap and how much of it remains."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Limits > ​ Credit limits > ​ Handling 402 errors",
-   "text": "​ Handling 402 errors"
+   "section": "Limits > Credit limits > Handling 402 errors",
+   "text": "Handling 402 errors"
   },
   {
    "type": "list",
-   "section": "Limits > ​ Credit limits > ​ Handling 402 errors",
+   "section": "Limits > Credit limits > Handling 402 errors",
    "text": "Add credits to bring your account balance above zero."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Credit limits > ​ Handling 402 errors",
+   "section": "Limits > Credit limits > Handling 402 errors",
    "text": "Check per-key limits. If limit_remaining on the key is exhausted, raise the key’s credit limit or wait for it to reset (see limit_reset )."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Credit limits > ​ Handling 402 errors",
+   "section": "Limits > Credit limits > Handling 402 errors",
    "text": "Monitor proactively. Call GET /api/v1/key as shown above to track limit_remaining and usage before requests start failing."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Limits > ​ Rate limits",
-   "text": "​ Rate limits"
+   "section": "Limits > Rate limits",
+   "text": "Rate limits"
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits",
+   "section": "Limits > Rate limits",
    "text": "Free usage limits : If you’re using a free model variant (with an ID ending in ), the following limits apply:"
   },
   {
    "type": "row",
-   "section": "Limits > ​ Rate limits",
-   "text": "Limits > ​ Rate limits > Credits purchased (all time): Less than"
+   "section": "Limits > Rate limits",
+   "text": "Limits > Rate limits > Credits purchased (all time): Less than"
   },
   {
    "type": "row",
-   "section": "Limits > ​ Rate limits",
-   "text": "Limits > ​ Rate limits > Credits purchased (all time): At least"
+   "section": "Limits > Rate limits",
+   "text": "Limits > Rate limits > Credits purchased (all time): At least"
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits",
+   "section": "Limits > Rate limits",
    "text": "DDoS protection : Cloudflare’s DDoS protection will block requests that dramatically exceed reasonable usage."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
-   "text": "​ Handling 429 errors"
+   "section": "Limits > Rate limits > Handling 429 errors",
+   "text": "Handling 429 errors"
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
+   "section": "Limits > Rate limits > Handling 429 errors",
    "text": "OpenRouter , when you hit one of the platform limits above (free-model requests per minute or per day, or DDoS protection)."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
+   "section": "Limits > Rate limits > Handling 429 errors",
    "text": "The upstream provider , when the provider serving your request is rate limiting or at capacity. In this case error.metadata.provider_code carries the provider’s original error code when available, and fallback routing retries other providers for the same model automatically before the error reaches you. You can also specify fallback models to try a different model when all providers for the first are exhausted."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
+   "section": "Limits > Rate limits > Handling 429 errors",
    "text": "Retry with exponential backoff. Rate limits are transient; wait and retry rather than immediately re-sending. Honor the Retry-After header when present."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
+   "section": "Limits > Rate limits > Handling 429 errors",
    "text": "On free variants , purchase at least credits to raise your daily limit, or switch to the paid variant of the model, which has no platform-level request cap."
   },
   {
    "type": "list",
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors",
+   "section": "Limits > Rate limits > Handling 429 errors",
    "text": "For provider-side limits , add fallback models or relax provider routing preferences so more providers are eligible to serve the request."
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Limits > ​ Rate limits > ​ Handling 429 errors > ​ Mid-stream rate limits",
-   "text": "​ Mid-stream rate limits"
+   "section": "Limits > Rate limits > Handling 429 errors > Mid-stream rate limits",
+   "text": "Mid-stream rate limits"
   }
  ]
 }

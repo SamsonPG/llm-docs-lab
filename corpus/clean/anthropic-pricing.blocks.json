@@ -34,1339 +34,1339 @@
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Model pricing",
-   "text": " Model pricing"
+   "section": "Pricing > Model pricing",
+   "text": "Model pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Model pricing",
+   "section": "Pricing > Model pricing",
    "text": "The following table shows pricing for all Claude models:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Fable 5 | Base Input Tokens: $10 / MTok | 5m Cache Writes: $12.50 / MTok | 1h Cache Writes: $20 / MTok | Cache Hits & Refreshes: $1 / MTok | Output Tokens: $50 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Fable 5 | Base Input Tokens: $10 / MTok | 5m Cache Writes: $12.50 / MTok | 1h Cache Writes: $20 / MTok | Cache Hits & Refreshes: $1 / MTok | Output Tokens: $50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Mythos 5 ( limited availability ) | Base Input Tokens: $10 / MTok | 5m Cache Writes: $12.50 / MTok | 1h Cache Writes: $20 / MTok | Cache Hits & Refreshes: $1 / MTok | Output Tokens: $50 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Mythos 5 ( limited availability ) | Base Input Tokens: $10 / MTok | 5m Cache Writes: $12.50 / MTok | 1h Cache Writes: $20 / MTok | Cache Hits & Refreshes: $1 / MTok | Output Tokens: $50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 5 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 5 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4.8 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4.8 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4.7 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4.7 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4.6 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4.6 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4.5 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4.5 | Base Input Tokens: $5 / MTok | 5m Cache Writes: $6.25 / MTok | 1h Cache Writes: $10 / MTok | Cache Hits & Refreshes: $0.50 / MTok | Output Tokens: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $15 / MTok | 5m Cache Writes: $18.75 / MTok | 1h Cache Writes: $30 / MTok | Cache Hits & Refreshes: $1.50 / MTok | Output Tokens: $75 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $15 / MTok | 5m Cache Writes: $18.75 / MTok | 1h Cache Writes: $30 / MTok | Cache Hits & Refreshes: $1.50 / MTok | Output Tokens: $75 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Base Input Tokens: $15 / MTok | 5m Cache Writes: $18.75 / MTok | 1h Cache Writes: $30 / MTok | Cache Hits & Refreshes: $1.50 / MTok | Output Tokens: $75 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Base Input Tokens: $15 / MTok | 5m Cache Writes: $18.75 / MTok | 1h Cache Writes: $30 / MTok | Cache Hits & Refreshes: $1.50 / MTok | Output Tokens: $75 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Sonnet 5 | Base Input Tokens: $2 / MTok | 5m Cache Writes: $2.50 / MTok | 1h Cache Writes: $4 / MTok | Cache Hits & Refreshes: $0.20 / MTok | Output Tokens: $10 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Sonnet 5 | Base Input Tokens: $2 / MTok | 5m Cache Writes: $2.50 / MTok | 1h Cache Writes: $4 / MTok | Cache Hits & Refreshes: $0.20 / MTok | Output Tokens: $10 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Sonnet 4.6 | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Sonnet 4.6 | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Sonnet 4.5 | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Sonnet 4.5 | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $3 / MTok | 5m Cache Writes: $3.75 / MTok | 1h Cache Writes: $6 / MTok | Cache Hits & Refreshes: $0.30 / MTok | Output Tokens: $15 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Haiku 4.5 | Base Input Tokens: $1 / MTok | 5m Cache Writes: $1.25 / MTok | 1h Cache Writes: $2 / MTok | Cache Hits & Refreshes: $0.10 / MTok | Output Tokens: $5 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Haiku 4.5 | Base Input Tokens: $1 / MTok | 5m Cache Writes: $1.25 / MTok | 1h Cache Writes: $2 / MTok | Cache Hits & Refreshes: $0.10 / MTok | Output Tokens: $5 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Model pricing",
-   "text": "Pricing >  Model pricing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $0.80 / MTok | 5m Cache Writes: $1 / MTok | 1h Cache Writes: $1.60 / MTok | Cache Hits & Refreshes: $0.08 / MTok | Output Tokens: $4 / MTok"
+   "section": "Pricing > Model pricing",
+   "text": "Pricing > Model pricing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Base Input Tokens: $0.80 / MTok | 5m Cache Writes: $1 / MTok | 1h Cache Writes: $1.60 / MTok | Cache Hits & Refreshes: $0.08 / MTok | Output Tokens: $4 / MTok"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Model pricing",
+   "section": "Pricing > Model pricing",
    "text": "The $2/$10 per million input/output token pricing for Claude Sonnet 5, announced at launch as introductory pricing through August 31, 2026, is now the standard price. The previously scheduled increase to $3/$15 per million input/output tokens on September 1, 2026 will not occur."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Model pricing",
+   "section": "Pricing > Model pricing",
    "text": "MTok = Million tokens. The \"Base Input Tokens\" column shows standard input pricing, the \"5m Cache Writes\", \"1h Cache Writes\", and \"Cache Hits & Refreshes\" columns are specific to prompt caching , and \"Output Tokens\" shows output pricing. See prompt caching pricing for an explanation of the cache columns and pricing multipliers."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Model pricing",
+   "section": "Pricing > Model pricing",
    "text": "Claude 4.7 and later models and Claude Mythos Preview use a newer tokenizer that contributes to their improved performance on a wide range of tasks. This tokenizer produces approximately 30% more tokens for the same text. The exact increase depends on the content and workload shape. Claude Sonnet 4.6 and earlier models use the previous tokenizer."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Model pricing",
+   "section": "Pricing > Model pricing",
    "text": "For Claude Platform on AWS pricing, see Claude Platform on AWS pricing ."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Cloud platform pricing",
-   "text": " Cloud platform pricing"
+   "section": "Pricing > Cloud platform pricing",
+   "text": "Cloud platform pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "This section covers partner-operated cloud platforms, where the cloud provider invoices you. For Anthropic-operated cloud platforms billed through a marketplace, see Claude Platform on AWS pricing and Claude in Microsoft Foundry pricing ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Claude models are available on Amazon Bedrock and Google Cloud . For official pricing, visit:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Amazon Bedrock pricing"
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Google Cloud pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Regional and multi-region endpoint pricing for Claude 4.5 models and beyond"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Starting with Claude Sonnet 4.5, Haiku 4.5, and Opus 4.5:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Bedrock offers two endpoint types: global endpoints (dynamic routing for maximum availability) and regional endpoints (guaranteed data routing through specific geographic regions)."
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Google Cloud offers three endpoint types: global endpoints, multi-region endpoints (dynamic routing within a geographic area), and regional endpoints."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (first-party) is global by default; for first-party data residency options and pricing, see Data residency pricing ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Scope: This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, and all future models. Earlier models (Claude Opus 4.1 and prior releases) retain their existing pricing."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "For implementation details and code examples:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Amazon Bedrock global vs regional endpoints for Opus 4.7, Haiku 4.5, and later models, or the legacy integration for all other models on Bedrock"
   },
   {
    "type": "list",
-   "section": "Pricing >  Cloud platform pricing",
+   "section": "Pricing > Cloud platform pricing",
    "text": "Google Cloud global, multi-region, and regional endpoints"
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": " Claude Platform on AWS pricing"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Claude Platform on AWS pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Platform on AWS pricing",
+   "section": "Pricing > Claude Platform on AWS pricing",
    "text": "Claude Platform on AWS bills through AWS Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 per CCU, and reports the CCU quantity to AWS Marketplace hourly. Your AWS bill shows a single CCU line item."
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Billing unit | Details: Claude Consumption Unit (CCU)"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Billing unit | Details: Claude Consumption Unit (CCU)"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: CCU price | Details: $0.01 per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: CCU price | Details: $0.01 per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Conversion | Details: Token usage rated in USD at standard per-model, per-feature rates (same as Claude API pricing ), then converted to CCUs at $0.01 per CCU"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Conversion | Details: Token usage rated in USD at standard per-model, per-feature rates (same as Claude API pricing ), then converted to CCUs at $0.01 per CCU"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Billing cadence | Details: Hourly metering to AWS Marketplace; monthly invoices"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Billing cadence | Details: Hourly metering to AWS Marketplace; monthly invoices"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Payment model | Details: Arrears only (postpaid); no prepaid credits"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Payment model | Details: Arrears only (postpaid); no prepaid credits"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Discounts | Details: Applied as fewer CCUs metered"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Discounts | Details: Applied as fewer CCUs metered"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Tax | Details: Pre-tax metering; AWS Marketplace handles tax"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Tax | Details: Pre-tax metering; AWS Marketplace handles tax"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Platform on AWS pricing",
-   "text": "Pricing >  Claude Platform on AWS pricing > Concept: Cost visibility | Details: Real-time breakdown in the Claude Console (access through the AWS Console); AWS Cost Explorer shows aggregated CCU"
+   "section": "Pricing > Claude Platform on AWS pricing",
+   "text": "Pricing > Claude Platform on AWS pricing > Concept: Cost visibility | Details: Real-time breakdown in the Claude Console (access through the AWS Console); AWS Cost Explorer shows aggregated CCU"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Platform on AWS pricing",
+   "section": "Pricing > Claude Platform on AWS pricing",
    "text": "Claude Consumption Units. If Customer accesses the Services through certain Marketplace Platforms (e.g., Claude Platform on AWS), usage will be invoiced in Claude Consumption Units (\"CCU\") rather than per MTok. A CCU is a unit of measure used solely for Marketplace Platform invoicing. One hundred (100) CCU represents $1.00 USD of fees owed for the Services, calculated at the applicable prices on claude.com/pricing#api , after application of any discounts."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude Platform on AWS pricing >  Inference geography",
-   "text": " Inference geography"
+   "section": "Pricing > Claude Platform on AWS pricing > Inference geography",
+   "text": "Inference geography"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Platform on AWS pricing >  Inference geography",
+   "section": "Pricing > Claude Platform on AWS pricing > Inference geography",
    "text": "For Claude 4.6 and later models, using inference_geo: \"us\" applies a 1.1x pricing multiplier. inference_geo: \"global\" (default) uses standard pricing. See Data residency for details."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude Platform on AWS pricing >  Private offers",
-   "text": " Private offers"
+   "section": "Pricing > Claude Platform on AWS pricing > Private offers",
+   "text": "Private offers"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Platform on AWS pricing >  Private offers",
+   "section": "Pricing > Claude Platform on AWS pricing > Private offers",
    "text": "When you sign up on the AWS Console Claude Platform on AWS service page, the AWS Console looks up any private offer associated with your account and prompts you to accept it in AWS Marketplace. Contact your Anthropic account representative for private offer terms."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Platform on AWS pricing >  Private offers",
+   "section": "Pricing > Claude Platform on AWS pricing > Private offers",
    "text": "If you have an existing Amazon Bedrock private offer, contact your Anthropic or AWS account representative before getting started with Claude Platform on AWS to ensure your discounts are applied correctly. Discounts cannot be applied retroactively to usage incurred before your private offer is accepted."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": " Claude in Microsoft Foundry pricing"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Claude in Microsoft Foundry pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
    "text": "Claude in Microsoft Foundry bills through the Azure Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 per CCU, and reports the CCU quantity to the Azure Marketplace hourly. Your Azure bill shows a single CCU line item."
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Billing unit | Details: Claude Consumption Unit (CCU)"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Billing unit | Details: Claude Consumption Unit (CCU)"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: CCU price | Details: $0.01 per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: CCU price | Details: $0.01 per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Conversion | Details: Token usage rated in USD at standard per-model, per-feature rates (same as Claude API pricing ), then converted to CCUs at $0.01 per CCU"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Conversion | Details: Token usage rated in USD at standard per-model, per-feature rates (same as Claude API pricing ), then converted to CCUs at $0.01 per CCU"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Billing cadence | Details: Hourly metering to the Azure Marketplace; monthly invoices"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Billing cadence | Details: Hourly metering to the Azure Marketplace; monthly invoices"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Payment model | Details: Arrears only (postpaid); no prepaid credits"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Payment model | Details: Arrears only (postpaid); no prepaid credits"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Discounts | Details: Applied as fewer CCUs metered"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Discounts | Details: Applied as fewer CCUs metered"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Tax | Details: Pre-tax metering; Azure Marketplace handles tax"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Tax | Details: Pre-tax metering; Azure Marketplace handles tax"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
-   "text": "Pricing >  Claude in Microsoft Foundry pricing > Concept: Cost visibility | Details: Azure Cost Management shows aggregated CCU"
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
+   "text": "Pricing > Claude in Microsoft Foundry pricing > Concept: Cost visibility | Details: Azure Cost Management shows aggregated CCU"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing",
+   "section": "Pricing > Claude in Microsoft Foundry pricing",
    "text": "Claude Consumption Units. If Customer accesses the Services through certain Marketplace Platforms (e.g., Claude Platform on AWS, Claude in Microsoft Foundry), usage will be invoiced in Claude Consumption Units (\"CCU\") rather than per MTok. A CCU is a unit of measure used solely for Marketplace Platform invoicing. One hundred (100) CCU represents $1.00 USD of fees owed for the Services, calculated at the applicable prices on claude.com/pricing#api , after application of any discounts."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude in Microsoft Foundry pricing >  Inference geography",
-   "text": " Inference geography"
+   "section": "Pricing > Claude in Microsoft Foundry pricing > Inference geography",
+   "text": "Inference geography"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude in Microsoft Foundry pricing >  Inference geography",
+   "section": "Pricing > Claude in Microsoft Foundry pricing > Inference geography",
    "text": "Deployments hosted on Azure can use the US Data Zone Standard deployment type, which keeps inference within the United States. This is equivalent to inference_geo: \"us\" on the Claude API and applies the same 1.1x pricing multiplier. See Data residency for details."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Feature-specific pricing",
-   "text": " Feature-specific pricing"
+   "section": "Pricing > Feature-specific pricing",
+   "text": "Feature-specific pricing"
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
-   "text": " Prompt caching"
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
+   "text": "Prompt caching"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "Prompt caching reduces costs and latency by reusing previously processed portions of your prompt across API calls. Instead of reprocessing the same large system prompt, document, or conversation history on every request, the API reads from cache at a fraction of the standard input price."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "There are two ways to enable prompt caching:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "Automatic caching: Add a single cache_control field at the top level of your request. The system automatically manages cache breakpoints as conversations grow. This is the recommended starting point for most use cases."
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "Explicit cache breakpoints: Place cache_control directly on individual content blocks for fine-grained control over exactly what gets cached."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "Prompt caching uses the following pricing multipliers relative to base input token rates:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
-   "text": "Pricing >  Feature-specific pricing >  Prompt caching > Cache operation: 5-minute cache write | Multiplier: 1.25x base input price | Duration: Cache valid for 5 minutes"
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
+   "text": "Pricing > Feature-specific pricing > Prompt caching > Cache operation: 5-minute cache write | Multiplier: 1.25x base input price | Duration: Cache valid for 5 minutes"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
-   "text": "Pricing >  Feature-specific pricing >  Prompt caching > Cache operation: 1-hour cache write | Multiplier: 2x base input price | Duration: Cache valid for 1 hour"
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
+   "text": "Pricing > Feature-specific pricing > Prompt caching > Cache operation: 1-hour cache write | Multiplier: 2x base input price | Duration: Cache valid for 1 hour"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
-   "text": "Pricing >  Feature-specific pricing >  Prompt caching > Cache operation: Cache read (hit) | Multiplier: 0.1x base input price | Duration: Same duration as the preceding write"
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
+   "text": "Pricing > Feature-specific pricing > Prompt caching > Cache operation: Cache read (hit) | Multiplier: 0.1x base input price | Duration: Same duration as the preceding write"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "Cache write tokens are charged when content is first stored. Cache read tokens are charged when a subsequent request retrieves the cached content. A cache hit costs 10% of the standard input price, which means caching pays off after one cache read for the 5-minute duration (1.25x write), or after two cache reads for the 1-hour duration (2x write)."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "These multipliers stack with other pricing modifiers, including the Batch API discount and data residency."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Prompt caching",
+   "section": "Pricing > Feature-specific pricing > Prompt caching",
    "text": "For implementation details, supported models, and code examples, see Prompt caching ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Data residency pricing",
-   "text": " Data residency pricing"
+   "section": "Pricing > Feature-specific pricing > Data residency pricing",
+   "text": "Data residency pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Data residency pricing",
+   "section": "Pricing > Feature-specific pricing > Data residency pricing",
    "text": "For Claude 4.6 and later models, specifying US-only inference through the inference_geo parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. Global routing (the default) uses standard pricing."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Data residency pricing",
+   "section": "Pricing > Feature-specific pricing > Data residency pricing",
    "text": "This applies to the Claude API (first-party) and Claude Platform on AWS. On Claude in Microsoft Foundry, the same 1.1x multiplier applies to deployments that use the US Data Zone Standard deployment type (see Inference geography ). Partner-operated platforms (Bedrock and Google Cloud) have independent regional pricing. See Bedrock and Google Cloud for details. Earlier models do not support the inference_geo parameter and always use standard pricing; requests that include the parameter on these models return a 400 error."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Data residency pricing",
+   "section": "Pricing > Feature-specific pricing > Data residency pricing",
    "text": "For more information, see Data residency ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
-   "text": " Fast mode pricing"
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
+   "text": "Fast mode pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Fast mode , in research preview, provides significantly faster output for Claude Opus 5 and Claude Opus 4.8 at premium pricing. Fast mode pricing applies across the full context window, including requests over 200k input tokens. Fast mode is available on the Claude API (first-party) only; it is not available on Claude Platform on AWS or partner-operated cloud platforms."
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
-   "text": "Pricing >  Feature-specific pricing >  Fast mode pricing > Model: Claude Opus 5 / Claude Opus 4.8 | Input: $10 / MTok | Output: $50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
+   "text": "Pricing > Feature-specific pricing > Fast mode pricing > Model: Claude Opus 5 / Claude Opus 4.8 | Input: $10 / MTok | Output: $50 / MTok"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Fast mode is not available on Claude Opus 4.7 (requests with speed: \"fast\" return an error) or Claude Opus 4.6 (requests run at standard speed and are billed at standard rates). See Fast mode ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Fast mode pricing stacks with other pricing modifiers:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Prompt caching multipliers apply on top of fast mode pricing"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Data residency multipliers apply on top of fast mode pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "Fast mode is not available with the Batch API ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Fast mode pricing",
+   "section": "Pricing > Feature-specific pricing > Fast mode pricing",
    "text": "For more information, see Fast mode ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": " Batch processing"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Batch processing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
+   "section": "Pricing > Feature-specific pricing > Batch processing",
    "text": "The Batch API allows asynchronous processing of large volumes of requests with a 50% discount on both input and output tokens."
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Fable 5 | Batch input: $5 / MTok | Batch output: $25 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Fable 5 | Batch input: $5 / MTok | Batch output: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Mythos 5 ( limited availability ) | Batch input: $5 / MTok | Batch output: $25 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Mythos 5 ( limited availability ) | Batch input: $5 / MTok | Batch output: $25 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 5 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 5 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4.8 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4.8 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4.7 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4.7 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4.6 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4.6 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4.5 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4.5 | Batch input: $2.50 / MTok | Batch output: $12.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Batch input: $7.50 / MTok | Batch output: $37.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Batch input: $7.50 / MTok | Batch output: $37.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Batch input: $7.50 / MTok | Batch output: $37.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Batch input: $7.50 / MTok | Batch output: $37.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Sonnet 5 | Batch input: $1 / MTok | Batch output: $5 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Sonnet 5 | Batch input: $1 / MTok | Batch output: $5 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Sonnet 4.6 | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Sonnet 4.6 | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Sonnet 4.5 | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Sonnet 4.5 | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Batch input: $1.50 / MTok | Batch output: $7.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Haiku 4.5 | Batch input: $0.50 / MTok | Batch output: $2.50 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Haiku 4.5 | Batch input: $0.50 / MTok | Batch output: $2.50 / MTok"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
-   "text": "Pricing >  Feature-specific pricing >  Batch processing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Batch input: $0.40 / MTok | Batch output: $2 / MTok"
+   "section": "Pricing > Feature-specific pricing > Batch processing",
+   "text": "Pricing > Feature-specific pricing > Batch processing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Batch input: $0.40 / MTok | Batch output: $2 / MTok"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Batch processing",
+   "section": "Pricing > Feature-specific pricing > Batch processing",
    "text": "For more information about batch processing, see Batch processing ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Long context pricing",
-   "text": " Long context pricing"
+   "section": "Pricing > Feature-specific pricing > Long context pricing",
+   "text": "Long context pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Long context pricing",
+   "section": "Pricing > Feature-specific pricing > Long context pricing",
    "text": "Claude 4.6 and later models and Claude Mythos Preview include the full 1M token context window at standard pricing. (A 900k-token request is billed at the same per-token rate as a 9k-token request.) Prompt caching and batch processing discounts apply at standard rates across the full context window."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": " Tool use pricing"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Tool use pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "Tool use requests are priced based on:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "The total number of input tokens sent to the model (including in the tools parameter)"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "The number of output tokens generated"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "For server-side tools, additional usage-based pricing (for example, web search charges per search performed)"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "Client-side tools are priced the same as any other Claude API request, although server-side tools can incur additional charges based on their specific usage."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "The additional tokens from tool use come from:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "The tools parameter in API requests (tool names, descriptions, and schemas)"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "tool_use content blocks in API requests and responses"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "tool_result content blocks in API requests"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "When you use tools , the API also automatically includes a special system prompt for the model that enables tool use. The number of tool use tokens required for each model is listed in the following table (excluding the additional tokens listed earlier). Note that the table assumes at least 1 tool is provided. If no tools are provided, then a tool choice of none uses 0 additional system prompt tokens."
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 286 tokens 406 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 286 tokens 406 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4.8 | Tool choice: auto , none any , tool | Tool use system prompt token count: 290 tokens 410 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4.8 | Tool choice: auto , none any , tool | Tool use system prompt token count: 290 tokens 410 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4.7 | Tool choice: auto , none any , tool | Tool use system prompt token count: 675 tokens 804 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4.7 | Tool choice: auto , none any , tool | Tool use system prompt token count: 675 tokens 804 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4.6 | Tool choice: auto , none any , tool | Tool use system prompt token count: 497 tokens 589 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4.6 | Tool choice: auto , none any , tool | Tool use system prompt token count: 497 tokens 589 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4.1 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Opus 4 ( retired, except on Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Sonnet 5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 354 tokens 474 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Sonnet 5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 354 tokens 474 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Sonnet 4.6 | Tool choice: auto , none any , tool | Tool use system prompt token count: 497 tokens 589 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Sonnet 4.6 | Tool choice: auto , none any , tool | Tool use system prompt token count: 497 tokens 589 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Sonnet 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Sonnet 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Sonnet 4 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 313 tokens 315 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Haiku 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Haiku 4.5 | Tool choice: auto , none any , tool | Tool use system prompt token count: 496 tokens 588 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
-   "text": "Pricing >  Feature-specific pricing >  Tool use pricing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 264 tokens 355 tokens"
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
+   "text": "Pricing > Feature-specific pricing > Tool use pricing > Model: Claude Haiku 3.5 ( retired, except on Bedrock and Google Cloud ) | Tool choice: auto , none any , tool | Tool use system prompt token count: 264 tokens 355 tokens"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "These token counts are added to your normal input and output tokens to calculate the total cost of a request."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "For current per-model prices, refer to the model pricing section."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Tool use pricing",
+   "section": "Pricing > Feature-specific pricing > Tool use pricing",
    "text": "For more information about tool use implementation and best practices, see Tool use ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing",
-   "text": " Specific tool pricing"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing",
+   "text": "Specific tool pricing"
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
-   "text": " Bash tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
+   "text": "Bash tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "The bash tool definition adds the following input tokens to your request. This is in addition to the per-model tool use system prompt that applies whenever any tool is present."
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
-   "text": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool > Model: Claude Opus 5, Claude Opus 4.8, and Claude Opus 4.7 | Additional input tokens: 325 tokens"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
+   "text": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool > Model: Claude Opus 5, Claude Opus 4.8, and Claude Opus 4.7 | Additional input tokens: 325 tokens"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
-   "text": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool > Model: Claude Opus 4.6, Claude Sonnet 4.6, and earlier | Additional input tokens: 244 tokens"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
+   "text": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool > Model: Claude Opus 4.6, Claude Sonnet 4.6, and earlier | Additional input tokens: 244 tokens"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "Additional tokens are consumed by:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "Command outputs (stdout/stderr)"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "Error messages"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "Large file contents"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Bash tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Bash tool",
    "text": "See tool use pricing for complete pricing details."
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
-   "text": " Code execution tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
+   "text": "Code execution tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "Code execution is free when used with web search or web fetch. When web_search_20260209 (or later) or web_fetch_20260209 (or later) is included in your API request, there are no additional charges for code execution tool calls beyond the standard input and output token costs."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "When used without these tools, code execution is billed by execution time, tracked separately from token usage:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "Execution time has a minimum of 5 minutes"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "Each organization receives 1,550 free hours of usage per month"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "Additional usage beyond 1,550 hours is billed at $0.05 USD per hour, per container"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "If files are included in the request, execution time is billed even if the tool is not called, because files are preloaded onto the container"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Code execution tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Code execution tool",
    "text": "Code execution usage is tracked in the response:"
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool",
-   "text": " Text editor tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool",
+   "text": "Text editor tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool",
    "text": "The text editor tool uses the same pricing structure as other tools used with Claude. It follows the standard input and output token pricing based on the Claude model you&#x27;re using."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool",
    "text": "In addition to the base tokens, the following additional input tokens are needed for the text editor tool:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool",
-   "text": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool > Tool: text_editor_20250429 (Claude 4.x) | Additional input tokens: 700 tokens"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool",
+   "text": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool > Tool: text_editor_20250429 (Claude 4.x) | Additional input tokens: 700 tokens"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Text editor tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Text editor tool",
    "text": "See tool use pricing for complete pricing details."
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web search tool",
-   "text": " Web search tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web search tool",
+   "text": "Web search tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web search tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web search tool",
    "text": "Web search usage is charged in addition to token usage:"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web search tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web search tool",
    "text": "Web search is available on the Claude API for $10 per 1,000 searches , plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations executed during a single turn and in subsequent conversation turns."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web search tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web search tool",
    "text": "Each web search counts as one use, regardless of the number of results returned. If an error occurs during web search, the web search will not be billed."
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
-   "text": " Web fetch tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
+   "text": "Web fetch tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "Web fetch usage has no additional charges beyond standard token costs:"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "The web fetch tool is available on the Claude API at no additional cost . You only pay standard token costs for the fetched content that becomes part of your conversation context."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "To protect against inadvertently fetching large content that would consume excessive tokens, use the max_content_tokens parameter to set appropriate limits based on your use case and budget considerations."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "Example token usage for typical content:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "Average web page (10 kB): ~2,500 tokens"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "Large documentation page (100 kB): ~25,000 tokens"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Web fetch tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Web fetch tool",
    "text": "Research paper PDF (500 kB): ~125,000 tokens"
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
-   "text": " Computer use tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
+   "text": "Computer use tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Computer use follows the standard tool use pricing . When using the computer use tool:"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Toolset definition overhead: Declaring computer_toolset_20260801 with its default members adds about 4,500 input tokens to a request (about 4,520 on Claude Fable 5, Claude Mythos 5, Claude Opus 5, and Claude Opus 4.8, and about 4,590 on Claude Sonnet 5), which covers the member tool definitions and the tool use system prompt. Disabling zoom with configs removes about 410 of those tokens. The exact count for a request is reported in the response usage , and you can estimate it in advance with the token counting endpoint ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Earlier tool versions: The following figures apply to the computer_20251124 and computer_20250124 tool versions, not to computer_toolset_20260801 :"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "System prompt overhead: 466–499 tokens added to the system prompt"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Tool definition: about 735 input tokens per tool definition (measured with computer_20250124 )"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Additional token consumption:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Screenshot and zoom images returned in tool results, billed as image input (see Vision pricing )"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "Tool execution results returned to Claude"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Computer use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Computer use tool",
    "text": "If you&#x27;re also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages."
   },
   {
    "type": "heading",
    "level": 4,
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
-   "text": " Browser use tool"
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
+   "text": "Browser use tool"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "Browser use follows the standard tool use pricing . When using the browser use tool:"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "Toolset definition overhead: Declaring browser_toolset_20260801 with its default members adds about 6,600 input tokens to a request (about 6,610 on Claude Fable 5, Claude Mythos 5, Claude Opus 5, and Claude Opus 4.8, and about 6,670 on Claude Sonnet 5), which covers the member tool definitions and the tool use system prompt. Enabling all four optional members adds about 880 tokens, and disabling members with configs reduces the count. The exact count for a request is reported in the response usage , and you can estimate it in advance with the token counting endpoint ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "Additional token consumption:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "Screenshot and zoom images returned in tool results, billed as image input (see Vision pricing )"
   },
   {
    "type": "list",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "Text tool results returned to Claude, such as accessibility trees, page text, and console or network entries"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Feature-specific pricing >  Specific tool pricing >  Browser use tool",
+   "section": "Pricing > Feature-specific pricing > Specific tool pricing > Browser use tool",
    "text": "If you also use the computer use tool, bash tool, text editor tool, or your own tools alongside browser use, those tools have their own token costs as documented on their respective pages."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Claude Managed Agents pricing",
-   "text": " Claude Managed Agents pricing"
+   "section": "Pricing > Claude Managed Agents pricing",
+   "text": "Claude Managed Agents pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing",
+   "section": "Pricing > Claude Managed Agents pricing",
    "text": "Claude Managed Agents is billed on two dimensions: tokens and session runtime."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
-   "text": " Tokens"
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
+   "text": "Tokens"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
    "text": "All tokens consumed by a Claude Managed Agents session are billed at the rates shown in Model pricing . Prompt caching multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On Claude Platform on AWS , session token and runtime charges convert to Claude Consumption Units at the standard rate. Fast mode premium pricing applies when an agent&#x27;s model.speed is set to \"fast\" ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
    "text": "The data residency multiplier also applies: when an agent&#x27;s model.inference_geo is pinned to \"us\" , tokens consumed by sessions running that agent are billed at 1.1x the standard rates, the same multiplier that applies to US-only inference on the Messages API."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
    "text": "The following Messages API modifiers do not apply to Claude Managed Agents sessions:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
-   "text": "Pricing >  Claude Managed Agents pricing >  Tokens > Modifier: Batch API discount | Why it doesn&#x27;t apply: Sessions are stateful and interactive. There is no batch mode."
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
+   "text": "Pricing > Claude Managed Agents pricing > Tokens > Modifier: Batch API discount | Why it doesn&#x27;t apply: Sessions are stateful and interactive. There is no batch mode."
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Tokens",
-   "text": "Pricing >  Claude Managed Agents pricing >  Tokens > Modifier: Cloud platform pricing | Why it doesn&#x27;t apply: Not available on partner-operated cloud platforms."
+   "section": "Pricing > Claude Managed Agents pricing > Tokens",
+   "text": "Pricing > Claude Managed Agents pricing > Tokens > Modifier: Cloud platform pricing | Why it doesn&#x27;t apply: Not available on partner-operated cloud platforms."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude Managed Agents pricing >  Session runtime",
-   "text": " Session runtime"
+   "section": "Pricing > Claude Managed Agents pricing > Session runtime",
+   "text": "Session runtime"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Session runtime",
-   "text": "Pricing >  Claude Managed Agents pricing >  Session runtime > SKU: Session runtime | Rate: $0.08 per session-hour | Metering: running status duration"
+   "section": "Pricing > Claude Managed Agents pricing > Session runtime",
+   "text": "Pricing > Claude Managed Agents pricing > Session runtime > SKU: Session runtime | Rate: $0.08 per session-hour | Metering: running status duration"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Session runtime",
+   "section": "Pricing > Claude Managed Agents pricing > Session runtime",
    "text": "Runtime is measured to the millisecond and accrues only while the session&#x27;s status is running . Time spent idle (waiting for your next message or a tool confirmation), rescheduling , or terminated does not count toward runtime."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Session runtime",
+   "section": "Pricing > Claude Managed Agents pricing > Session runtime",
    "text": "Session runtime replaces the code execution container-hour billing model when using Claude Managed Agents. You are not separately billed for container hours on top of session runtime."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": " Worked example"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Worked example"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "A one-hour coding session using Claude Opus 5 that consumes 50,000 input tokens and 15,000 output tokens:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Input tokens | Calculation: 50,000 × $5 / 1,000,000 | Cost: $0.25"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Input tokens | Calculation: 50,000 × $5 / 1,000,000 | Cost: $0.25"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Output tokens | Calculation: 15,000 × $25 / 1,000,000 | Cost: $0.375"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Output tokens | Calculation: 15,000 × $25 / 1,000,000 | Cost: $0.375"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Session runtime | Calculation: 1.0 hour × $0.08 | Cost: $0.08"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Session runtime | Calculation: 1.0 hour × $0.08 | Cost: $0.08"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Total | Cost: $0.705"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Total | Cost: $0.705"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "If prompt caching is active and 40,000 of the input tokens are cache reads:"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Uncached input tokens | Calculation: 10,000 × $5 / 1,000,000 | Cost: $0.05"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Uncached input tokens | Calculation: 10,000 × $5 / 1,000,000 | Cost: $0.05"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Cache read tokens | Calculation: 40,000 × $5 × 0.1 / 1,000,000 | Cost: $0.02"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Cache read tokens | Calculation: 40,000 × $5 × 0.1 / 1,000,000 | Cost: $0.02"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Output tokens | Calculation: 15,000 × $25 / 1,000,000 | Cost: $0.375"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Output tokens | Calculation: 15,000 × $25 / 1,000,000 | Cost: $0.375"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Session runtime | Calculation: 1.0 hour × $0.08 | Cost: $0.08"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Session runtime | Calculation: 1.0 hour × $0.08 | Cost: $0.08"
   },
   {
    "type": "row",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
-   "text": "Pricing >  Claude Managed Agents pricing >  Worked example > Line item: Total | Cost: $0.525"
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
+   "text": "Pricing > Claude Managed Agents pricing > Worked example > Line item: Total | Cost: $0.525"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "Example calculation for processing 10,000 support tickets:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "Average ~3,700 tokens per conversation"
   },
   {
    "type": "list",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "Using Claude Haiku 4.5 at $1/MTok input, $5/MTok output"
   },
   {
    "type": "list",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "Total cost: ~$37.00 per 10,000 tickets"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Claude Managed Agents pricing >  Worked example",
+   "section": "Pricing > Claude Managed Agents pricing > Worked example",
    "text": "For a detailed walkthrough of this calculation, see the customer support agent guide ."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Additional pricing considerations",
-   "text": " Additional pricing considerations"
+   "section": "Pricing > Additional pricing considerations",
+   "text": "Additional pricing considerations"
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
-   "text": " Cost optimization strategies"
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
+   "text": "Cost optimization strategies"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "When building agents with Claude:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "Use appropriate models: Choose Haiku for simple tasks, Sonnet for most production workloads, and Opus for the most complex reasoning"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "Implement prompt caching: Reduce costs for repeated context"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "Batch operations: Use the Batch API for non-time-sensitive tasks"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "Monitor usage patterns: Track token consumption to identify optimization opportunities"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Cost optimization strategies",
+   "section": "Pricing > Additional pricing considerations > Cost optimization strategies",
    "text": "For high-volume agent applications, contact the enterprise sales team for custom pricing arrangements."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
-   "text": " Rate limits"
+   "section": "Pricing > Additional pricing considerations > Rate limits",
+   "text": "Rate limits"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "Rate limits vary by usage tier and affect how many requests you can make:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "Start tier: Entry-level limits for getting started"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "Build tier: Increased limits for growing applications"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "Scale tier: Highest standard limits for production workloads"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "For detailed rate limit information, see Rate limits ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Rate limits",
+   "section": "Pricing > Additional pricing considerations > Rate limits",
    "text": "For limits beyond the Scale tier or custom pricing arrangements, contact the sales team ."
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Additional pricing considerations >  Volume discounts",
-   "text": " Volume discounts"
+   "section": "Pricing > Additional pricing considerations > Volume discounts",
+   "text": "Volume discounts"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Volume discounts",
+   "section": "Pricing > Additional pricing considerations > Volume discounts",
    "text": "Volume discounts may be available for high-volume users. These are negotiated on a case-by-case basis."
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Volume discounts",
+   "section": "Pricing > Additional pricing considerations > Volume discounts",
    "text": "Standard usage tiers use the pricing shown in Model pricing"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Volume discounts",
+   "section": "Pricing > Additional pricing considerations > Volume discounts",
    "text": "Enterprise customers can contact sales for custom pricing"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Volume discounts",
+   "section": "Pricing > Additional pricing considerations > Volume discounts",
    "text": "Academic and research discounts may be available"
   },
   {
    "type": "heading",
    "level": 3,
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
-   "text": " Enterprise pricing"
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
+   "text": "Enterprise pricing"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "For enterprise customers with specific needs:"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "Custom rate limits"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "Volume discounts"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "Dedicated support"
   },
   {
    "type": "list",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "Custom terms"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Additional pricing considerations >  Enterprise pricing",
+   "section": "Pricing > Additional pricing considerations > Enterprise pricing",
    "text": "Contact the sales team at sales@anthropic.com or through the Claude Console to discuss enterprise pricing options."
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Billing and payment",
-   "text": " Billing and payment"
+   "section": "Pricing > Billing and payment",
+   "text": "Billing and payment"
   },
   {
    "type": "list",
-   "section": "Pricing >  Billing and payment",
+   "section": "Pricing > Billing and payment",
    "text": "Billing is based on actual monthly usage"
   },
   {
    "type": "list",
-   "section": "Pricing >  Billing and payment",
+   "section": "Pricing > Billing and payment",
    "text": "All payments are in USD"
   },
   {
    "type": "list",
-   "section": "Pricing >  Billing and payment",
+   "section": "Pricing > Billing and payment",
    "text": "Credit card and invoicing options available"
   },
   {
    "type": "list",
-   "section": "Pricing >  Billing and payment",
+   "section": "Pricing > Billing and payment",
    "text": "Usage tracking available in the Claude Console"
   },
   {
    "type": "heading",
    "level": 2,
-   "section": "Pricing >  Frequently asked questions",
-   "text": " Frequently asked questions"
+   "section": "Pricing > Frequently asked questions",
+   "text": "Frequently asked questions"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "How is token usage calculated?"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "Tokens are pieces of text that models process. As a rough estimate, 1 token is approximately 4 characters or 0.75 words in English. The exact count varies by language and content type."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "Are there free tiers or trials?"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "New users receive a small amount of free credits to test the API. Contact sales for information about extended trials for enterprise evaluation."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "How do discounts stack?"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "Batch API and prompt caching discounts can be combined. For example, using both features together provides significant cost savings compared to standard API calls. See prompt caching pricing for how the multipliers interact."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "What payment methods are accepted?"
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "Major credit cards are accepted for standard accounts. Enterprise customers can arrange invoicing and other payment methods."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "For additional questions about pricing, contact support@anthropic.com ."
   },
   {
    "type": "prose",
-   "section": "Pricing >  Frequently asked questions",
+   "section": "Pricing > Frequently asked questions",
    "text": "Was this page helpful?"
   }
  ]

@@ -35,6 +35,20 @@ workers_dev = true
 pattern = "llmdocs.acsaven.com"
 custom_domain = true
 
+# A second hostname on a DIFFERENT zone, as a fallback.
+#
+# llmdocs.acsaven.com is the address on the CV, so it is the one that matters. But it
+# depends on one zone: a DNS mistake, a lapsed registration, or a change to acsaven.com
+# takes the demo down with it, and the demo is the thing a recruiter clicks.
+#
+# trydevsnip.com is a separate zone in the same account, so this survives anything that is
+# specific to acsaven.com. It does NOT survive an account-level or Worker-level problem —
+# no number of hostnames does, and the README says so rather than implying otherwise. The
+# workers.dev hostname stays enabled underneath both as a third path.
+[[routes]]
+pattern = "llmdocs.trydevsnip.com"
+custom_domain = true
+
 # Workers AI — embeddings and generation.
 [ai]
 binding = "AI"
