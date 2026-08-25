@@ -674,6 +674,7 @@ export const PAGE = /* html */ `<!doctype html>
 <div class="haven" aria-hidden="true">
   <span class="haven__orb haven__orb--a"></span>
   <span class="haven__orb haven__orb--b"></span>
+  <span class="haven__orb haven__orb--c"></span>
 </div>
 <div class="read-progress" aria-hidden="true"><span class="read-progress__bar" id="read-bar"></span></div>
 
@@ -736,6 +737,7 @@ export const PAGE = /* html */ `<!doctype html>
 
   <section class="shell evidence">
     <p class="rule">Measured, not asserted</p>
+    <h2 class="evidence__lead serif">Numbers from scripts — not a pitch deck.</h2>
     <div class="evidence__grid">
       <div class="stat"><b class="mono">100%</b><span>recall@6 across a twenty-question golden set</span></div>
       <div class="stat"><b class="mono">1.00</b><span>mean reciprocal rank — the right document ranked first every time</span></div>
