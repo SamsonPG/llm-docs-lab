@@ -304,18 +304,26 @@ export const PAGE = /* html */ `<!doctype html>
   .mono { font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace; }
 
   /*
-    One column, one gutter. padding-inline (not width calc) so nav / hero / evidence /
-    footer share the same left and right edges on every viewport.
+    One column, one gutter. width:min() + auto margins so nav / hero / evidence /
+    footer share the same centered edges on wide viewports (width:100% + max-width
+    alone was still reading left-heavy next to the centered hero title).
   */
   .shell {
-    width: 100%;
-    max-width: var(--page-max);
+    box-sizing: border-box;
+    width: min(100%, var(--page-max));
     margin-inline: auto;
     padding-inline: var(--page-gutter);
   }
   main {
     position: relative;
     z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  main > .shell {
+    flex: 0 0 auto;
   }
 
   a { color: var(--gold); text-underline-offset: 3px; text-decoration-thickness: 1px; }
@@ -448,7 +456,11 @@ export const PAGE = /* html */ `<!doctype html>
     line-height: 1.55;
   }
 
-  .ask { margin-top: 2rem; text-align: left; }
+  .ask {
+    margin: 2rem auto 0;
+    width: 100%;
+    text-align: left;
+  }
   .field {
     display: flex; align-items: center; gap: .55rem;
     background: var(--glass-bg-strong);
@@ -593,22 +605,35 @@ export const PAGE = /* html */ `<!doctype html>
     padding-top: 1.75rem;
     border-top: 1px solid var(--glass-line);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .evidence > .rule,
+  .evidence > .evidence__grid {
+    width: 100%;
+    box-sizing: border-box;
   }
   .evidence__lead {
-    margin: 0 auto 1.25rem;
+    margin: 0 0 1.25rem;
     font-size: clamp(1.3rem, 2.6vw, 1.75rem);
     letter-spacing: -.025em; font-weight: 400;
-    max-width: 22ch;
+    width: 100%;
+    max-width: 22em;
     text-align: center;
+    text-wrap: balance;
   }
   .evidence__grid {
     display: grid; gap: .75rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    text-align: left;
+    text-align: center;
   }
   @media (min-width: 48rem) {
-    .evidence__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; }
+    .evidence__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: .85rem;
+    }
   }
   .stat {
     padding: 1.1rem 1.05rem 1.15rem;
@@ -619,8 +644,9 @@ export const PAGE = /* html */ `<!doctype html>
     backdrop-filter: var(--glass);
     -webkit-backdrop-filter: var(--glass);
     min-height: 7.75rem;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    text-align: left;
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center;
+    text-align: center;
     transition: transform .2s ease, border-color .2s ease, background .2s ease;
   }
   .stat:hover {
@@ -640,14 +666,16 @@ export const PAGE = /* html */ `<!doctype html>
   .evidence__note {
     margin: 1.35rem auto 0;
     font-size: .85rem; color: var(--ink-3);
-    max-width: 52ch;
+    max-width: 36rem;
     text-align: center;
   }
 
   .caution {
     margin: 1.75rem auto 0;
     padding: .95rem 1.15rem;
-    max-width: 52ch;
+    max-width: 36rem;
+    width: 100%;
+    box-sizing: border-box;
     background: var(--warn-bg); color: var(--warn);
     border-radius: 16px; font-size: .85rem; line-height: 1.55;
     border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent);
