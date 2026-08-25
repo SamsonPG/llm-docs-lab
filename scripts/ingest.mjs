@@ -22,7 +22,7 @@ const cleanDir = join(root, 'corpus', 'clean');
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
 const urlArg = args.indexOf('--url');
-const base = urlArg !== -1 ? args[urlArg + 1] : 'https://llm-docs-lab.samsonpg077.workers.dev';
+const base = urlArg !== -1 ? args[urlArg + 1] : 'https://llmdocs.acsaven.com';
 
 /*
   Batches of 40.

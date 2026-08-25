@@ -27,10 +27,10 @@ workers_dev = true
 
 # Custom domain, so the public URL is not derived from an email address.
 #
-# The default hostname is llm-docs-lab.samsonpg077.workers.dev — that subdomain comes from
-# the account, which comes from the account email. It works, but it puts a personal address
-# into a link that goes on a CV. Wrangler creates the DNS record; existing acsaven.com
-# records are untouched because this is a new hostname.
+# The account subdomain was samsonpg077.workers.dev, derived from the account email, which
+# put a personal address into a link that goes on a CV. It is now acsaven.workers.dev, so
+# the fallback reads as the studio too. This custom domain remains the advertised address;
+# wrangler created its DNS record and existing acsaven.com records were untouched.
 [[routes]]
 pattern = "llmdocs.acsaven.com"
 custom_domain = true
