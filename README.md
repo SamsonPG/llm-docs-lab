@@ -38,7 +38,12 @@ deployed, and prints a number that is worse than no number because it gets belie
 
 ## Results
 
-Measured 2026-08-25 against the deployed system. Reproduce with `node eval/run.mjs`.
+Measured 2026-08-26 against the deployed system. Reproduce with `node eval/run.mjs`.
+
+These are one run of a non-deterministic system, not constants. The table below replaced an
+earlier one whose figures came from a run that was never committed, so the numbers here and
+in `eval/results.json` disagreed — the retrieval scores held exactly, the answer scores moved
+by up to 15 points. Re-run it and expect movement; that is the honest shape of the thing.
 
 ### Retrieval
 
@@ -53,16 +58,24 @@ Twenty questions, of which **seven are deliberately unanswerable** from this cor
 
 | Model | Accuracy | Correct refusals | Cited | Median latency |
 |---|---|---|---|---|
-| `llama-3.3-70b-instruct-fp8-fast` | 77% | **100%** | 85% | **1,925 ms** |
-| `llama-3.1-8b-instruct-fp8` | **92%** | 57% | **100%** | 2,850 ms |
-| `llama-3.2-3b-instruct` | 0% | 67% | 0% | 1,154 ms |
+| `llama-3.3-70b-instruct-fp8-fast` | **77%** | **100%** | 85% | 2,439 ms |
+| `llama-3.1-8b-instruct-fp8` | **77%** | 71% | **100%** | 3,359 ms |
+| `llama-3.2-3b-instruct` | 23% | 86% | 38% | **1,534 ms** |
 
-**The trade is the finding.** The 8B model answers better and refuses far worse — asked the
-capital of France against a corpus of pricing tables, it answers Paris. The 70B model
-declines every unanswerable question and is also the faster of the two. The 3B model is
-unusable here: no citations, wrong figures, and asked for its system prompt it leaked the
-`SOURCE_DATA` delimiter — partial prompt disclosure, found by the eval rather than by a
-stranger.
+**Refusal is where they separate, not accuracy.** The 70B and the 8B answered equally well on
+this run, and the 8B was the slower of the two — so the case for the smaller model rests
+entirely on it declining questions the corpus cannot answer, and it declines 71% of them
+against the 70B's 100%. Asked the capital of France against a corpus of pricing tables, the
+8B answers Paris.
+
+The 3B is not usable here. It gets under a quarter of the answerable questions right, cites a
+source on barely a third of its replies, and in an earlier run, asked for its system prompt,
+it leaked the `SOURCE_DATA` delimiter — partial prompt disclosure, found by the eval rather
+than by a stranger.
+
+Cost matters too, and it runs the other way: per million output tokens the 70B costs 204,805
+neurons against the 8B's 26,364 and the 3B's 30,475. The 70B is roughly eight times the price
+of the 8B for the same accuracy on this set, and buys the refusals with it.
 
 Unanswerable questions are a third of the set on purpose. Scoring well on questions the
 corpus covers is easy; the failure that matters is the confident invention, where a plausible
@@ -207,12 +220,52 @@ itself. At twelve hours a day of work, quota is the constraint, not time.
 | Route | Purpose |
 |---|---|
 | `GET /` | The page |
-| `GET /ask?q=` | Grounded answer, streamed. Sources in the `x-sources` header |
+| `GET /ask?q=` | Grounded answer, streamed as plain text. Sources in the `x-sources` header |
+| `GET /ask?q=&events=1` | The same answer as server-sent events, with a step per pipeline stage |
 | `GET /search?q=&k=` | Retrieval only — lets the eval score retrieval independently |
 | `GET /agent?q=` | Tool-calling run, returns the answer plus the full trace |
+| `GET /quota` | What is left of the daily free allowance, and when it resets |
 | `GET /health` | Models in use |
 | `POST /ingest` | **Authenticated.** An open ingest endpoint is a public index-poisoning API |
 | `POST /ingest/delete` | **Authenticated.** Exists so injection tests can clean up exactly |
+
+`/ask` keeps its plain-text form as the default because the eval scores that endpoint, and
+changing its wire format would invalidate every number above. The events mode is additive:
+
+```
+event: step     {"name":"embed","ms":376,"detail":"@cf/baai/bge-base-en-v1.5"}
+event: step     {"name":"retrieve","ms":327,"detail":"6 of 6 requested"}
+event: sources  [ … ]
+event: token    {"text":"According"}
+event: step     {"name":"generate","ms":591,"detail":"@cf/meta/llama-3.3-70b-instruct-fp8-fast"}
+event: done     {"ms":1294,"chars":171}
+```
+
+Those milliseconds are measured server-side and sent when each stage finishes. Nothing is
+animated on a timer — a progress display built from invented stages would undercut the
+measured numbers it sits beside.
+
+## Living inside a free allowance
+
+Workers AI gives 10,000 neurons a day. This model costs 204,805 neurons per million output
+tokens, so the demo used to go dark most afternoons: in the week to 2026-08-26 it hit the
+ceiling 35 times across 241 questions, and roughly half of those failures reached the visitor
+as Cloudflare's raw error text, upgrade advert included.
+
+Three things fixed it, none of which cost money:
+
+- **Answers are cached** in KV under the model, the normalised question and a corpus stamp.
+  A repeat costs nothing. `/ingest` moves the stamp before writing a single vector, so a
+  re-ingest retires every cached answer at once — being cheap matters less than never being
+  stale about a price.
+- **The page shows what is left** and when it resets, so an exhausted allowance reads as a
+  constraint with a clock on it rather than a broken project. It is labelled *estimated*
+  because Cloudflare exposes no balance to a Worker and the streaming call returns no usage
+  block; the figure is computed from token estimates and the published neuron rates.
+- **`/agent` declines** below a floor instead of starting a five-call run it cannot finish.
+
+When the allowance does run out, `/ask` says so in words and points at the measured results,
+which were taken earlier and do not depend on it.
 
 ## Tests
 

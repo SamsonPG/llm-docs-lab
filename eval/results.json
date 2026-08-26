@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-08-24T21:21:55.368Z",
-  "base": "https://llm-docs-lab.samsonpg077.workers.dev",
+  "startedAt": "2026-08-26T11:36:10.904Z",
+  "base": "https://llmdocs.acsaven.com",
   "mode": "full",
   "questionCount": 20,
   "models": {
@@ -8,14 +8,14 @@
       "accuracy": 0.7692307692307693,
       "refusalAccuracy": 1,
       "citationRate": 0.8461538461538461,
-      "medianMs": 1925,
+      "medianMs": 2439,
       "rows": [
         {
           "id": "cf-neurons-free",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1698,
+          "ms": 654,
           "reasons": [],
           "answer": "According to the source [1], Cloudflare Workers AI offers a free allocation of 10,000 Neurons per day."
         },
@@ -24,7 +24,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1648,
+          "ms": 6379,
           "reasons": [],
           "answer": "Cloudflare charges $0.011 per 1,000 Neurons on Workers AI [1]."
         },
@@ -33,7 +33,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1604,
+          "ms": 499,
           "reasons": [],
           "answer": "The base input token price for Claude Opus 5 is $5 / MTok [1] [3]."
         },
@@ -42,7 +42,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1686,
+          "ms": 1916,
           "reasons": [],
           "answer": "The base input token price for Claude Fable 5 is $10 / MTok [1]."
         },
@@ -51,7 +51,7 @@
           "answerable": true,
           "pass": false,
           "cited": false,
-          "ms": 1975,
+          "ms": 461,
           "reasons": [
             "no citation"
           ],
@@ -62,18 +62,18 @@
           "answerable": true,
           "pass": false,
           "cited": false,
-          "ms": 1593,
+          "ms": 1503,
           "reasons": [
             "no citation"
           ],
-          "answer": "Yes, Gemini 3.7 Flash has a free tier [1, 2]. Both the Standard and Priority versions of Gemini 3.7 Flash offer a free tier."
+          "answer": "Yes, Gemini 3.7 Flash has a free tier [1, 2]."
         },
         {
           "id": "gemini-tier2-qualify",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1703,
+          "ms": 1742,
           "reasons": [],
           "answer": "To qualify for Gemini API usage Tier 2, you must have paid $100 + 3 days from the first successful payment [2]."
         },
@@ -82,7 +82,7 @@
           "answerable": true,
           "pass": false,
           "cited": true,
-          "ms": 2291,
+          "ms": 3877,
           "reasons": [
             "missing: RPM"
           ],
@@ -93,16 +93,16 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2173,
+          "ms": 2745,
           "reasons": [],
-          "answer": "The source does not specify the exact limits that apply to free model variants on OpenRouter, it only mentions that limits apply [2]. It suggests purchasing credits to raise the daily limit or switching to a paid variant for no platform-level request cap [1]."
+          "answer": "The source does not specify the exact limits that apply to free model variants on OpenRouter, it only mentions that limits apply [2]. For more information on handling these limits, it suggests retrying with exponential backoff, purchasing credits to raise the daily limit, or switching to a paid variant [1]."
         },
         {
           "id": "openrouter-402",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2082,
+          "ms": 3442,
           "reasons": [],
           "answer": "A 402 error on OpenRouter means that the account balance or per-key credit cap has been exhausted [3]. To handle a 402 error, you can add credits to bring your account balance above zero, check per-key limits, or wait for the limit to reset [6]."
         },
@@ -111,7 +111,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1480,
+          "ms": 5187,
           "reasons": [],
           "answer": "The requests-per-day (RPD) limit for the groq/compound model is250 [2]."
         },
@@ -120,61 +120,61 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2505,
+          "ms": 3684,
           "reasons": [],
-          "answer": "Yes, OpenAI charges differently for cached input tokens [1][2][3][5]. The pricing varies by model, with some models charging as low as $0.01 for long context cached input [2][3] and others charging $1.25 [5]."
+          "answer": "Yes, OpenAI charges differently for cached input tokens [1][2][3][5]. The prices for cached input tokens vary across models, with prices such as $0.20 [2], $0.40 [3], $0.80 [3], and $1.255 per token."
         },
         {
           "id": "cf-vs-nothing",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2132,
+          "ms": 3102,
           "reasons": [],
-          "answer": "Claude Opus 5 is cheaper for input tokens, at $5/MTok [1] or $5/MTok for Base Input Tokens [2], compared to Claude Fable 5 at $10/MTok for Base Input Tokens [2]."
+          "answer": "Claude Opus 5 is cheaper for input tokens, at $5/MTok for Base Input Tokens [2] and $2.50/MTok for Batch input [1], compared to Claude Fable 5 at $10/MTok for Base Input Tokens [2] and $5/MTok for Batch input [1]."
         },
         {
           "id": "unanswerable-aws",
           "answerable": false,
           "pass": true,
           "cited": true,
-          "ms": 1925,
+          "ms": 485,
           "reasons": [],
-          "answer": "The source does not provide the pricing for Claude Sonnet on AWS Bedrock [2]. It instructs to visit the Amazon Bedrock pricing page for official pricing."
+          "answer": "The source does not provide the pricing for Claude Sonnet on AWS Bedrock [2]. It refers to visiting \"Amazon Bedrock pricing\" for official pricing."
         },
         {
           "id": "unanswerable-azure",
           "answerable": false,
           "pass": true,
           "cited": true,
-          "ms": 2685,
+          "ms": 2405,
           "reasons": [],
-          "answer": "The source does not mention Azure OpenAI, it appears to be about OpenAI API pricing [1]. Additionally, the prices mentioned are not per million tokens for the tools listed, but rather per 1k calls or per GB [1]. The prices per 1M tokens are mentioned for multimodal models, but the exact prices are not specified in the provided source [2], [3]."
+          "answer": "The source does not mention Azure OpenAI, it appears to be about OpenAI API pricing [1]. The prices per 1M tokens are mentioned for some models, but not explicitly for Azure OpenAI, as it is not mentioned in the source [2], [3], [6]."
         },
         {
           "id": "unanswerable-future",
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 2035,
+          "ms": 2439,
           "reasons": [],
-          "answer": "The source does not contain information about OpenAI's pricing in2028 [1-6]. The provided sources only include pricing information as of the retrieval date, 2026-08-24."
+          "answer": "The source does not contain information about OpenAI's pricing in2028 [1-6]. The provided sources only show pricing information as of the retrieval date (2026-08-24) and do not include future pricing."
         },
         {
           "id": "unanswerable-opinion",
           "answerable": false,
           "pass": true,
           "cited": true,
-          "ms": 2333,
+          "ms": 3047,
           "reasons": [],
-          "answer": "The sources do not contain a direct comparison of providers or a recommendation for a specific startup [1], [2], [3], [4], [5], [6]. They appear to be documentation pages for individual providers, including OpenAI and Cloudflare Workers AI, as well as Google's Gemini API."
+          "answer": "The sources do not contain a direct comparison of providers or a recommendation for a specific startup [1], [2], [3], [4], [5], [6]. They provide pricing information for OpenAI API [4] and Cloudflare Workers AI [5], as well as rate limits for Gemini API [3], but do not offer guidance on choosing a provider."
         },
         {
           "id": "unanswerable-unrelated",
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 1579,
+          "ms": 1924,
           "reasons": [],
           "answer": "The source does not contain the answer to this question. [No relevant source]"
         },
@@ -183,33 +183,33 @@
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 1515,
+          "ms": 2104,
           "reasons": [],
-          "answer": "The source does not contain the term \"ingest token\" [none]."
+          "answer": "The source does not mention an \"ingest token\" [none]."
         },
         {
           "id": "unanswerable-selfref",
           "answerable": false,
           "pass": true,
           "cited": true,
-          "ms": 1824,
+          "ms": 3790,
           "reasons": [],
-          "answer": "The source appears to contain information about system prompt overhead and token counts for various tools and models, but it does not explicitly state what the system prompt is [3]."
+          "answer": "The source appears to contain information about system prompts, but it does not provide a specific system prompt [3]. Instead, it discusses the overhead of system prompts in terms of input tokens, such as the toolset definition overhead of about 4,500 input tokens [3]."
         }
       ]
     },
     "@cf/meta/llama-3.1-8b-instruct-fp8": {
-      "accuracy": 0.9230769230769231,
-      "refusalAccuracy": 0.5714285714285714,
+      "accuracy": 0.7692307692307693,
+      "refusalAccuracy": 0.7142857142857143,
       "citationRate": 1,
-      "medianMs": 2850,
+      "medianMs": 3359,
       "rows": [
         {
           "id": "cf-neurons-free",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2602,
+          "ms": 3626,
           "reasons": [],
           "answer": "According to [1], the free allocation allows anyone to use a total of 10,000 Neurons per day at no charge."
         },
@@ -218,25 +218,27 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 3374,
+          "ms": 2284,
           "reasons": [],
           "answer": "Cloudflare charges $0.011 per 1,000 Neurons on Workers AI [1]."
         },
         {
           "id": "anthropic-opus5-input",
           "answerable": true,
-          "pass": true,
+          "pass": false,
           "cited": true,
-          "ms": 2320,
-          "reasons": [],
-          "answer": "The base input token price for Claude Opus 5 is $5 per MTok [1]."
+          "ms": 2943,
+          "reasons": [
+            "missing: MTok"
+          ],
+          "answer": "The base input token price for Claude Opus 5 is $5 per million tokens [1]."
         },
         {
           "id": "anthropic-fable-input",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2132,
+          "ms": 1821,
           "reasons": [],
           "answer": "$10 per million tokens [1]."
         },
@@ -245,16 +247,16 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 4631,
+          "ms": 5180,
           "reasons": [],
-          "answer": "According to [1], the cost for input tokens on the paid tier for Gemini 3.7 Flash is $0.375 per 1M tokens in USD through December 31, 2026, and $0.75 starting January 1, 2027."
+          "answer": "According to [1], Gemini 3.7 Flash Batch input price on the paid tier is $0.375 per 1M tokens in USD through December 31, 2026, and $0.75 starting January 1, 2027."
         },
         {
           "id": "gemini-37flash-free",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 1829,
+          "ms": 3359,
           "reasons": [],
           "answer": "Yes, Gemini 3.7 Flash is free on the free tier [1]."
         },
@@ -263,45 +265,47 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 3178,
+          "ms": 3368,
           "reasons": [],
-          "answer": "To qualify for Tier 2, you must have paid $100 and 3 days must have passed since your first successful payment [2]."
+          "answer": "To qualify for Gemini API usage Tier 2, you need to have paid $100 and 3 days have passed since your first successful payment [2]."
         },
         {
           "id": "gemini-limit-dimensions",
           "answerable": true,
           "pass": false,
           "cited": true,
-          "ms": 3809,
+          "ms": 4256,
           "reasons": [
             "missing: RPM"
           ],
-          "answer": "The Gemini API rate limits on the following dimensions:\n\n* Batch API requests [6]\n* Concurrent batch requests [6]\n* Input file size [6]\n* File storage [6]\n* Enqueued tokens per model [1-6]"
+          "answer": "The Gemini API rate limits on the following dimensions:\n\n* Batch API requests (concurrent requests, input file size, file storage, and enqueued tokens per model) [6]\n* Tokens enqueued for batch processing across all active batch jobs for a given model [6]"
         },
         {
           "id": "openrouter-free-limits",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2978,
+          "ms": 4758,
           "reasons": [],
           "answer": "According to [2], for free model variants (with an ID ending in ), the following limits apply:\n\n* [2] does not specify the exact limits, only that they apply."
         },
         {
           "id": "openrouter-402",
           "answerable": true,
-          "pass": true,
+          "pass": false,
           "cited": true,
-          "ms": 2850,
-          "reasons": [],
-          "answer": "A 402 error on OpenRouter means that your account balance is insufficient to make a request, and you need to add credits to bring your account balance above zero [6]."
+          "ms": 2784,
+          "reasons": [
+            "missing: credit"
+          ],
+          "answer": "A 402 error on OpenRouter means that your account balance is insufficient to make a request [6]."
         },
         {
           "id": "groq-rpd-compound",
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 2320,
+          "ms": 2988,
           "reasons": [],
           "answer": "According to [2], the requests-per-day (RPD) limit for the groq/compound model is 250."
         },
@@ -310,7 +314,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 3782,
+          "ms": 4529,
           "reasons": [],
           "answer": "According to [2], for the gpt-5.6-sol model, the cost for long context (cached input) is $0.40, which is less than the cost for short context ($4.00). This suggests that OpenAI charges differently for cached input tokens."
         },
@@ -319,7 +323,7 @@
           "answerable": true,
           "pass": true,
           "cited": true,
-          "ms": 3741,
+          "ms": 5055,
           "reasons": [],
           "answer": "According to [2], Claude Opus 5 has a base input token price of $5 per MTok, while Claude Fable 5 has a base input token price of $10 per MTok. Therefore, Claude Opus 5 is cheaper for input tokens."
         },
@@ -328,7 +332,7 @@
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 2198,
+          "ms": 2715,
           "reasons": [],
           "answer": "The source does not contain information about AWS Bedrock pricing for Claude Sonnet."
         },
@@ -337,18 +341,18 @@
           "answerable": false,
           "pass": false,
           "cited": false,
-          "ms": 3369,
+          "ms": 2136,
           "reasons": [
             "missing: not"
           ],
-          "answer": "I'm unable to answer this question as it appears to be about Azure OpenAI, but the provided source data only contains pricing information for OpenAI's own API."
+          "answer": "I'm unable to find the answer to your question in the provided source data."
         },
         {
           "id": "unanswerable-future",
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 2667,
+          "ms": 2486,
           "reasons": [],
           "answer": "The source data does not contain any information about OpenAI's pricing in 2028."
         },
@@ -357,40 +361,250 @@
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 2849,
+          "ms": 3493,
           "reasons": [],
-          "answer": "I'm not able to provide a recommendation for which provider to choose for your startup. The source material does not contain information about the suitability of each provider for a startup."
+          "answer": "I'm not able to provide a recommendation on which provider to choose for your startup. The source material does not contain information that would allow me to make a recommendation."
         },
         {
           "id": "unanswerable-unrelated",
           "answerable": false,
           "pass": false,
           "cited": false,
-          "ms": 3433,
+          "ms": 2659,
           "reasons": [
             "missing: not"
           ],
-          "answer": "I don't have the ability to answer questions about general knowledge or the capital of France. I can only provide information based on the source material provided."
+          "answer": "I don't have the ability to answer questions about general knowledge or the world outside of the provided sources."
         },
         {
           "id": "unanswerable-internal",
           "answerable": false,
           "pass": true,
           "cited": false,
-          "ms": 1882,
+          "ms": 2055,
           "reasons": [],
           "answer": "The source does not mention an \"ingest token\" for the application."
         },
         {
           "id": "unanswerable-selfref",
           "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 3639,
+          "reasons": [],
+          "answer": "I don't have an answer to this question based on the provided source data. The sources mention \"system prompt\" in the context of computer use tool pricing, but they do not define what a \"system prompt\" is."
+        }
+      ]
+    },
+    "@cf/meta/llama-3.2-3b-instruct": {
+      "accuracy": 0.23076923076923078,
+      "refusalAccuracy": 0.8571428571428571,
+      "citationRate": 0.38461538461538464,
+      "medianMs": 1534,
+      "rows": [
+        {
+          "id": "cf-neurons-free",
+          "answerable": true,
           "pass": false,
           "cited": false,
-          "ms": 2298,
+          "ms": 1406,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "According to the documentation, the free allocation allows anyone to use a total of 10,000 Neurons per day at no charge."
+        },
+        {
+          "id": "cf-neuron-price",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1140,
+          "reasons": [
+            "missing: 0.011",
+            "no citation"
+          ],
+          "answer": "According to the source data, Cloudflare charges $.011 per 1,000 Neurons on Workers AI."
+        },
+        {
+          "id": "anthropic-opus5-input",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1475,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "The base input token price for Claude Opus 5 is $5 / MTok."
+        },
+        {
+          "id": "anthropic-fable-input",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1263,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "The base input token price for Claude Fable 5 is $10 / MTok."
+        },
+        {
+          "id": "gemini-37flash-input",
+          "answerable": true,
+          "pass": false,
+          "cited": true,
+          "ms": 1924,
+          "reasons": [
+            "missing: 0.75"
+          ],
+          "answer": "According to [1], on the paid tier, the input price for Gemini 3.7 Flash is $.375 per 1M tokens in USD through December 31, 2026, and $.75 starting January 1, 2027."
+        },
+        {
+          "id": "gemini-37flash-free",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 1697,
+          "reasons": [],
+          "answer": "According to the source data, Gemini 3.7 Flash has a \"Free Tier: Yes\" [1]. This indicates that Gemini 3.7 Flash is available for free on the free tier."
+        },
+        {
+          "id": "gemini-tier2-qualify",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1557,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "To qualify for Gemini API usage Tier 2, you must have paid $100 + 3 days from your first successful payment."
+        },
+        {
+          "id": "gemini-limit-dimensions",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1660,
+          "reasons": [
+            "missing: RPM",
+            "no citation"
+          ],
+          "answer": "The Gemini API rate limits the following dimensions:\n\n- Concurrent batch requests: 100\n- Input file size limit: 2GB\n- File storage limit: 20GB"
+        },
+        {
+          "id": "openrouter-free-limits",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 1331,
+          "reasons": [],
+          "answer": "According to [2], the free usage limits for OpenRouter model variants are not explicitly stated. However, it is mentioned that if you're using a free model variant (with an ID ending in ), the following limits apply, but the specific limits are not provided."
+        },
+        {
+          "id": "openrouter-402",
+          "answerable": true,
+          "pass": false,
+          "cited": true,
+          "ms": 1225,
+          "reasons": [
+            "missing: credit"
+          ],
+          "answer": "According to the source data, a 402 error on OpenRouter means that the account balance is exhausted. [6]"
+        },
+        {
+          "id": "groq-rpd-compound",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 1534,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "According to the source data, the requests-per-day (RPD) limit for the groq/compound model is 250."
+        },
+        {
+          "id": "openai-has-pricing",
+          "answerable": true,
+          "pass": false,
+          "cited": false,
+          "ms": 2256,
+          "reasons": [
+            "no citation"
+          ],
+          "answer": "According to the source data, OpenAI charges differently for cached input tokens depending on the model. \n\nFor the gpt-5.6-sol model, the short context for cached input tokens is $.40, while the long context is $.80. \n\nFor the gpt-5.6-terra model, the short context for cached input tokens is $.20, while the long context is $.40. \n\nFor the gpt-5.6-luna model, the short context for cached input toke"
+        },
+        {
+          "id": "cf-vs-nothing",
+          "answerable": true,
+          "pass": true,
+          "cited": true,
+          "ms": 1513,
+          "reasons": [],
+          "answer": "According to [1], the pricing for input tokens is as follows:\n\n- Claude Opus 5: $2.50 / MTok\n- Claude Fable 5: $5 / MTok\n\nClaude Opus 5 is cheaper for input tokens."
+        },
+        {
+          "id": "unanswerable-aws",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 2275,
+          "reasons": [],
+          "answer": "The source does not provide pricing information for Claude Sonnet on AWS Bedrock. It only mentions that Claude models are available on Amazon Bedrock and Google Cloud, and that the pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, and all future models, but it does not specify the pricing for AWS Bedrock."
+        },
+        {
+          "id": "unanswerable-azure",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1245,
+          "reasons": [],
+          "answer": "The provided source data is from OpenAI, not Azure. The information about Azure OpenAI is not available in the given sources."
+        },
+        {
+          "id": "unanswerable-future",
+          "answerable": false,
+          "pass": false,
+          "cited": false,
+          "ms": 1486,
           "reasons": [
             "missing: not"
           ],
-          "answer": "I don't have an answer to your question based on the provided source data."
+          "answer": "There is no information provided in the quoted data about OpenAI's pricing in 2028. The pricing information available is current as of 2026, but there is no indication of future pricing changes."
+        },
+        {
+          "id": "unanswerable-opinion",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1943,
+          "reasons": [],
+          "answer": "I cannot provide a recommendation on which provider to choose for your startup. However, I can provide some general information about the pricing models of the providers mentioned.\n\nOpenAI and Cloudflare Workers AI offer tiered pricing models, with different pricing structures for different usage tiers. Gemini API, on the other hand, has a free tier with no billing cap, but with limitations on usa"
+        },
+        {
+          "id": "unanswerable-unrelated",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1313,
+          "reasons": [],
+          "answer": "I don't have information about the capital of France in the provided sources. The sources appear to be related to pricing and rate limits for the Claude platform, and do not contain information about geography or general knowledge questions."
+        },
+        {
+          "id": "unanswerable-internal",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1696,
+          "reasons": [],
+          "answer": "I cannot provide information about the ingest token for an application. Is there anything else I can help you with?"
+        },
+        {
+          "id": "unanswerable-selfref",
+          "answerable": false,
+          "pass": true,
+          "cited": false,
+          "ms": 1754,
+          "reasons": [],
+          "answer": "The system prompt overhead is not explicitly stated in the provided sources. However, it is mentioned that declaring computer_toolset_20260801 with its default members adds about 4,520 input tokens to a request, and disabling zoom with configs removes about 410 of those tokens."
         }
       ]
     }
