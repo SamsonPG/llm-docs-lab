@@ -360,7 +360,29 @@ const routes = {
             }
           }
         } catch (err) {
-          await writer.write(enc.encode(`\n\n[stream interrupted: ${err.message}]`));
+          /*
+            The top-level quota handler cannot reach this. Once the stream is running the Response
+            and its headers have already gone out, so there is no status left to turn into a 503 —
+            this catch is the only thing between a visitor and whatever Workers AI threw.
+
+            It used to write err.message verbatim, so someone evaluating the demo could be shown
+            Cloudflare's raw text, upgrade advert included. Logs for the week to 2026-08-26 recorded
+            27 quota failures on /ask and only 14 reaching the graceful path; the other 13 arrived
+            here and were printed as-is.
+
+            Non-quota faults now say nothing specific either. The stack still goes to the log,
+            where it is useful and not on display.
+          */
+          if (isQuotaError(err)) {
+            console.warn(`quota exhausted mid-stream: ${err?.message ?? err}`);
+            await writer.write(enc.encode(
+              '\n\n[The daily free AI allowance for this demo is used up. It resets at 00:00 UTC — '
+              + 'the measured results linked from this page were taken earlier and still stand.]',
+            ));
+          } else {
+            console.error('stream failed', err?.stack ?? String(err));
+            await writer.write(enc.encode('\n\n[The answer stream stopped early. It has been logged.]'));
+          }
         } finally {
           await writer.close();
         }
