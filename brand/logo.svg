@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="llm-docs-lab">
+  <!-- Open folio + citation node — docs that point to evidence -->
   <rect width="64" height="64" rx="16" fill="#0C0B10"/>
-  <path d="M20 18h16c5 0 9 4 9 9v19H29c-5 0-9-4-9-9V18z" fill="none" stroke="#E8B44A" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M26 28h12M26 35h9" stroke="#E8B44A" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-  <circle cx="44" cy="22" r="6" fill="#E8B44A"/>
+  <path d="M31.5 17.8C23.8 16.4 16.2 17.8 12.2 20v28.2c4.2-2 11.8-3.2 19.3-1.7V17.8Z" fill="#E8B44A"/>
+  <path d="M32.5 17.8C40.2 16.4 47.8 17.8 51.8 20v28.2c-4.2-2-11.8-3.2-19.3-1.7V17.8Z" fill="#F0C45C"/>
+  <path d="M32 18.4v26.8" stroke="#0C0B10" stroke-width="1.35" stroke-linecap="round" opacity=".32"/>
+  <path d="M39.5 17c3.2-3.4 6.8-5.1 10.2-5.3" fill="none" stroke="#E8B44A" stroke-width="2.1" stroke-linecap="round"/>
+  <circle cx="51" cy="11.5" r="5" fill="#F5C96B"/>
 </svg>

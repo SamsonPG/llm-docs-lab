@@ -69,7 +69,7 @@ export const PAGE = /* html */ `<!doctype html>
 <meta name="twitter:card" content="summary">
 <meta name="author" content="Samson P G">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230C0B10'/%3E%3Cpath d='M20 18h16c5 0 9 4 9 9v19H29c-5 0-9-4-9-9V18z' fill='none' stroke='%23E8B44A' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M26 28h12M26 35h9' stroke='%23E8B44A' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='44' cy='22' r='6' fill='%23E8B44A'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22llm-docs-lab%22%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%230C0B10%22%2F%3E%20%3Cpath%20d%3D%22M31.5%2017.8C23.8%2016.4%2016.2%2017.8%2012.2%2020v28.2c4.2-2%2011.8-3.2%2019.3-1.7V17.8Z%22%20fill%3D%22%23E8B44A%22%2F%3E%20%3Cpath%20d%3D%22M32.5%2017.8C40.2%2016.4%2047.8%2017.8%2051.8%2020v28.2c-4.2-2-11.8-3.2-19.3-1.7V17.8Z%22%20fill%3D%22%23F0C45C%22%2F%3E%20%3Cpath%20d%3D%22M32%2018.4v26.8%22%20stroke%3D%22%230C0B10%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.32%22%2F%3E%20%3Cpath%20d%3D%22M39.5%2017c3.2-3.4%206.8-5.1%2010.2-5.3%22%20fill%3D%22none%22%20stroke%3D%22%23E8B44A%22%20stroke-width%3D%222.1%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Ccircle%20cx%3D%2251%22%20cy%3D%2211.5%22%20r%3D%225%22%20fill%3D%22%23F5C96B%22%2F%3E%20%3C%2Fsvg%3E">
 
 <script type="application/ld+json">
 {
@@ -294,14 +294,14 @@ ${THEME_TOKENS}
     text-decoration: none; color: var(--ink); min-width: 0;
   }
   .brand__mark {
-    width: 32px; height: 32px; border-radius: 10px;
+    width: 36px; height: 36px; border-radius: 11px;
     background: var(--mark-hole); color: var(--gold);
     display: grid; place-items: center; flex: 0 0 auto;
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent),
-      0 10px 24px -14px var(--glow);
+      0 0 0 1px color-mix(in srgb, var(--gold) 28%, transparent),
+      0 12px 28px -14px var(--glow);
   }
-  .brand__mark svg { width: 18px; height: 18px; display: block; }
+  .brand__mark svg { width: 22px; height: 22px; display: block; }
   .brand__name {
     font-weight: 650; letter-spacing: -.025em; font-size: .98rem;
     white-space: nowrap;
@@ -707,7 +707,7 @@ ${THEME_SWITCH_CSS}
 <nav class="nav" id="nav" aria-label="Primary">
   <div class="shell nav__in">
     <a class="brand" href="/">
-      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path class="brand__folio" d="M20 18h16c5 0 9 4 9 9v19H29c-5 0-9-4-9-9V18z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M26 28h12M26 35h9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="brand__node" cx="44" cy="22" r="6" fill="currentColor"/></svg></span>
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M31.5 17.8C23.8 16.4 16.2 17.8 12.2 20v28.2c4.2-2 11.8-3.2 19.3-1.7V17.8Z" fill="currentColor"/><path d="M32.5 17.8C40.2 16.4 47.8 17.8 51.8 20v28.2c-4.2-2-11.8-3.2-19.3-1.7V17.8Z" fill="currentColor" opacity=".88"/><path d="M32 18.4v26.8" stroke="#0C0B10" stroke-width="1.35" stroke-linecap="round" opacity=".32"/><path d="M39.5 17c3.2-3.4 6.8-5.1 10.2-5.3" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><circle cx="51" cy="11.5" r="5" fill="currentColor"/></svg></span>
       <span class="brand__name">llm-docs-lab</span>
     </a>
     <div class="nav__links">
