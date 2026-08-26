@@ -447,6 +447,19 @@ ${THEME_SWITCH_CSS}
   .go:active { transform: translateY(1px); }
   .go[disabled] { opacity: .5; cursor: progress; }
 
+  .quota {
+    margin: .85rem 0 0;
+    font-size: .8125rem;
+    color: var(--ink-3);
+    display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  }
+  .quota__bar {
+    width: 108px; height: 5px; border-radius: 999px;
+    background: var(--sink); overflow: hidden; flex: 0 0 auto;
+  }
+  .quota__fill { display: block; height: 100%; background: var(--gold); border-radius: 999px; }
+  .quota__fill.is-low { background: var(--warn); }
+
   .chips {
     display: flex; flex-wrap: wrap; gap: .45rem;
     margin: 1rem 0 0; padding: 0; list-style: none;
@@ -712,6 +725,15 @@ ${THEME_SWITCH_HTML}
       <li><button type="button" data-q="What is the base input token price for Claude Opus 5?">Claude Opus price</button></li>
       <li><button type="button" data-q="What does AWS Bedrock charge for Claude Sonnet?">something it cannot answer</button></li>
     </ul>
+
+    <!--
+      The allowance, in the open. This demo runs on a free daily allowance and used to
+      simply stop working when it ran out, which reads as a broken project rather than a
+      deliberate constraint. Saying what is left, and when it returns, turns a failure
+      into a fact a visitor can plan around. Hidden until the figure loads so the page
+      never shows an empty frame, and it says "estimated" because it is.
+    -->
+    <p class="quota" id="quota" hidden></p>
   </section>
 
   <section class="shell answer-wrap" id="answer-wrap" hidden>
@@ -760,6 +782,54 @@ ${THEME_SWITCH_HTML}
   /* ── Theme ──────────────────────────────────────────────────────────── */
 
 ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────────────────────────────── */
+
+  /* -- Allowance, shown rather than discovered by hitting it -- */
+
+  const quotaEl = document.getElementById('quota');
+
+  function humanUntil(iso) {
+    const ms = new Date(iso).getTime() - Date.now();
+    if (!Number.isFinite(ms) || ms <= 0) return 'shortly';
+    const h = Math.floor(ms / 3600000);
+    const m = Math.round((ms % 3600000) / 60000);
+    return h ? h + 'h ' + m + 'm' : m + 'm';
+  }
+
+  async function refreshQuota() {
+    if (!quotaEl) return;
+    try {
+      const res = await fetch('/quota', { headers: { accept: 'application/json' } });
+      if (!res.ok) return;
+      const q = await res.json();
+      if (q.estimatedRemaining === null || q.estimatedRemaining === undefined) return;
+      const pct = Math.max(0, Math.min(100, Math.round((q.estimatedRemaining / q.dailyFreeNeurons) * 100)));
+      const low = pct <= 15;
+      quotaEl.textContent = '';
+      const bar = document.createElement('span');
+      bar.className = 'quota__bar';
+      const fill = document.createElement('span');
+      fill.className = 'quota__fill' + (low ? ' is-low' : '');
+      fill.style.width = pct + '%';
+      bar.appendChild(fill);
+      const text = document.createElement('span');
+      /*
+        Percentage first because it is the part a visitor can act on, the raw neuron
+        counts after it for anyone who wants them, and "estimated" said out loud: the
+        streaming API returns no usage figures, so this is computed from token estimates.
+      */
+      text.textContent = 
+        pct + '% of the free daily AI allowance left (estimated, ' + q.estimatedRemaining.toLocaleString()
+        + ' of ' + q.dailyFreeNeurons.toLocaleString() + ' neurons) · resets in ' + humanUntil(q.resetsAt);
+      quotaEl.appendChild(bar);
+      quotaEl.appendChild(text);
+      quotaEl.hidden = false;
+      quotaEl.title = q.basis || '';
+    } catch (e) {
+      /* A missing figure is not worth an error message; the line simply stays hidden. */
+    }
+  }
+
+  refreshQuota();
 
   const nav = document.getElementById('nav');
   const toTop = document.getElementById('totop');

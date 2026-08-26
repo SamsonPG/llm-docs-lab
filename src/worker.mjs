@@ -186,6 +186,83 @@ async function answerCacheKey(env, question, model) {
   return 'llmqa:a:' + stamp + ':' + hex;
 }
 
+/*
+  Spend tracking, so the page can say how much of the day is left instead of simply
+  failing one afternoon with no explanation.
+
+  Cloudflare exposes no "neurons remaining" API to a Worker, and the streaming call
+  returns no usage block, so this is an ESTIMATE and is labelled as one everywhere it
+  surfaces. It counts characters, divides by four for tokens, and applies the published
+  neuron rates. On a site whose whole argument is that its numbers are measured,
+  presenting a guess as a reading would be the one unforgivable thing — so /quota ships
+  the basis alongside the figure and the page repeats it.
+
+  Two known limits, neither hidden: KV is not atomic, so two answers finishing together
+  can lose an increment, and chars/4 is approximate. Both push the estimate LOW, which
+  means the page under-promises headroom rather than over-promising it.
+*/
+const DAILY_FREE_NEURONS = 10000;
+
+/*
+  One agent run is five model calls. Starting one with almost nothing left spends the
+  remainder and still fails partway, which costs a visitor a half-finished trace and the
+  next visitor everything. This is the floor below which it declines instead.
+*/
+const AGENT_MIN_NEURONS = 1500;
+
+/** Neurons per million tokens, from developers.cloudflare.com/workers-ai/platform/pricing */
+const NEURON_RATES = {
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast': { input: 26668, output: 204805 },
+  '@cf/meta/llama-3.1-8b-instruct-fp8': { input: 13636, output: 26364 },
+  '@cf/meta/llama-3.2-3b-instruct': { input: 4625, output: 30475 },
+};
+const EMBEDDING_NEURONS_PER_M = 1841;
+
+/** UTC day. The allowance resets at 00:00 UTC, so the counter follows that clock. */
+function spendKey(now = new Date()) {
+  return 'llmqa:spend:' + now.toISOString().slice(0, 10);
+}
+
+/** When the allowance comes back. */
+function nextResetISO(now = new Date()) {
+  const d = new Date(now);
+  d.setUTCHours(24, 0, 0, 0);
+  return d.toISOString();
+}
+
+/** Crude on purpose; every caller presents the result as an estimate. */
+const estTokens = (text) => Math.ceil(String(text ?? '').length / 4);
+
+function estimateNeurons(model, inputText, outputText) {
+  const rate = NEURON_RATES[model] ?? NEURON_RATES[DEFAULT_MODEL];
+  const inTok = estTokens(inputText);
+  const outTok = estTokens(outputText);
+  const embed = (inTok / 1e6) * EMBEDDING_NEURONS_PER_M;
+  return Math.ceil((inTok / 1e6) * rate.input + (outTok / 1e6) * rate.output + embed);
+}
+
+async function readSpend(env) {
+  if (!cacheAvailable(env)) return null;
+  try {
+    const stored = await env.ANSWERS.get(spendKey());
+    const n = Number(stored);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
+  } catch {
+    return null;
+  }
+}
+
+async function addSpend(env, neurons) {
+  if (!cacheAvailable(env) || !(neurons > 0)) return;
+  try {
+    const cur = (await readSpend(env)) ?? 0;
+    // 48h: outlives the day it describes, then cleans itself up.
+    await env.ANSWERS.put(spendKey(), String(cur + neurons), { expirationTtl: 60 * 60 * 48 });
+  } catch {
+    /* A counter that cannot be written must never affect an answer. */
+  }
+}
+
 const routes = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -261,6 +338,22 @@ const routes = {
         '- Source, evaluation harness and measured limits: https://github.com/acsavenhq/llm-docs-lab',
         '- Author: https://samsonpg.github.io',
       ].join('\n'), { headers: { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
+    }
+
+    /*
+      What is left of today, in terms a visitor can act on. Estimated, and says so —
+      see the note above the helpers.
+    */
+    if (url.pathname === '/quota') {
+      const used = await readSpend(env);
+      return json({
+        estimated: true,
+        basis: 'counted from token estimates against the neuron rates Cloudflare publishes, not an authoritative balance',
+        dailyFreeNeurons: DAILY_FREE_NEURONS,
+        estimatedUsed: used,
+        estimatedRemaining: used === null ? null : Math.max(0, DAILY_FREE_NEURONS - used),
+        resetsAt: nextResetISO(),
+      });
     }
 
     if (url.pathname === '/health') {
@@ -470,6 +563,17 @@ const routes = {
             before it lands. A partial answer cached is worse than none, which is why
             `clean` gates it rather than merely checking that some text arrived.
           */
+          /*
+            Counted whether or not the answer is cacheable: the neurons were spent either
+            way, and counting only the cacheable ones would leave the displayed remainder
+            reading high. A cache HIT is deliberately not counted, because it spends none
+            — which is the whole point of it.
+          */
+          if (full.trim() && ctx?.waitUntil) {
+            const promptChars = sources.map((x) => x.text).join(' ') + raw;
+            ctx.waitUntil(addSpend(env, estimateNeurons(model, promptChars, full)));
+          }
+
           if (clean && cacheKey && full.trim() && ctx?.waitUntil) {
             ctx.waitUntil(
               env.ANSWERS.put(
@@ -490,6 +594,23 @@ const routes = {
           'x-sources': encodeURIComponent(JSON.stringify(compact)),
         },
       });
+    }
+
+    /*
+      One agent run is five model calls, so starting it on a nearly-spent day burns what
+      is left and still fails partway. Declining up front costs nothing and says why.
+    */
+    {
+      const usedNow = await readSpend(env);
+      const leftNow = usedNow === null ? null : DAILY_FREE_NEURONS - usedNow;
+      if (leftNow !== null && leftNow < AGENT_MIN_NEURONS) {
+        return json({
+          error: "An agent run makes five model calls, and the estimated free allowance left today is too small to finish one. It resets at 00:00 UTC.",
+          reason: "quota-guard",
+          estimatedRemaining: leftNow,
+          resetsAt: nextResetISO(),
+        }, 503);
+      }
     }
 
     /*
