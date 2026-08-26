@@ -102,3 +102,49 @@ test('routes that need no model still work while the allowance is gone', async (
     assert.equal(res.status, 200, `${path} must still serve with no AI allowance left`);
   }
 });
+
+/*
+  An unset secret must authenticate nobody.
+
+  Every operator check passes `env.INGEST_TOKEN ?? ''`, and a request with no Authorization
+  header produces the same empty string. The comparison used to accept that pair, so with the
+  secret missing an anonymous caller WAS an operator: /ingest became an open index-poisoning
+  API and the rate limiter — the thing standing between one script and the day's whole AI
+  allowance — waved everyone through.
+
+  Production was never exposed, because the secret is set. That is what made it dangerous:
+  nothing would have failed visibly, and a bad rotation or a fresh environment would have
+  opened it all silently. These tests exist so it cannot come back that quietly.
+*/
+const ingest = (token) =>
+  new Request('https://llmdocs.acsaven.com/ingest', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'cf-connecting-ip': `10.0.1.${Math.floor(Math.random() * 250) + 1}`,
+      ...(token === null ? {} : { authorization: `Bearer ${token}` }),
+    },
+    body: JSON.stringify([{ id: 'x', text: 'y' }]),
+  });
+
+const envNoSecret = () => ({
+  AI: { run: async () => ({ data: [[0]] }) },
+  VECTORIZE: { upsert: async () => ({}), query: async () => ({ matches: [] }) },
+});
+
+test('with INGEST_TOKEN unset, an anonymous request is NOT an operator', async () => {
+  for (const token of [null, '', 'anything']) {
+    const res = await worker.fetch(ingest(token), envNoSecret());
+    assert.equal(res.status, 401, `unset secret must reject (token: ${JSON.stringify(token)})`);
+  }
+});
+
+test('with INGEST_TOKEN set, only the exact token is accepted', async () => {
+  const env = { ...envNoSecret(), INGEST_TOKEN: 'the-real-secret' };
+  for (const token of [null, '', 'wrong', 'the-real-secre', 'the-real-secretX']) {
+    const res = await worker.fetch(ingest(token), env);
+    assert.equal(res.status, 401, `must reject: ${JSON.stringify(token)}`);
+  }
+  const ok = await worker.fetch(ingest('the-real-secret'), env);
+  assert.notEqual(ok.status, 401, 'the correct token must still be accepted');
+});

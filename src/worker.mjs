@@ -81,12 +81,31 @@ function rateLimited(ip) {
   return hits.length > MAX_PER_WINDOW;
 }
 
-/** Compared without early exit, so a wrong token cannot be found one character at a time. */
+/**
+ * Compared without early exit, so a wrong token cannot be found one character at a time.
+ *
+ * THE EMPTY CHECK IS THE IMPORTANT LINE. Every call site passes `env.INGEST_TOKEN ?? ''`,
+ * and a request with no Authorization header produces `given = ''` the same way. Without
+ * the guard below those two match, so an unset secret authenticated ANY anonymous request:
+ * /ingest became an open index-poisoning API, /ingest/delete became an open delete, and the
+ * rate limiter — which exists so one script cannot drain the day's AI allowance — waved
+ * everyone through as an operator.
+ *
+ * It was not reachable in production because the secret is set. That is exactly what makes
+ * it worth fixing: nothing would have failed visibly, and a bad rotation or a fresh
+ * environment would have opened the whole surface silently.
+ *
+ * The length comparison is also folded into the XOR rather than returning early, so the
+ * token's length no longer leaks through timing either.
+ */
 function tokenMatches(given, expected) {
   if (typeof given !== 'string' || typeof expected !== 'string') return false;
-  if (given.length !== expected.length) return false;
-  let diff = 0;
-  for (let i = 0; i < given.length; i += 1) diff |= given.charCodeAt(i) ^ expected.charCodeAt(i);
+  if (expected.length === 0) return false;
+  let diff = given.length ^ expected.length;
+  const max = Math.max(given.length, expected.length);
+  for (let i = 0; i < max; i += 1) {
+    diff |= (given.charCodeAt(i) || 0) ^ (expected.charCodeAt(i) || 0);
+  }
   return diff === 0;
 }
 
