@@ -579,19 +579,34 @@ const routes = {
             }
           }
         } catch (err) {
-          if (isQuotaError(err)) {
-            console.warn(`quota exhausted (events): ${err?.message ?? err}`);
-            await send('error', {
-              reason: 'quota',
-              message: 'The daily free AI allowance for this demo is used up. It resets at 00:00 UTC.',
-              resetsAt: nextResetISO(),
-            });
-          } else {
-            console.error('events stream failed', err?.stack ?? String(err));
-            await send('error', { reason: 'fault', message: 'Something failed inside the worker. It has been logged.' });
+          /*
+            The log always happens; telling the visitor might not.
+
+            One way to arrive here is that the reader disconnected — and in that case this
+            frame rejects too. An unguarded second throw from inside a catch escapes the
+            detached task with it. So: record it first, where it is useful, then make a
+            best-effort attempt to say something to whoever may still be listening.
+          */
+          const quota = isQuotaError(err);
+          if (quota) console.warn(`quota exhausted (events): ${err?.message ?? err}`);
+          else console.error('events stream failed', err?.stack ?? String(err));
+          try {
+            await send('error', quota
+              ? {
+                reason: 'quota',
+                message: 'The daily free AI allowance for this demo is used up. It resets at 00:00 UTC.',
+                resetsAt: nextResetISO(),
+              }
+              : { reason: 'fault', message: 'Something failed inside the worker. It has been logged.' });
+          } catch {
+            /* Reader gone. The log above is the record that matters. */
           }
         } finally {
-          await writer.close();
+          try {
+            await writer.close();
+          } catch {
+            /* Already closed or errored; there is nothing left to flush. */
+          }
         }
       })();
 
@@ -706,35 +721,52 @@ const routes = {
             where it is useful and not on display.
           */
           clean = false;   // a partial or failed answer must never be stored
-          if (isQuotaError(err)) {
-            console.warn(`quota exhausted mid-stream: ${err?.message ?? err}`);
-            await writer.write(enc.encode(
-              '\n\n[The daily free AI allowance for this demo is used up. It resets at 00:00 UTC — '
-              + 'the measured results linked from this page were taken earlier and still stand.]',
-            ));
-          } else {
-            console.error('stream failed', err?.stack ?? String(err));
-            await writer.write(enc.encode('\n\n[The answer stream stopped early. It has been logged.]'));
+
+          /*
+            A disconnected reader is one of the ways to land here, and in that case the write
+            below rejects as well. A second throw from inside a catch escapes this detached
+            task entirely, so the log comes first and the message to the visitor is
+            best-effort: if anyone is still reading they get an explanation, and if not, the
+            failure is already recorded where it is useful.
+          */
+          const quota = isQuotaError(err);
+          if (quota) console.warn(`quota exhausted mid-stream: ${err?.message ?? err}`);
+          else console.error('stream failed', err?.stack ?? String(err));
+
+          const note = quota
+            ? '\n\n[The daily free AI allowance for this demo is used up. It resets at 00:00 UTC — '
+              + 'the measured results linked from this page were taken earlier and still stand.]'
+            : '\n\n[The answer stream stopped early. It has been logged.]';
+          try {
+            await writer.write(enc.encode(note));
+          } catch {
+            /* Reader gone. The log above is the record that matters. */
           }
         } finally {
-          await writer.close();
           /*
-            Stored only after a clean finish, and only through waitUntil: the response has
-            already gone out by now, so without it the runtime is free to cancel this write
-            before it lands. A partial answer cached is worse than none, which is why
-            `clean` gates it rather than merely checking that some text arrived.
-          */
-          /*
-            Counted whether or not the answer is cacheable: the neurons were spent either
-            way, and counting only the cacheable ones would leave the displayed remainder
-            reading high. A cache HIT is deliberately not counted, because it spends none
-            — which is the whole point of it.
+            THE BOOKKEEPING RUNS BEFORE THE CLOSE, AND THE CLOSE CANNOT THROW PAST IT.
+
+            writer.close() rejects when the reader has already gone — a visitor navigating
+            away mid-answer, which is common against a model that takes seconds to a first
+            token. It used to be the first statement here, so that rejection skipped
+            everything below it: the neurons were spent and never counted, leaving the
+            allowance display reading high, and a complete answer was thrown away instead
+            of cached. The request that costs the most is the one most likely to be
+            abandoned, so this was not a rare path.
+
+            The work is ordered by what survives a hang-up. Counting and caching depend only
+            on `full`, which is already complete; closing the pipe is last and wrapped,
+            because by then there is nobody left to tell.
           */
           if (full.trim() && ctx?.waitUntil) {
             const promptChars = sources.map((x) => x.text).join(' ') + raw;
             ctx.waitUntil(addSpend(env, estimateNeurons(model, promptChars, full)));
           }
 
+          /*
+            Cached only after a clean finish. A partial answer stored is worse than none,
+            which is why `clean` gates it rather than merely checking that some text arrived.
+          */
           if (clean && cacheKey && full.trim() && ctx?.waitUntil) {
             ctx.waitUntil(
               env.ANSWERS.put(
@@ -743,6 +775,12 @@ const routes = {
                 { expirationTtl: CACHE_TTL_SECONDS },
               ).catch(() => { /* a cache that cannot be written is not an outage */ }),
             );
+          }
+
+          try {
+            await writer.close();
+          } catch {
+            /* The reader hung up. Nothing to report and nobody to report it to. */
           }
         }
       })();
