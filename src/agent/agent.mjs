@@ -152,9 +152,29 @@ export function parseToolCall(reply) {
  *
  * @returns {{answer:string, trace:Array, steps:number, tokens:number, ms:number, stoppedBy:string}}
  */
-export async function runAgent(env, question, { model = AGENT_MODEL } = {}) {
+/*
+  `onEvent` reports each step the moment it happens, instead of only in the trace
+  returned at the end. The ceilings in this loop are the interesting part of it and were
+  invisible until it finished — including which one stopped the run.
+
+  Optional and defaulting to nothing, so the eval and anything calling this for the
+  answer alone behave exactly as before.
+*/
+export async function runAgent(env, question, { model = AGENT_MODEL, onEvent = null } = {}) {
   const started = Date.now();
   const trace = [];
+  const emit = (e) => {
+    if (!onEvent) return;
+    try { onEvent(e); } catch { /* a listener must never break the run it is watching */ }
+  };
+
+  emit({
+    kind: 'limits',
+    maxSteps: LIMITS.maxSteps,
+    maxToolCalls: LIMITS.maxToolCalls,
+    maxMs: LIMITS.maxMs,
+    maxTokens: LIMITS.maxTokens,
+  });
   const messages = [
     { role: 'system', content: systemPrompt() },
     { role: 'user', content: `Question: ${neutralise(question)}` },
@@ -171,9 +191,11 @@ export async function runAgent(env, question, { model = AGENT_MODEL } = {}) {
       Checking afterwards means the call that breaches the limit has already been paid for,
       which on the last step of a runaway loop is exactly the money the cap exists to save.
     */
-    if (Date.now() - started > LIMITS.maxMs) { stoppedBy = 'time limit'; break; }
-    if (tokens > LIMITS.maxTokens) { stoppedBy = 'token budget'; break; }
-    if (toolCalls >= LIMITS.maxToolCalls) { stoppedBy = 'tool call limit'; break; }
+    if (Date.now() - started > LIMITS.maxMs) { stoppedBy = 'time limit'; emit({ kind: 'stopped', by: stoppedBy, step }); break; }
+    if (tokens > LIMITS.maxTokens) { stoppedBy = 'token budget'; emit({ kind: 'stopped', by: stoppedBy, step }); break; }
+    if (toolCalls >= LIMITS.maxToolCalls) { stoppedBy = 'tool call limit'; emit({ kind: 'stopped', by: stoppedBy, step }); break; }
+
+    emit({ kind: 'thinking', step, tokens, toolCalls, elapsedMs: Date.now() - started });
 
     const res = await env.AI.run(model, { messages, temperature: 0.1, max_tokens: 500 });
     tokens += res.usage?.total_tokens ?? 0;
@@ -182,14 +204,17 @@ export async function runAgent(env, question, { model = AGENT_MODEL } = {}) {
     const call = parseToolCall(reply);
     if (call.error) {
       trace.push({ step, error: call.error, raw: String(reply).slice(0, 200) });
+      emit({ kind: 'retry', step, error: call.error });
       messages.push({ role: 'assistant', content: String(reply) });
       messages.push({ role: 'user', content: `That did not parse: ${call.error}. Reply with one JSON object only.` });
       continue;
     }
 
     trace.push({ step, tool: call.tool, why: call.why, args: call.args });
+    emit({ kind: 'tool', step, tool: call.tool, why: call.why, args: call.args });
 
     if (call.tool === 'finish') {
+      emit({ kind: 'done', steps: step, tokens, ms: Date.now() - started, stoppedBy: 'finish' });
       return {
         answer: String(call.args.answer ?? '').trim() || 'The agent finished without producing an answer.',
         trace, steps: step, tokens, ms: Date.now() - started, stoppedBy: 'finish',
@@ -210,6 +235,7 @@ export async function runAgent(env, question, { model = AGENT_MODEL } = {}) {
       */
       result = `The tool failed: ${err.message}. Try different arguments or call finish.`;
       trace.push({ step, toolError: err.message });
+      emit({ kind: 'tool-error', step, tool: call.tool, error: err.message });
     }
 
     messages.push({ role: 'assistant', content: JSON.stringify({ tool: call.tool, args: call.args }) });

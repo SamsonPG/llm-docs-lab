@@ -263,6 +263,31 @@ async function addSpend(env, neurons) {
   }
 }
 
+/*
+  Server-sent events, for the pipeline view.
+
+  The plain-text /ask is untouched and remains the default: the eval scores the endpoint
+  the UI uses, and quietly changing its wire format would invalidate every number on the
+  results page. Events are opt-in with ?events=1.
+
+  Every frame carries measured data. A step appears when it has actually happened and
+  reports the milliseconds it actually took, because a progress display that animates
+  through invented stages would undercut the one thing this project is arguing.
+*/
+function sseHeaders() {
+  return {
+    ...SECURITY_HEADERS,
+    'content-type': 'text/event-stream; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-accel-buffering': 'no',
+  };
+}
+
+/** One frame. Named events so a client can switch on them without parsing payloads. */
+function sseFrame(event, data) {
+  return 'event: ' + event + '\ndata: ' + JSON.stringify(data) + '\n\n';
+}
+
 const routes = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -435,6 +460,123 @@ const routes = {
 
       const topK = Math.min(Math.max(Number(url.searchParams.get('k') ?? 5), 1), 20);
       return json({ query: q, matches: await retrieve(env, q, { topK }) });
+    }
+
+    /*
+      The same answer, narrated. The response is returned before any work starts so the
+      first step can be shown while the model is still being called — the whole point is
+      that a visitor sees retrieval finish before generation begins.
+    */
+    if (url.pathname === '/ask' && url.searchParams.get('events') === '1') {
+      const raw = url.searchParams.get('q') ?? '';
+      if (!raw.trim()) return json({ error: 'missing q' }, 400);
+      if (raw.length > MAX_QUESTION_CHARS) {
+        return json({ error: 'question too long (max ' + MAX_QUESTION_CHARS + ' characters)' }, 413);
+      }
+      if (!isOperator(request, env) && rateLimited(ip)) {
+        return json({ error: 'rate limited, try again shortly' }, 429);
+      }
+
+      const requested = url.searchParams.get('model');
+      const model = ALLOWED_MODELS.includes(requested) ? requested : DEFAULT_MODEL;
+
+      const out = new TransformStream();
+      const writer = out.writable.getWriter();
+      const enc = new TextEncoder();
+      const send = (event, data) => writer.write(enc.encode(sseFrame(event, data)));
+
+      (async () => {
+        const startedAt = Date.now();
+        try {
+          const cacheKey = await answerCacheKey(env, raw.trim(), model);
+          if (cacheKey) {
+            let hit = null;
+            try { hit = await env.ANSWERS.get(cacheKey, 'json'); } catch { /* generate instead */ }
+            if (hit && typeof hit.answer === 'string' && hit.answer) {
+              /*
+                A hit is reported as its own step rather than hidden. It explains an answer
+                arriving instantly, and it is the honest reason no neurons were spent.
+              */
+              await send('step', { name: 'cache', ms: Date.now() - startedAt, detail: 'answered earlier, no model call' });
+              await send('sources', hit.sources ?? []);
+              await send('token', { text: hit.answer });
+              await send('done', { ms: Date.now() - startedAt, cached: true });
+              return;
+            }
+          }
+
+          const steps = [];
+          const { stream, sources } = await answerQuestionStream(env, raw.trim(), {
+            model,
+            onStep: (st) => { steps.push(st); },
+          });
+          for (const st of steps) await send('step', st);
+
+          if (!stream) {
+            await send('sources', []);
+            await send('token', { text: 'No sources were retrieved for that question, so there is nothing to answer from.' });
+            await send('done', { ms: Date.now() - startedAt, grounded: false });
+            return;
+          }
+
+          const compact = sources.map((x) => ({
+            text: x.text.slice(0, 400), source: x.source, fetchedAt: x.fetchedAt, score: x.score,
+          }));
+          await send('sources', compact);
+
+          const genStart = Date.now();
+          let buffer = '';
+          let full = '';
+          const dec = new TextDecoder();
+          for await (const part of stream) {
+            buffer += typeof part === 'string' ? part : dec.decode(part, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() ?? '';
+            for (const line of lines) {
+              if (!line.startsWith('data:')) continue;
+              const payload = line.slice(5).trim();
+              if (!payload || payload === '[DONE]') continue;
+              try {
+                const token = JSON.parse(payload).response;
+                if (token) { full += token; await send('token', { text: token }); }
+              } catch { /* a partial frame; the next chunk completes it */ }
+            }
+          }
+
+          await send('step', { name: 'generate', ms: Date.now() - genStart, detail: model });
+          await send('done', { ms: Date.now() - startedAt, chars: full.length });
+
+          if (full.trim() && ctx?.waitUntil) {
+            const promptChars = sources.map((x) => x.text).join(' ') + raw;
+            ctx.waitUntil(addSpend(env, estimateNeurons(model, promptChars, full)));
+            if (cacheKey) {
+              ctx.waitUntil(
+                env.ANSWERS.put(
+                  cacheKey,
+                  JSON.stringify({ answer: full, sources: compact, model, at: new Date().toISOString() }),
+                  { expirationTtl: CACHE_TTL_SECONDS },
+                ).catch(() => {}),
+              );
+            }
+          }
+        } catch (err) {
+          if (isQuotaError(err)) {
+            console.warn(`quota exhausted (events): ${err?.message ?? err}`);
+            await send('error', {
+              reason: 'quota',
+              message: 'The daily free AI allowance for this demo is used up. It resets at 00:00 UTC.',
+              resetsAt: nextResetISO(),
+            });
+          } else {
+            console.error('events stream failed', err?.stack ?? String(err));
+            await send('error', { reason: 'fault', message: 'Something failed inside the worker. It has been logged.' });
+          }
+        } finally {
+          await writer.close();
+        }
+      })();
+
+      return new Response(out.readable, { headers: sseHeaders() });
     }
 
     /* ── The answer endpoint the UI calls. Streams tokens as they arrive. ── */

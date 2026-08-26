@@ -39,9 +39,25 @@ export function replyText(res) {
  * text" and "did it write a good answer" — need to be measurable independently, or a bad
  * score cannot be attributed to either.
  */
-export async function retrieve(env, question, { topK = 6 } = {}) {
+/*
+  `onStep` exists so a caller can show the pipeline as it runs rather than after it
+  finishes. It is optional and defaults to nothing, so the eval and the agent — which
+  want the result, not a narration — are unaffected.
+
+  The timings are measured, not estimated. A progress display built on invented numbers
+  would be worse than none on a page whose argument is that its figures are real.
+*/
+export async function retrieve(env, question, { topK = 6, onStep = null } = {}) {
+  const t0 = Date.now();
   const { data } = await env.AI.run(EMBEDDING_MODEL, { text: [question] });
+  const embedMs = Date.now() - t0;
+  if (onStep) onStep({ name: 'embed', ms: embedMs, detail: EMBEDDING_MODEL });
+
+  const t1 = Date.now();
   const found = await env.VECTORIZE.query(data[0], { topK, returnMetadata: 'all' });
+  if (onStep) {
+    onStep({ name: 'retrieve', ms: Date.now() - t1, detail: found.matches.length + ' of ' + topK + ' requested' });
+  }
 
   return found.matches.map((m) => ({
     id: m.id,
@@ -108,9 +124,11 @@ export async function answerQuestion(env, question, { model = DEFAULT_MODEL, top
  * Streaming matters here beyond feel: a 70B model takes seconds to a first token, and a
  * page that shows nothing for that long reads as broken.
  */
-export async function answerQuestionStream(env, question, { model = DEFAULT_MODEL, topK = 6 } = {}) {
-  const sources = await retrieve(env, question, { topK });
+export async function answerQuestionStream(env, question, { model = DEFAULT_MODEL, topK = 6, onStep = null } = {}) {
+  const sources = await retrieve(env, question, { topK, onStep });
   if (!sources.length) return { stream: null, sources: [] };
+
+  if (onStep) onStep({ name: 'generate', ms: null, detail: model, pending: true });
 
   const stream = await env.AI.run(model, {
     messages: buildMessages(question, sources),

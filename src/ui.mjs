@@ -447,6 +447,30 @@ ${THEME_SWITCH_CSS}
   .go:active { transform: translateY(1px); }
   .go[disabled] { opacity: .5; cursor: progress; }
 
+  .pipe {
+    list-style: none; margin: 1rem 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    font-size: .8125rem;
+  }
+  .pipe li {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .3rem .6rem;
+    border: 1px solid var(--glass-edge-soft);
+    border-radius: 999px;
+    background: var(--glass-bg);
+    color: var(--ink-2);
+  }
+  .pipe .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold); flex: 0 0 auto;
+  }
+  /* Pending pulses; reduced-motion users get a steady dot, handled globally below. */
+  .pipe li.is-pending .dot { animation: pipe-pulse 1.1s ease-in-out infinite; }
+  .pipe li.is-error { border-color: var(--warn); color: var(--warn); }
+  .pipe li.is-error .dot { background: var(--warn); }
+  .pipe .ms { color: var(--ink-3); font-family: ui-monospace, "Cascadia Mono", monospace; }
+  @keyframes pipe-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
   .quota {
     margin: .85rem 0 0;
     font-size: .8125rem;
@@ -734,6 +758,20 @@ ${THEME_SWITCH_HTML}
       never shows an empty frame, and it says "estimated" because it is.
     -->
     <p class="quota" id="quota" hidden></p>
+
+    <!--
+      The pipeline, while it runs.
+
+      This is a retrieval system, not a chat box, and until now the difference was
+      invisible: a question went in and prose came out. Showing embed, retrieve and
+      generate as they complete — with the milliseconds each actually took — is the
+      difference between claiming there is a RAG pipeline and demonstrating one.
+
+      Every figure here is measured server-side and sent as it happens. Nothing is
+      animated on a timer, because a fake progress bar on this page would discredit the
+      measured numbers sitting next to it.
+    -->
+    <ol class="pipe" id="pipe" hidden aria-live="polite" aria-label="Pipeline progress"></ol>
   </section>
 
   <section class="shell answer-wrap" id="answer-wrap" hidden>
@@ -782,6 +820,92 @@ ${THEME_SWITCH_HTML}
   /* ── Theme ──────────────────────────────────────────────────────────── */
 
 ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────────────────────────────── */
+
+  /* -- Pipeline strip: the steps the server reports, as it reports them -- */
+
+  const pipeEl = document.getElementById('pipe');
+
+  function pipeReset() {
+    if (!pipeEl) return;
+    pipeEl.textContent = '';
+    pipeEl.hidden = false;
+  }
+
+  /*
+    One chip per step. "pending" renders without a duration because there is not one yet —
+    writing a number before the step finishes would be inventing it.
+  */
+  function pipeStep(step) {
+    if (!pipeEl) return;
+    const id = 'pipe-' + step.name;
+    let li = pipeEl.querySelector('[data-id="' + id + '"]');
+    if (!li) {
+      li = document.createElement('li');
+      li.dataset.id = id;
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      const label = document.createElement('span');
+      label.className = 'label';
+      const ms = document.createElement('span');
+      ms.className = 'ms';
+      li.append(dot, label, ms);
+      pipeEl.appendChild(li);
+    }
+    const NAMES = {
+      embed: 'embed question',
+      retrieve: 'retrieve sources',
+      generate: 'generate answer',
+      cache: 'answered from cache',
+    };
+    li.querySelector('.label').textContent = NAMES[step.name] || step.name;
+    li.querySelector('.ms').textContent = step.ms === null || step.ms === undefined ? '' : step.ms + 'ms';
+    li.classList.toggle('is-pending', Boolean(step.pending));
+    if (step.detail) li.title = step.detail;
+  }
+
+  function pipeError(message) {
+    if (!pipeEl) return;
+    const li = document.createElement('li');
+    li.className = 'is-error';
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    const label = document.createElement('span');
+    label.textContent = message;
+    li.append(dot, label);
+    pipeEl.appendChild(li);
+  }
+
+  /*
+    A minimal SSE reader.
+
+    EventSource cannot be used: it only issues GETs it controls, and it cannot be aborted by
+    the AbortController that already cancels an in-flight question when a new one is asked.
+  */
+  async function readEvents(res, handlers) {
+    const reader = res.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      const frames = buf.split('\\n\\n');
+      buf = frames.pop() ?? '';
+      for (const frame of frames) {
+        let event = 'message';
+        let data = '';
+        for (const line of frame.split('\\n')) {
+          if (line.startsWith('event:')) event = line.slice(6).trim();
+          else if (line.startsWith('data:')) data += line.slice(5).trim();
+        }
+        if (!data) continue;
+        let parsed;
+        try { parsed = JSON.parse(data); } catch { continue; }
+        if (handlers[event]) handlers[event](parsed);
+      }
+    }
+  }
+
 
   /* -- Allowance, shown rather than discovered by hitting it -- */
 
@@ -1058,7 +1182,8 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
     out.textContent = 'Searching seven documents…';
 
     try {
-      const res = await fetch('/ask?q=' + encodeURIComponent(q), { signal: inflight.signal });
+      pipeReset();
+      const res = await fetch('/ask?events=1&q=' + encodeURIComponent(q), { signal: inflight.signal });
 
       /*
         A rate limit is a normal outcome on a free tier, not an error to hide behind
@@ -1068,6 +1193,7 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
       if (res.status === 429) {
         out.classList.remove('is-waiting');
         out.textContent = 'Rate limited. This runs on a free allowance shared by everyone who visits — wait about a minute and ask again.';
+        pipeError('rate limited');
         return;
       }
       /*
@@ -1081,28 +1207,41 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
         try { said = (await res.clone().json()).error || ''; } catch (e) { /* fall through to the default */ }
         out.classList.remove('is-waiting');
         out.textContent = said || 'The daily free AI allowance for this demo is used up. It resets at 00:00 UTC.';
+        pipeError('allowance used up');
         return;
       }
       if (!res.ok) throw new Error('HTTP ' + res.status);
 
-      let sources = [];
-      try { sources = JSON.parse(decodeURIComponent(res.headers.get('x-sources') || '%5B%5D')); }
-      catch (err) { /* the answer still renders without them */ }
-      renderSources(sources);
-
       out.classList.remove('is-waiting');
       out.textContent = '';
-      const reader = res.body.getReader();
-      const dec = new TextDecoder();
-      let buf = '';
-      for (;;) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        buf += dec.decode(value, { stream: true });
-        out.textContent = buf;
+      let answer = '';
+      let failed = false;
+
+      await readEvents(res, {
+        step: (st) => pipeStep(st),
+        sources: (list) => renderSources(Array.isArray(list) ? list : []),
+        token: (t) => { answer += t.text; out.textContent = answer; },
+        error: (e) => {
+          failed = true;
+          out.textContent = e.message || 'Something failed inside the worker. It has been logged.';
+          pipeError(e.reason === 'quota' ? 'allowance used up' : 'failed');
+        },
+        /*
+          The server reports every step it actually performed, so there is nothing to add
+          here. An earlier version synthesised a "generate" chip on completion, which meant
+          a cache hit — where no model ran at all — displayed a generation step with a
+          duration. Inventing a step on the one page arguing its numbers are measured is
+          precisely the failure this whole view exists to avoid.
+        */
+        done: () => {},
+      });
+
+      if (!failed) {
+        if (!answer) out.textContent = 'The model returned nothing for that question.';
+        else linkCitations(answer);
       }
-      if (!buf) out.textContent = 'The model returned nothing for that question.';
-      else linkCitations(buf);
+      /* The allowance moved if anything was generated, so re-read it rather than guess. */
+      refreshQuota();
     } catch (err) {
       if (err.name === 'AbortError') return;
       out.classList.remove('is-waiting');
