@@ -142,8 +142,52 @@ function isQuotaError(err) {
   return false;
 }
 
+/*
+  Answer cache.
+
+  The daily Workers AI allowance is 10,000 neurons and this model costs 204,805 neurons per
+  million OUTPUT tokens, so a 600-token answer is roughly 123 neurons before the input side
+  is counted — about sixty answers a day, total. Logs for the week to 2026-08-26 recorded 241
+  questions and the allowance running out 35 times.
+
+  Most of those questions are not distinct. The page offers suggested questions as buttons,
+  so the same handful arrive over and over: one appeared five times in the failures alone.
+  Answering an identical question against an unchanged corpus a second time spends neurons to
+  produce a byte-identical result.
+
+  So the answer is stored under a key that includes the corpus stamp. A re-ingest changes the
+  stamp, every previous key becomes unreachable at once, and no stale price can be served
+  after the corpus behind it moved — which matters more here than the saving does.
+*/
+const CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
+const CORPUS_STAMP_KEY = 'llmqa:corpus-stamp';
+
+/** Cache is optional: without the binding the site behaves exactly as it did before. */
+function cacheAvailable(env) {
+  return Boolean(env.ANSWERS);
+}
+
+async function corpusStamp(env) {
+  if (!cacheAvailable(env)) return null;
+  try {
+    return (await env.ANSWERS.get(CORPUS_STAMP_KEY)) ?? '0';
+  } catch {
+    return null;   // A cache that cannot be read must never break an answer.
+  }
+}
+
+async function answerCacheKey(env, question, model) {
+  const stamp = await corpusStamp(env);
+  if (stamp === null) return null;
+  // Normalised so trivial differences in spacing or case do not each cost a generation.
+  const norm = question.trim().toLowerCase().replace(/\s+/g, ' ');
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(model + '|' + norm));
+  const hex = [...new Uint8Array(digest)].slice(0, 16).map((b) => b.toString(16).padStart(2, '0')).join('');
+  return 'llmqa:a:' + stamp + ':' + hex;
+}
+
 const routes = {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
 
@@ -242,6 +286,16 @@ const routes = {
         return json({ error: 'expected a non-empty array of chunks' }, 400);
       }
 
+      /*
+        The corpus is about to change, so every cached answer describes a corpus that no
+        longer exists. Moving the stamp orphans all of them in a single write — cheaper and
+        far safer than enumerating keys, and it leaves no window in which a price from the
+        previous corpus can still be served.
+      */
+      if (cacheAvailable(env)) {
+        try { await env.ANSWERS.put(CORPUS_STAMP_KEY, String(Date.now())); } catch { /* cache is optional */ }
+      }
+
       const { data } = await env.AI.run(EMBEDDING_MODEL, { text: chunks.map((c) => c.text) });
       const vectors = data.map((values, i) => ({
         id: chunks[i].id,
@@ -312,6 +366,28 @@ const routes = {
       const requested = url.searchParams.get('model');
       const model = ALLOWED_MODELS.includes(requested) ? requested : DEFAULT_MODEL;
 
+      /*
+        A repeat of a question already answered against this corpus costs nothing. The
+        reply is identical to what the model would produce, because it IS what the model
+        produced; x-cache lets the eval and anyone curious tell the two apart.
+      */
+      const cacheKey = await answerCacheKey(env, raw.trim(), model);
+      if (cacheKey) {
+        let hit = null;
+        try { hit = await env.ANSWERS.get(cacheKey, 'json'); } catch { /* miss, generate */ }
+        if (hit && typeof hit.answer === 'string' && hit.answer) {
+          return new Response(hit.answer, {
+            headers: {
+              ...SECURITY_HEADERS,
+              'content-type': 'text/plain; charset=utf-8',
+              'cache-control': 'no-store',
+              'x-cache': 'hit',
+              'x-sources': encodeURIComponent(JSON.stringify(hit.sources ?? [])),
+            },
+          });
+        }
+      }
+
       const { stream, sources } = await answerQuestionStream(env, raw.trim(), { model });
 
       if (!stream) {
@@ -342,6 +418,8 @@ const routes = {
 
       (async () => {
         let buffer = '';
+        let full = '';        // what to store, assembled as it is sent
+        let clean = true;     // a failed or interrupted answer must never be cached
         try {
           for await (const part of stream) {
             buffer += typeof part === 'string' ? part : dec.decode(part, { stream: true });
@@ -353,7 +431,7 @@ const routes = {
               if (!payload || payload === '[DONE]') continue;
               try {
                 const token = JSON.parse(payload).response;
-                if (token) await writer.write(enc.encode(token));
+                if (token) { full += token; await writer.write(enc.encode(token)); }
               } catch {
                 /* A partial JSON frame; the next chunk completes it. */
               }
@@ -373,6 +451,7 @@ const routes = {
             Non-quota faults now say nothing specific either. The stack still goes to the log,
             where it is useful and not on display.
           */
+          clean = false;   // a partial or failed answer must never be stored
           if (isQuotaError(err)) {
             console.warn(`quota exhausted mid-stream: ${err?.message ?? err}`);
             await writer.write(enc.encode(
@@ -385,6 +464,21 @@ const routes = {
           }
         } finally {
           await writer.close();
+          /*
+            Stored only after a clean finish, and only through waitUntil: the response has
+            already gone out by now, so without it the runtime is free to cancel this write
+            before it lands. A partial answer cached is worse than none, which is why
+            `clean` gates it rather than merely checking that some text arrived.
+          */
+          if (clean && cacheKey && full.trim() && ctx?.waitUntil) {
+            ctx.waitUntil(
+              env.ANSWERS.put(
+                cacheKey,
+                JSON.stringify({ answer: full, sources: compact, model, at: new Date().toISOString() }),
+                { expirationTtl: CACHE_TTL_SECONDS },
+              ).catch(() => { /* a cache that cannot be written is not an outage */ }),
+            );
+          }
         }
       })();
 
@@ -426,9 +520,9 @@ const routes = {
 };
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     try {
-      return await routes.fetch(request, env);
+      return await routes.fetch(request, env, ctx);
     } catch (err) {
       /*
         503 with an explanation, not 500 with a shrug. The allowance resets daily, so this

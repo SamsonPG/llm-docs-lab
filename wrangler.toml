@@ -70,3 +70,15 @@ index_name = "llm-docs"
 
 [observability]
 enabled = true
+
+# Answer cache. Shares the account-wide namespace the Try family already uses, with an
+# llmqa: prefix, because a second namespace for a few keys buys nothing.
+#
+# This exists to keep the demo alive on the free tier. The daily allowance is 10,000
+# neurons and the model costs 204,805 per million output tokens, so roughly sixty answers
+# a day — and the page suggests questions as buttons, so the same handful arrive over and
+# over. A repeat now costs no neurons at all. Keys carry the corpus stamp, so a re-ingest
+# retires every cached answer at once rather than serving a price the corpus no longer has.
+[[kv_namespaces]]
+binding = "ANSWERS"
+id = "c234a77aea3c4f5793cd1e9aea4e9caf"
