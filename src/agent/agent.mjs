@@ -36,10 +36,22 @@ import { neutralise } from '../answer/prompt.mjs';
 
 export const AGENT_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 
-/** Hard limits. Every one of these has a reason and none are decoration. */
+/**
+ * Hard limits. Every one of these has a reason and none are decoration.
+ *
+ * maxToolCalls MUST stay below maxSteps or it is not a limit at all. The loop runs at most
+ * maxSteps times and a step raises toolCalls at most once, so with maxToolCalls at 6 against
+ * maxSteps of 5 the counter topped out at 5 and the check — `toolCalls >= maxToolCalls` —
+ * could never once be true. It read like a cost ceiling, was described as one, and was dead
+ * code: the run always ended on the step limit instead, one model call later than it needed
+ * to on a run that was going nowhere.
+ *
+ * agent.test.mjs asserts the relationship rather than trusting this comment, because the two
+ * numbers are easy to adjust independently and the failure is silent.
+ */
 export const LIMITS = {
   maxSteps: 5,
-  maxToolCalls: 6,
+  maxToolCalls: 4,
   maxTokens: 3000,
   maxMs: 25_000,
   maxQueryChars: 200,
