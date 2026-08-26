@@ -1224,7 +1224,14 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
         error: (e) => {
           failed = true;
           out.textContent = e.message || 'Something failed inside the worker. It has been logged.';
-          pipeError(e.reason === 'quota' ? 'allowance used up' : 'failed');
+          /*
+            Named by cause rather than lumped under "failed". The static capture of this
+            page reports reason:"static" — there is no Worker in that copy, which is a fact
+            about where the page is being viewed, not something going wrong. Calling it a
+            failure would be the same mistake as showing the raw 404 it replaced.
+          */
+          const LABEL = { quota: 'allowance used up', static: 'no worker in this copy' };
+          pipeError(LABEL[e.reason] || 'failed');
         },
         /*
           The server reports every step it actually performed, so there is nothing to add
