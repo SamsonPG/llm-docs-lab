@@ -507,8 +507,10 @@ const routes = {
       (async () => {
         const startedAt = Date.now();
         try {
+          /* Operators always generate — see the note on the plain /ask path below. */
+          const operator = isOperator(request, env);
           const cacheKey = await answerCacheKey(env, raw.trim(), model);
-          if (cacheKey) {
+          if (cacheKey && !operator) {
             let hit = null;
             try { hit = await env.ANSWERS.get(cacheKey, 'json'); } catch { /* generate instead */ }
             if (hit && typeof hit.answer === 'string' && hit.answer) {
@@ -640,8 +642,26 @@ const routes = {
         reply is identical to what the model would produce, because it IS what the model
         produced; x-cache lets the eval and anyone curious tell the two apart.
       */
+      /*
+        THE MEASURING TOOLS MUST NOT BE MEASURED AGAINST THE CACHE.
+
+        The eval and the injection suite both call this endpoint holding the operator token,
+        and both exist to find out what the MODEL does. A cache hit answers them with text
+        the model produced at some earlier moment, so the eval scores a recording and the
+        security suite declares an attack repelled without the attack ever reaching a model.
+
+        Four of the twenty golden-set questions are the same strings as the suggested
+        questions on the page, which are deliberately kept warm — so this was not a corner
+        case, it was a fifth of the eval. The question-channel injections are worse: nothing
+        in them moves the corpus stamp, so a second run of the suite would have been served
+        entirely from its own first run.
+
+        Operators therefore always generate. They still populate the cache on the way out,
+        because a visitor asking the same thing afterwards should not pay for it again.
+      */
+      const operator = isOperator(request, env);
       const cacheKey = await answerCacheKey(env, raw.trim(), model);
-      if (cacheKey) {
+      if (cacheKey && !operator) {
         let hit = null;
         try { hit = await env.ANSWERS.get(cacheKey, 'json'); } catch { /* miss, generate */ }
         if (hit && typeof hit.answer === 'string' && hit.answer) {

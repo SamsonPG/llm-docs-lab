@@ -40,10 +40,17 @@ deployed, and prints a number that is worse than no number because it gets belie
 
 Measured 2026-08-26 against the deployed system. Reproduce with `node eval/run.mjs`.
 
-These are one run of a non-deterministic system, not constants. The table below replaced an
-earlier one whose figures came from a run that was never committed, so the numbers here and
-in `eval/results.json` disagreed — the retrieval scores held exactly, the answer scores moved
-by up to 15 points. Re-run it and expect movement; that is the honest shape of the thing.
+**One run of this eval has a noise floor of roughly 8–14 points, so read the answer table
+accordingly.** That is measured, not guessed. Two full runs on the same corpus and the same
+day moved `llama-3.1-8b` by 8 points of accuracy and 14 of refusal, and `llama-3.2-3b` by 14
+points of refusal. Any statement of the form "model A beats model B by 8 points" is therefore
+not supported by a single run of this set, including statements made from this table.
+
+Retrieval, by contrast, was identical across both runs — recall@6 and MRR are stable, and the
+figures below can be read at face value.
+
+Only one thing in the answer table survived both runs unchanged: the 70B refused every
+unanswerable question, both times. That is the finding worth quoting.
 
 ### Retrieval
 
@@ -58,24 +65,27 @@ Twenty questions, of which **seven are deliberately unanswerable** from this cor
 
 | Model | Accuracy | Correct refusals | Cited | Median latency |
 |---|---|---|---|---|
-| `llama-3.3-70b-instruct-fp8-fast` | **77%** | **100%** | 85% | 2,439 ms |
-| `llama-3.1-8b-instruct-fp8` | **77%** | 71% | **100%** | 3,359 ms |
-| `llama-3.2-3b-instruct` | 23% | 86% | 38% | **1,534 ms** |
+| `llama-3.3-70b-instruct-fp8-fast` | 69% | **100%** | 77% | 2,675 ms |
+| `llama-3.1-8b-instruct-fp8` | **85%** | 86% | **100%** | 2,880 ms |
+| `llama-3.2-3b-instruct` | 23% | 71% | 31% | **1,141 ms** |
 
-**Refusal is where they separate, not accuracy.** The 70B and the 8B answered equally well on
-this run, and the 8B was the slower of the two — so the case for the smaller model rests
-entirely on it declining questions the corpus cannot answer, and it declines 71% of them
-against the 70B's 100%. Asked the capital of France against a corpus of pricing tables, the
-8B answers Paris.
+**Refusal is where they separate, and it is the only column that held.** Across both runs the
+70B declined every unanswerable question — 100% and 100%. Every other figure moved by more
+than the gap between the models, so the accuracy column cannot carry an ordering: this run
+puts the 8B ahead, the previous one had them level, and the difference is inside the noise.
+Asked the capital of France against a corpus of pricing tables, the 8B answers Paris.
+
+That is the useful shape of the result. Twenty questions is a small set, one run of it is a
+sample, and the honest thing to take from the comparison is which model never invents — not
+which one scored higher on a Tuesday.
+
+The comparison is also not free: per million output tokens the 70B costs 204,805 neurons
+against the 8B's 26,364, so the refusals it buys cost roughly eight times as much.
 
 The 3B is not usable here. It gets under a quarter of the answerable questions right, cites a
 source on barely a third of its replies, and in an earlier run, asked for its system prompt,
 it leaked the `SOURCE_DATA` delimiter — partial prompt disclosure, found by the eval rather
 than by a stranger.
-
-Cost matters too, and it runs the other way: per million output tokens the 70B costs 204,805
-neurons against the 8B's 26,364 and the 3B's 30,475. The 70B is roughly eight times the price
-of the 8B for the same accuracy on this set, and buys the refusals with it.
 
 Unanswerable questions are a third of the set on purpose. Scoring well on questions the
 corpus covers is easy; the failure that matters is the confident invention, where a plausible
