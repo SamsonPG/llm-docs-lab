@@ -35,7 +35,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 // folder in that repo. The measured results live one level down so both can exist:
 // the clone is noindex and canonicals to the live site, these numbers are original
 // content and stay indexable.
-const OUT_DIR = 'G:/MY Company/Portfolio/samsonpg/static/llm-docs-lab/results';
+const OUT_DIR = 'G:/MY Company/SamsonPG.github.io/static/llm-docs-lab/results';
 
 const ev = JSON.parse(readFileSync(join(root, 'eval', 'results.json'), 'utf8'));
 const inj = JSON.parse(readFileSync(join(root, 'security', 'injection-results.json'), 'utf8'));
@@ -185,14 +185,14 @@ const page = `<!doctype html>
 
 <nav class="nav" aria-label="Primary">
   <div class="shell nav__in">
-    <a class="brand" href="https://llmdocs.acsaven.com/">
+    <a class="brand" href="https://llmdocs.acsaven.com/" target="_blank" rel="noopener noreferrer">
       <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M31.5 17.8C23.8 16.4 16.2 17.8 12.2 20v28.2c4.2-2 11.8-3.2 19.3-1.7V17.8Z" fill="currentColor"/><path d="M32.5 17.8C40.2 16.4 47.8 17.8 51.8 20v28.2c-4.2-2-11.8-3.2-19.3-1.7V17.8Z" fill="currentColor" opacity=".88"/><path d="M32 18.4v26.8" stroke="#0C0B10" stroke-width="1.35" stroke-linecap="round" opacity=".32"/><path d="M39.5 17c3.2-3.4 6.8-5.1 10.2-5.3" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><circle cx="51" cy="11.5" r="5" fill="currentColor"/></svg></span>
       <span class="brand__name">llm-docs-lab</span>
     </a>
     <div class="nav__links">
-      <a href="https://llmdocs.acsaven.com/">Demo</a>
-      <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
-      <a href="https://samsonpg.github.io">Portfolio</a>
+      <a href="https://llmdocs.acsaven.com/" target="_blank" rel="noopener noreferrer">Demo</a>
+      <a href="https://github.com/acsavenhq/llm-docs-lab" target="_blank" rel="noopener noreferrer">Source</a>
+      <a href="https://samsonpg.github.io" target="_blank" rel="noopener noreferrer">Portfolio</a>
     </div>
 ${THEME_SWITCH_HTML}
   </div>
@@ -204,10 +204,10 @@ ${THEME_SWITCH_HTML}
     <h1>Measured, <em>not</em> asserted</h1>
     <p class="lede">
       A static record of what was measured, generated from the result files themselves. The
-      live demo at <a href="https://llmdocs.acsaven.com">llmdocs.acsaven.com</a> depends on
+      live demo at <a href="https://llmdocs.acsaven.com" target="_blank" rel="noopener noreferrer">llmdocs.acsaven.com</a> depends on
       free tiers that can change and a corpus that ages; this page does not. Reproduce any
       figure here with <code>node eval/run.mjs</code> in
-      <a href="https://github.com/acsavenhq/llm-docs-lab">the repository</a>.
+      <a href="https://github.com/acsavenhq/llm-docs-lab" target="_blank" rel="noopener noreferrer">the repository</a>.
     </p>
   </header>
 
@@ -273,8 +273,8 @@ ${THEME_SWITCH_HTML}
   <footer>
     Generated from <code>eval/results.json</code> and <code>security/injection-results.json</code>
     on ${esc(new Date().toISOString().slice(0, 10))} ·
-    <a href="https://github.com/acsavenhq/llm-docs-lab">source</a> ·
-    <a href="https://samsonpg.github.io">Samson P G</a>
+    <a href="https://github.com/acsavenhq/llm-docs-lab" target="_blank" rel="noopener noreferrer">source</a> ·
+    <a href="https://samsonpg.github.io" target="_blank" rel="noopener noreferrer">Samson P G</a>
   </footer>
 
 </div>

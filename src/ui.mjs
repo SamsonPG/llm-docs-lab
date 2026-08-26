@@ -711,9 +711,9 @@ ${THEME_SWITCH_CSS}
       <span class="brand__name">llm-docs-lab</span>
     </a>
     <div class="nav__links">
-      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">Results</a>
-      <a href="https://github.com/acsavenhq/llm-docs-lab">Source</a>
-      <a href="https://samsonpg.github.io">Portfolio</a>
+      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/" target="_blank" rel="noopener noreferrer">Results</a>
+      <a href="https://github.com/acsavenhq/llm-docs-lab" target="_blank" rel="noopener noreferrer">Source</a>
+      <a href="https://samsonpg.github.io" target="_blank" rel="noopener noreferrer">Portfolio</a>
     </div>
 ${THEME_SWITCH_HTML}
   </div>
@@ -794,7 +794,7 @@ ${THEME_SWITCH_HTML}
     </div>
     <p class="evidence__note">
       Every figure is produced by a script in the repository and republished as a
-      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">static results page</a> that
+      <a href="https://samsonpg.github.io/static/llm-docs-lab/results/" target="_blank" rel="noopener noreferrer">static results page</a> that
       outlives this demo. 0/10 is ten attacks against one model on one date — not immunity.
     </p>
 
@@ -806,9 +806,9 @@ ${THEME_SWITCH_HTML}
 </main>
 
 <footer class="shell">
-  Built by <a href="https://samsonpg.github.io">Samson P G</a> ·
-  <a href="https://github.com/acsavenhq/llm-docs-lab">source, evals and measured limits</a> ·
-  <a href="https://samsonpg.github.io/static/llm-docs-lab/results/">results</a>
+  Built by <a href="https://samsonpg.github.io" target="_blank" rel="noopener noreferrer">Samson P G</a> ·
+  <a href="https://github.com/acsavenhq/llm-docs-lab" target="_blank" rel="noopener noreferrer">source, evals and measured limits</a> ·
+  <a href="https://samsonpg.github.io/static/llm-docs-lab/results/" target="_blank" rel="noopener noreferrer">results</a>
 </footer>
 
 <button type="button" class="to-top" id="totop" aria-label="Back to top" title="Back to top" hidden>
