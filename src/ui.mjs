@@ -228,6 +228,10 @@ ${THEME_TOKENS}
     is too small. overflow-x: clip prevents a single wide element from making
     the whole page scroll sideways — the commonest layout bug on phones.
   */
+
+  /* ── BASE ──────────────────────────────────────────────────────────
+     Rules that apply to the whole document before anything specific.
+  */
   html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 
   body {
@@ -242,6 +246,12 @@ ${THEME_TOKENS}
 
   /* Richer mesh so glass has something to refract.
      z-index 0 (not negative): negative layers paint under body --ground and vanish. */
+
+  /* ── BACKGROUND ATMOSPHERE ─────────────────────────────────────────
+     Soft drifting colour behind the page. Decorative only, and kept out of the
+     way of clicks with pointer-events: none. Switched off entirely for anyone
+     who has asked for reduced motion.
+  */
   .haven {
     position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
@@ -282,6 +292,11 @@ ${THEME_TOKENS}
     to { transform: translate3d(2.5%, 3.5%, 0) scale(1.08); }
   }
 
+
+  /* ── READING PROGRESS BAR ──────────────────────────────────────────
+     The thin line at the very top that fills as you scroll. Its width is set
+     from JavaScript further down the file.
+  */
   .read-progress {
     position: fixed; left: 0; top: 0; right: 0; height: 3px; z-index: 40;
     pointer-events: none;
@@ -294,6 +309,12 @@ ${THEME_TOKENS}
     box-shadow: 0 0 14px var(--glow);
   }
 
+
+  /* ── TYPEFACES ─────────────────────────────────────────────────────
+     Two helper classes. The serif carries headings, the mono carries every
+     number - the numbers are the argument of this page, so they get their own
+     voice. No font is downloaded; these are the fonts already on the machine.
+  */
   .serif { font-family: ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; }
   .mono { font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace; }
 
@@ -301,6 +322,11 @@ ${THEME_TOKENS}
     One column, one gutter. width:min() + auto margins so nav / hero / evidence /
     footer share the same centered edges on wide viewports (width:100% + max-width
     alone was still reading left-heavy next to the centered hero title).
+  */
+
+  /* ── PAGE LAYOUT ───────────────────────────────────────────────────
+     The single centred column everything sits in, and the vertical rhythm
+     between sections.
   */
   .shell {
     box-sizing: border-box;
@@ -328,6 +354,13 @@ ${THEME_TOKENS}
   .skip:focus { left: .75rem; top: .75rem; z-index: 50; background: var(--gold); color: var(--on-gold); padding: .6rem 1rem; border-radius: 6px; font-weight: 600; }
 
   /* Shared Apple glass surface */
+
+  /* ── THE GLASS SURFACE ─────────────────────────────────────────────
+     One shared class for every frosted panel: the nav, the question box, the
+     metric cards. The @supports block underneath is the fallback - a browser
+     that cannot blur gets a solid background instead of transparent text on a
+     busy backdrop.
+  */
   .glass {
     background: var(--glass-bg);
     backdrop-filter: var(--glass);
@@ -358,6 +391,11 @@ ${THEME_TOKENS}
     1232-1280px because their pages are that wide; this page is an editorial column and its
     nav shares the same spine as the hero. Widening the bar alone would break that
     alignment to match a number that only makes sense on a wider layout.
+  */
+
+  /* ── THE TOP BAR ───────────────────────────────────────────────────
+     Fixed to the top so it stays reachable while reading. It gains a stronger
+     background once the page is scrolled, which is the is-stuck class.
   */
   .nav {
     position: sticky; top: 0; z-index: 20;
@@ -407,6 +445,11 @@ ${THEME_TOKENS}
 ${THEME_SWITCH_CSS}
 
   /* Hero — centered column so mass matches evidence below */
+
+  /* ── THE HERO ──────────────────────────────────────────────────────
+     The first thing on screen: one line saying what this is, then the question
+     box. Deliberately no marketing paragraph above the input.
+  */
   .hero {
     position: relative;
     padding: clamp(2.5rem, 7vw, 4.75rem) 0 2rem;
@@ -480,6 +523,12 @@ ${THEME_SWITCH_CSS}
     display: flex;
     align-items: center;
   }
+
+  /* ── THE TYPING PLACEHOLDER ────────────────────────────────────────
+     The example question that types itself out in the empty input. Its caret
+     blinks via @keyframes, and the whole thing is hidden once you start
+     typing so it can never be mistaken for text you entered.
+  */
   .field__type {
     position: absolute;
     inset: 0;
@@ -526,6 +575,11 @@ ${THEME_SWITCH_CSS}
     opacity: .75; transition: opacity .15s ease, background .15s ease;
   }
   .field input::-webkit-search-cancel-button:hover { opacity: 1; background: var(--ink); }
+
+  /* ── THE SUBMIT BUTTON ─────────────────────────────────────────────
+     Disabled while a request is in flight, which is what stops a double press
+     spending the shared allowance twice.
+  */
   .go {
     flex: 0 0 auto; border: 0; cursor: pointer;
     background: var(--gold); color: var(--on-gold);
@@ -584,6 +638,11 @@ ${THEME_SWITCH_CSS}
   .quota__fill { display: block; height: 100%; background: var(--gold); border-radius: 999px; }
   .quota__fill.is-low { background: var(--warn); }
 
+
+  /* ── EXAMPLE QUESTIONS ─────────────────────────────────────────────
+     The clickable suggestions under the input. They exist because the hardest
+     part of using a search tool is knowing what it can answer.
+  */
   .chips {
     display: flex; flex-wrap: wrap; gap: .45rem;
     margin: 1rem 0 0; padding: 0; list-style: none;
@@ -631,6 +690,12 @@ ${THEME_SWITCH_CSS}
     color: var(--ink-3); border-left-color: var(--glass-line); font-style: italic;
   }
 
+
+  /* ── CITATIONS ─────────────────────────────────────────────────────
+     The small raised numbers inside an answer. Hovering or focusing one lights
+     up the source it refers to - the link between a claim and its evidence is
+     the whole point of this project, so it is an interaction, not punctuation.
+  */
   .cite {
     font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, monospace;
     font-size: .62em; vertical-align: super; line-height: 0;
@@ -648,6 +713,12 @@ ${THEME_SWITCH_CSS}
   .rule::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--glass-line); }
   .srcs .rule::before { display: none; }
 
+
+  /* ── THE SOURCES LIST ──────────────────────────────────────────────
+     A numbered bibliography under each answer, with the date each page was
+     retrieved. A price without a date is a rumour, so the dates are not
+     decoration.
+  */
   .srcs { margin-top: 2.4rem; }
   ol.srcs__list { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; counter-reset: src; }
   ol.srcs__list li {
@@ -679,6 +750,12 @@ ${THEME_SWITCH_CSS}
   .srcs__meta a:hover { color: var(--gold); }
   .srcs__meta .dot { opacity: .5; padding: 0 .35rem; }
 
+
+  /* ── THE EVIDENCE SECTION ──────────────────────────────────────────
+     The measured results below the fold: recall, accuracy, injection attempts.
+     This is the part that makes the page a report rather than a demo, so the
+     numbers are set in mono and given room.
+  */
   .evidence {
     margin: 3.25rem 0 0;
     padding-top: 1.75rem;
@@ -749,6 +826,12 @@ ${THEME_SWITCH_CSS}
     text-align: center;
   }
 
+
+  /* ── THE CAUTION PANEL ─────────────────────────────────────────────
+     The stated limits - snapshot dates, corpus size, what the numbers do not
+     prove. Styled to be read, not skipped, because a measurement without its
+     caveats is a claim.
+  */
   .caution {
     margin: 1.75rem auto 0;
     padding: .95rem 1.15rem;
@@ -762,6 +845,11 @@ ${THEME_SWITCH_CSS}
     text-align: center;
   }
 
+
+  /* ── FOOTER AND BACK-TO-TOP ────────────────────────────────────────
+     The end of the page, and the button that returns you to the question box
+     once you have scrolled past it.
+  */
   footer {
     margin-top: 2.75rem;
     padding: 1.35rem 0 4.5rem;
@@ -785,6 +873,13 @@ ${THEME_SWITCH_CSS}
   .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
   .to-top svg { width: 17px; height: 17px; fill: currentColor; }
 
+
+  /* ── MOTION ────────────────────────────────────────────────────────
+     One entrance animation, and immediately below it the block that turns
+     every animation on this page off for anyone whose system asks for
+     reduced motion. That block is last on purpose: later rules win in CSS,
+     so nothing above can reinstate the movement.
+  */
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   .rise { animation: rise .36s cubic-bezier(.22,.7,.3,1) both; }
 
