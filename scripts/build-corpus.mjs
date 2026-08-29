@@ -315,6 +315,19 @@ for (const file of files) {
     '',
   ].join('\n');
 
+  /*
+    TWO OUTPUTS, FOR TWO DIFFERENT READERS
+    ──────────────────────────────────────
+    The .md file is for a person: open it and read the page as text, to check
+    by eye that the extraction did not mangle anything.
+
+    The .blocks.json file is for the machine. It keeps each piece separate and
+    labelled — this is a heading, this is a table row — which is what the next
+    step needs to decide where a chunk may be split. Flattening to prose would
+    throw that structure away and it cannot be recovered afterwards.
+
+    Both are written from the same extraction, so they cannot disagree.
+  */
   writeFileSync(join(outDir, `${id}.md`), doc, 'utf8');
   writeFileSync(
     join(outDir, `${id}.blocks.json`),

@@ -54,6 +54,32 @@ export const THEME_TOKENS = /* css */ `  :root {
     --mark-hole: #0C0B10;
   }
 
+  /*
+    DARK MODE, AND WHY THE SELECTOR LOOKS LIKE THAT
+    ───────────────────────────────────────────────
+    Everything above set colours as CSS custom properties — named values like
+    --ink that the rest of the stylesheet refers to instead of writing a colour
+    directly. Dark mode therefore does not restyle anything: it only redefines
+    the names, and every rule that uses them follows automatically.
+
+    There are three states to serve, not two:
+
+      1. "I want light"   the page must stay light even at night
+      2. "I want dark"    the page must stay dark even at noon
+      3. no preference    follow whatever the device is set to  ← the default
+
+    The media query below handles state 3 by asking the operating system. But
+    on its own it would also override state 1 — a visitor who chose light would
+    be dragged back to dark at sunset.
+
+    Hence the :not([data-theme="light"]) part. The toggle writes data-theme onto
+    the root element; this rule says "go dark when the system is dark, unless
+    the visitor has explicitly asked for light". Their choice wins, and doing
+    nothing still follows the device.
+
+    NOTE: this whole file is a JavaScript template literal, so a backtick here
+    would end the string and break the build. Quotes only.
+  */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;

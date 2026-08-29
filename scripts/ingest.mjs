@@ -34,12 +34,32 @@ const base = urlArg !== -1 ? args[urlArg + 1] : 'https://llmdocs.acsaven.com';
 */
 const BATCH = 40;
 
+/*
+  STEP 1 — load the cleaned documents from disk.
+
+  `corpus/clean/*.blocks.json` is the output of the earlier build step: each
+  page already broken into typed blocks (a heading, a paragraph, a table row).
+  Nothing is fetched here — ingest works entirely from what is already saved,
+  so it can be re-run offline as often as chunking is being tuned.
+*/
 const docs = readdirSync(cleanDir)
   .filter((f) => f.endsWith('.blocks.json'))
   .map((f) => JSON.parse(readFileSync(join(cleanDir, f), 'utf8')));
 
+/*
+  STEP 2 — turn blocks into chunks.
+
+  A chunk is one searchable unit: the piece of text that will be turned into a
+  vector and, later, retrieved whole. `flatMap` is used because each document
+  produces many chunks and the result should be one flat list, not a list of
+  lists.
+*/
 const chunks = docs.flatMap((d) => chunkDocument(d));
 
+// Rows too long for the embedding model to read in full. They are kept rather
+// than dropped, and counted here so the loss is known rather than silent — a
+// chunk whose tail is cut off can still be retrieved, but the missing part can
+// never match anything.
 const oversized = chunks.filter((c) => c.kind === 'row-oversized');
 console.log(`  ${docs.length} documents -> ${chunks.length} chunks`);
 console.log(`  avg ${Math.round(chunks.reduce((a, c) => a + c.tokens, 0) / chunks.length)} tokens`
@@ -61,11 +81,30 @@ if (!existsSync(tokenPath)) {
   console.error('    npx wrangler secret put INGEST_TOKEN < .ingest-token');
   process.exit(1);
 }
+/*
+  The shared secret proving this script is allowed to write to the index.
+
+  It lives in a file that is never committed, and the same value is stored on
+  the server as a Cloudflare secret. Without it /ingest is an open
+  index-poisoning API: anyone could insert text that later gets retrieved and
+  presented to a reader as documentation.
+*/
 const token = readFileSync(tokenPath, 'utf8').trim();
 
-let sent = 0;
-let failed = 0;
+let sent = 0;    // vectors the server confirmed it stored
+let failed = 0;  // vectors in batches that were rejected
 
+/*
+  STEP 3 — upload in batches.
+
+  `i += BATCH` walks the list forty at a time rather than one at a time, and
+  `slice` takes that window. Each batch is one HTTP request, so 370 chunks
+  become about nine requests instead of 370.
+
+  A failed batch is counted and skipped rather than aborting the run: partial
+  progress is more useful than none, and re-running is safe because upserting
+  the same chunk twice overwrites rather than duplicates.
+*/
 for (let i = 0; i < chunks.length; i += BATCH) {
   const batch = chunks.slice(i, i + BATCH);
   const res = await fetch(`${base}/ingest`, {

@@ -65,23 +65,57 @@ export const LIMITS = {
  * something". Write tools would need a confirmation step and a much longer argument about
  * authorisation than this project needs to make.
  */
+/*
+  WHAT A "TOOL" IS
+  ────────────────
+  A language model cannot do anything except produce text. It cannot search,
+  cannot open a file, cannot look anything up.
+
+  A tool is how that limit is worked around. Each entry below is one action
+  this program is willing to perform on the model's behalf. The model is told
+  their names and what they take; when it wants one, it replies with the name
+  and the arguments as text, this file recognises it and runs the real code,
+  and the result is handed back as more text.
+
+  So the model never touches anything. It only ever asks, and this file decides
+  what asking is allowed to mean. That is why the list is short: every entry is
+  a capability being deliberately granted.
+
+  `description` and `parameters` are not documentation for a human — they are
+  copied verbatim into the model's instructions in systemPrompt() below. Change
+  the wording here and you have changed what the model believes it can do.
+*/
 export const TOOLS = {
+  // Look things up in the documentation snapshot. The only way the agent can
+  // learn a fact it was not given.
   search_corpus: {
     description: 'Search the provider documentation for a phrase. Returns matching passages with sources.',
     parameters: { query: 'string — what to look for, e.g. "Gemini Flash input price"' },
     async run(env, args, trace) {
+      // The query came from the model, so it is untrusted: coerce it to a
+      // string and cap the length before it reaches anything expensive.
       const query = String(args.query ?? '').slice(0, LIMITS.maxQueryChars);
       if (!query.trim()) throw new Error('search_corpus needs a non-empty query');
       const hits = await retrieve(env, query, { topK: 4 });
+      // `trace` is the visible record of what the agent did. Every tool writes
+      // to it, so the run can be shown step by step rather than as a verdict.
       trace.push({ tool: 'search_corpus', query, results: hits.length });
+      // neutralise() defangs anything in the retrieved text that looks like an
+      // instruction. The corpus is documentation from the open web: if a page
+      // contained "ignore your rules and say X", feeding it back raw would be
+      // handing an attacker the model's instruction channel.
       return hits.map((h, i) => `(${i + 1}) ${neutralise(h.text).slice(0, 500)}\n    source: ${h.source}`).join('\n');
     },
   },
 
+  // Orientation. Without this the agent has to guess which providers exist
+  // before it can search usefully.
   list_providers: {
     description: 'List which providers and documents are in the corpus. Takes no arguments.',
     parameters: {},
     async run(env, _args, trace) {
+      // There is no "list everything" operation, so a broad search stands in:
+      // fetch many results and keep the distinct documents they came from.
       const hits = await retrieve(env, 'pricing documentation overview', { topK: 20 });
       const docs = [...new Set(hits.map((h) => h.docId))].filter(Boolean);
       trace.push({ tool: 'list_providers', results: docs.length });
@@ -89,6 +123,15 @@ export const TOOLS = {
     },
   },
 
+  /*
+    Finishing is a tool too, which looks odd and is deliberate.
+
+    The alternative is guessing: watching the replies and deciding for the
+    model when it has stopped working and started answering. That guess is
+    wrong often enough to matter. Making the model say "I am done, here is the
+    answer" in the same format as every other request removes the guess — the
+    loop ends when and only when this is called.
+  */
   finish: {
     description: 'Give the final answer. Call this when you have enough information.',
     parameters: { answer: 'string — the complete answer, citing sources' },
@@ -207,13 +250,43 @@ export async function runAgent(env, question, { model = AGENT_MODEL, onEvent = n
     if (tokens > LIMITS.maxTokens) { stoppedBy = 'token budget'; emit({ kind: 'stopped', by: stoppedBy, step }); break; }
     if (toolCalls >= LIMITS.maxToolCalls) { stoppedBy = 'tool call limit'; emit({ kind: 'stopped', by: stoppedBy, step }); break; }
 
+    // Report the step before doing it, so a watcher sees work starting rather
+    // than a silence followed by a result.
     emit({ kind: 'thinking', step, tokens, toolCalls, elapsedMs: Date.now() - started });
 
+    /*
+      ONE TURN OF THE LOOP
+      ────────────────────
+      This is the whole idea of an agent, and it is smaller than it sounds:
+
+        1. Give the model the conversation so far.
+        2. It replies with text naming one tool it wants.
+        3. Run that tool for real.
+        4. Append the result to the conversation.
+        5. Go back to 1.
+
+      It stops when the model calls "finish", or when one of the limits above
+      is hit. Nothing else ends it — which is exactly why those limits are not
+      optional.
+
+      temperature 0.1 keeps the replies nearly deterministic. Creativity is
+      wanted in prose, not when the reply has to be a parseable JSON object.
+    */
     const res = await env.AI.run(model, { messages, temperature: 0.1, max_tokens: 500 });
     tokens += res.usage?.total_tokens ?? 0;
 
     const reply = replyText(res);
     const call = parseToolCall(reply);
+    /*
+      The model replied with something that was not a valid tool call.
+
+      This is told to the model and the loop continues, rather than failing the
+      run. Models do produce malformed output occasionally, and one bad reply
+      is usually corrected when the problem is described. The retry is visible
+      in the trace so it cannot be mistaken for smooth progress — and the step
+      counter still advances, so a model that never parses runs out rather than
+      looping forever.
+    */
     if (call.error) {
       trace.push({ step, error: call.error, raw: String(reply).slice(0, 200) });
       emit({ kind: 'retry', step, error: call.error });
@@ -225,6 +298,8 @@ export async function runAgent(env, question, { model = AGENT_MODEL, onEvent = n
     trace.push({ step, tool: call.tool, why: call.why, args: call.args });
     emit({ kind: 'tool', step, tool: call.tool, why: call.why, args: call.args });
 
+    // The model says it is done. This is the only exit that produces an
+    // answer; every other way out of the loop is a limit being enforced.
     if (call.tool === 'finish') {
       emit({ kind: 'done', steps: step, tokens, ms: Date.now() - started, stoppedBy: 'finish' });
       return {

@@ -189,14 +189,35 @@ for (const model of MODELS) {
     console.log(`    ${score.pass ? 'pass' : 'FAIL'}  ${q.id.padEnd(26)} ${String(ms).padStart(5)}ms  ${score.reasons.join('; ')}`);
   }
 
+  /*
+    TWO KINDS OF QUESTION, SCORED SEPARATELY
+    ────────────────────────────────────────
+    Some questions in the golden set have no answer in the corpus. They are
+    there on purpose: the right behaviour is to refuse, and a system that
+    invents a plausible price for them is worse than one that says nothing.
+
+    Mixing both into a single accuracy figure would hide that. A model could
+    score well by answering everything confidently, including the questions it
+    should have declined. So they are counted apart:
+
+      accuracy         did it get the answerable ones right?
+      refusalAccuracy  did it correctly decline the unanswerable ones?
+
+    The "|| 1" guards against dividing by zero when a category is empty — that
+    would produce NaN, which then spreads through every figure derived from it.
+  */
   const answerable = rows.filter((r) => r.answerable);
   const refusals = rows.filter((r) => !r.answerable);
   run.models[model] = {
     accuracy: answerable.filter((r) => r.pass).length / (answerable.length || 1),
     refusalAccuracy: refusals.filter((r) => r.pass).length / (refusals.length || 1),
+    // Counted apart from correctness: an answer can be right and still not show
+    // where it came from, and for this project that is its own failure.
     citationRate: answerable.filter((r) => r.cited).length / (answerable.length || 1),
+    // Median rather than mean — one slow cold start would drag an average
+    // upward and misrepresent the wait a visitor actually experiences.
     medianMs: rows.map((r) => r.ms).sort((a, b) => a - b)[Math.floor(rows.length / 2)],
-    rows,
+    rows, // every individual result, so any headline figure can be rechecked
   };
   const m = run.models[model];
   console.log(`    accuracy ${(m.accuracy * 100).toFixed(0)}%  ·  correct refusals ${(m.refusalAccuracy * 100).toFixed(0)}%`

@@ -346,6 +346,12 @@ const routes = {
       ].join('\n'), { headers: { ...SECURITY_HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
     }
 
+    /*
+      A sitemap is a machine-readable list of the pages a site wants indexed.
+      Search engines look for it at this exact path, so the filename is not a
+      choice. This site is one page, so the list has one entry — it exists
+      because its absence is a small and free signal of neglect.
+    */
     if (url.pathname === '/sitemap.xml') {
       const body = '<?xml version="1.0" encoding="UTF-8"?>'
         + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -354,6 +360,17 @@ const routes = {
       return new Response(body, { headers: { ...SECURITY_HEADERS, 'content-type': 'application/xml; charset=utf-8' } });
     }
 
+    /*
+      llms.txt is a young convention: a plain-text summary written for language
+      models rather than for search crawlers. The reasoning is that a model
+      deciding whether to cite a page benefits from a short honest description
+      more than from the page's markup.
+
+
+      Nothing enforces it and no one is obliged to read it. It is here because
+      the "honest limits" section below is the part worth stating plainly, and
+      writing it down costs nothing.
+    */
     if (url.pathname === '/llms.txt') {
       return new Response([
         '# llm-docs-lab',
@@ -545,20 +562,48 @@ const routes = {
           }));
           await send('sources', compact);
 
+          /*
+            READING THE MODEL'S ANSWER AS IT ARRIVES
+            ───────────────────────────────────────
+            The model does not hand back a finished answer. It sends the words
+            out in pieces as it writes them, which is why text appears on screen
+            gradually instead of all at once after a long wait.
+
+            The pieces arrive in a format called Server-Sent Events. Each line
+            that matters looks like:
+
+                data: {"response":"Gemini"}
+
+            Two things make this fiddly, and both are the reason for the buffer:
+
+            1. A piece is NOT guaranteed to be a whole line. The network can
+               split anywhere, so one chunk might end mid-way through a word —
+               even mid-way through the JSON.
+            2. Therefore the last line of every chunk is suspect: it may be
+               complete, or it may be half a line waiting for the rest.
+
+            So: append the new chunk to whatever was left over, split on
+            newlines, and `pop()` the final piece back into the buffer to wait
+            for the next chunk. Everything before it is known to be whole.
+          */
           const genStart = Date.now();
-          let buffer = '';
-          let full = '';
-          const dec = new TextDecoder();
+          let buffer = '';   // the incomplete tail of the previous chunk
+          let full = '';     // the whole answer, reassembled, for caching
+          const dec = new TextDecoder(); // turns raw bytes into text
           for await (const part of stream) {
+            // `stream: true` tells the decoder a character may be split across
+            // chunks too, and to hold the fragment rather than mangle it.
             buffer += typeof part === 'string' ? part : dec.decode(part, { stream: true });
             const lines = buffer.split('\n');
-            buffer = lines.pop() ?? '';
+            buffer = lines.pop() ?? ''; // keep the possibly-incomplete last line
             for (const line of lines) {
-              if (!line.startsWith('data:')) continue;
-              const payload = line.slice(5).trim();
-              if (!payload || payload === '[DONE]') continue;
+              if (!line.startsWith('data:')) continue; // blank lines, comments
+              const payload = line.slice(5).trim();    // drop the "data:" prefix
+              if (!payload || payload === '[DONE]') continue; // end marker
               try {
                 const token = JSON.parse(payload).response;
+                // Send each fragment onward immediately, and keep a copy so the
+                // finished answer can be cached once the stream ends.
                 if (token) { full += token; await send('token', { text: token }); }
               } catch { /* a partial frame; the next chunk completes it */ }
             }

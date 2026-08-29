@@ -71,6 +71,21 @@ export const PAGE = /* html */ `<!doctype html>
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22llm-docs-lab%22%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%230C0B10%22%2F%3E%20%3Cpath%20d%3D%22M31.5%2017.8C23.8%2016.4%2016.2%2017.8%2012.2%2020v28.2c4.2-2%2011.8-3.2%2019.3-1.7V17.8Z%22%20fill%3D%22%23E8B44A%22%2F%3E%20%3Cpath%20d%3D%22M32.5%2017.8C40.2%2016.4%2047.8%2017.8%2051.8%2020v28.2c-4.2-2-11.8-3.2-19.3-1.7V17.8Z%22%20fill%3D%22%23F0C45C%22%2F%3E%20%3Cpath%20d%3D%22M32%2018.4v26.8%22%20stroke%3D%22%230C0B10%22%20stroke-width%3D%221.35%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.32%22%2F%3E%20%3Cpath%20d%3D%22M39.5%2017c3.2-3.4%206.8-5.1%2010.2-5.3%22%20fill%3D%22none%22%20stroke%3D%22%23E8B44A%22%20stroke-width%3D%222.1%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Ccircle%20cx%3D%2251%22%20cy%3D%2211.5%22%20r%3D%225%22%20fill%3D%22%23F5C96B%22%2F%3E%20%3C%2Fsvg%3E">
 
+<!--
+  STRUCTURED DATA (JSON-LD)
+  ─────────────────────────
+  This block is never shown to a visitor. It is a description of the page in a
+  vocabulary machines already agree on (schema.org), so a search engine or an
+  assistant reads facts instead of guessing them from the layout.
+
+  It says three things: this is a free developer tool, a named person built it,
+  and here are its published measurements. The last is the reason it is worth
+  having — a claim like "100% recall" is more credible when it is stated in a
+  machine-readable form that can be checked against the linked results.
+
+  Nothing enforces accuracy here, which is exactly why it must not drift from
+  what the page and the eval actually report.
+-->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -358,6 +373,10 @@ ${THEME_SWITCH_CSS}
     line-height: 1.55;
   }
 
+  /* ── THE QUESTION BOX ──
+     The one control that matters. Everything below only appears after it
+     has been used.
+  */
   .ask {
     margin: 2rem auto 0;
     width: 100%;
@@ -447,6 +466,11 @@ ${THEME_SWITCH_CSS}
   .go:active { transform: translateY(1px); }
   .go[disabled] { opacity: .5; cursor: progress; }
 
+  /* ── THE PIPELINE READOUT ──
+     Shows each stage as it happens - retrieve, then generate - with how
+     long it took. It exists so a wait is explained rather than blank, and
+     so a cache hit is visible instead of looking like magic.
+  */
   .pipe {
     list-style: none; margin: 1rem 0 0; padding: 0;
     display: flex; flex-wrap: wrap; gap: .4rem;
@@ -471,6 +495,10 @@ ${THEME_SWITCH_CSS}
   .pipe .ms { color: var(--ink-3); font-family: ui-monospace, "Cascadia Mono", monospace; }
   @keyframes pipe-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 
+  /* ── THE ALLOWANCE METER ──
+     How much of the shared daily AI budget is left. Shown up front so a
+     visitor learns the limit before hitting it, not after.
+  */
   .quota {
     margin: .85rem 0 0;
     font-size: .8125rem;
@@ -506,6 +534,9 @@ ${THEME_SWITCH_CSS}
 
   .answer-wrap { margin-top: 2.5rem; }
 
+  /* ── THE ANSWER ──
+     Where the streamed reply lands, with its numbered citations.
+  */
   .answer {
     font-size: clamp(1.05rem, .5vw + .95rem, 1.22rem);
     line-height: 1.62;
@@ -881,25 +912,61 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
     EventSource cannot be used: it only issues GETs it controls, and it cannot be aborted by
     the AbortController that already cancels an in-flight question when a new one is asked.
   */
+  /*
+    READING THE ANSWER AS IT ARRIVES
+    ────────────────────────────────
+    The server does not reply once with a finished answer. It keeps the
+    connection open and pushes updates as they happen: which step it is on,
+    which sources it found, then the answer itself word by word.
+
+    The format is Server-Sent Events. One update ("frame") looks like this,
+    and frames are separated by a BLANK LINE:
+
+        event: token
+        data: {"text":"Gemini"}
+
+    Two facts make the buffering necessary:
+
+      - The network delivers arbitrary lumps of bytes. A lump can stop in the
+        middle of a frame, or even mid-word.
+      - So the last frame in any lump is suspect: it may be whole, or it may
+        be waiting for the rest.
+
+    The loop therefore keeps a buffer, splits on the blank line, and puts the
+    final piece BACK in the buffer with pop(). Everything before it is known
+    to be complete and is safe to act on.
+
+    The handlers argument maps an event name to what should happen — so the
+    caller says what a token or a step means, and this function only has to
+    deliver them.
+
+    NOTE: this file is one large JavaScript template literal, so a backtick in
+    a comment would end the string and break the page. Quotes only.
+  */
   async function readEvents(res, handlers) {
-    const reader = res.body.getReader();
-    const dec = new TextDecoder();
-    let buf = '';
+    const reader = res.body.getReader(); // read the response as raw bytes
+    const dec = new TextDecoder();       // bytes to text
+    let buf = '';                        // the incomplete tail so far
     for (;;) {
       const { value, done } = await reader.read();
-      if (done) break;
+      if (done) break;                   // the server closed the connection
+      // The stream option keeps a character split across two lumps intact.
       buf += dec.decode(value, { stream: true });
-      const frames = buf.split('\\n\\n');
-      buf = frames.pop() ?? '';
+      const frames = buf.split('\\n\\n'); // blank line separates frames
+      buf = frames.pop() ?? '';          // keep the possibly-incomplete one
       for (const frame of frames) {
+        // A frame is a few labelled lines. Pull out the two that matter.
         let event = 'message';
         let data = '';
         for (const line of frame.split('\\n')) {
           if (line.startsWith('event:')) event = line.slice(6).trim();
+          // data can legally span several lines, so append rather than assign.
           else if (line.startsWith('data:')) data += line.slice(5).trim();
         }
         if (!data) continue;
         let parsed;
+        // A malformed frame is skipped rather than thrown: one bad update must
+        // not end a stream that is otherwise still delivering an answer.
         try { parsed = JSON.parse(data); } catch { continue; }
         if (handlers[event]) handlers[event](parsed);
       }
