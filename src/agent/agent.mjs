@@ -144,7 +144,27 @@ export const TOOLS = {
 
 const TOOL_NAMES = Object.keys(TOOLS);
 
+/**
+ * The instructions the model is given before it does anything.
+ *
+ * A "system prompt" is the standing brief: it is sent ahead of the
+ * conversation and tells the model what it is doing and what the rules are.
+ * The model has no memory between requests, so this is re-sent every time.
+ *
+ * It is BUILT from the TOOLS object rather than typed out by hand. That is the
+ * important part: add a tool above and the model is told about it
+ * automatically. Writing the list twice would let the two drift, and the
+ * failure would be a model calling a tool that no longer exists, or never
+ * discovering one that does.
+ *
+ * Rule 3 is a security control, not advice. Retrieved documents are quoted
+ * back to the model, and a hostile page can contain text shaped like an
+ * order. Saying plainly that tool output is DATA is one of the defences the
+ * injection suite measures — see security/injection.mjs.
+ */
 function systemPrompt() {
+  // Turn each tool into a line the model can read: name, what it does, and
+  // its arguments indented underneath.
   const spec = TOOL_NAMES.map((name) => {
     const t = TOOLS[name];
     const params = Object.entries(t.parameters).map(([k, v]) => `      ${k}: ${v}`).join('\n');

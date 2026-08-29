@@ -27,7 +27,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PAGE } from './ui.mjs';
+import { PAGE, PAGE_SOURCE } from './ui.mjs';
 import { SECURITY_HEADERS } from './worker.mjs';
 
 /** Elements that must be explicitly closed. Void elements are excluded by construction. */
@@ -251,4 +251,59 @@ test('the CSP tests can actually fail', () => {
   assert.equal(allows("default-src 'none'; img-src 'self'"), false, 'img-src without data: must be rejected');
   assert.equal(allows("default-src 'none'; img-src data: https://cdn.example.com"), false, 'a remote host must be rejected');
   assert.equal(allows("default-src 'none'; img-src data:"), true, 'the policy actually shipped must be accepted');
+});
+
+/*
+  THE SERVED PAGE IS NOT THE AUTHORED PAGE
+  ────────────────────────────────────────
+  ui.mjs is heavily commented for someone learning the code. Those comments are
+  32% of the gzipped page, and the person they are written for reads the file on
+  GitHub, not by pressing "view source" on a pricing tool. So the source keeps
+  them and the response does not.
+
+  Stripping text out of a page that is one large template literal is the kind of
+  change that breaks something silently — a swallowed rule, a corrupted URL, a
+  missing element the script needs. These tests exist so it cannot.
+*/
+
+test('the served page carries no authoring comments', () => {
+  assert.equal((PAGE.match(/<!--/g) ?? []).length, 0, 'HTML comment left in the response');
+  assert.equal((PAGE.match(/\/\*/g) ?? []).length, 0, 'block comment left in the response');
+});
+
+test('the source keeps its comments, so the teaching is not lost', () => {
+  assert.ok(PAGE_SOURCE.includes('READING THE CSS BELOW'), 'the CSS primer must survive in source');
+  assert.ok(PAGE_SOURCE.length > PAGE.length, 'stripping must actually remove something');
+  // If this ever stops being worth doing, delete the strip rather than keep a
+  // build step that saves nothing.
+  assert.ok(PAGE_SOURCE.length - PAGE.length > 5000, 'stripping should save real bytes');
+});
+
+test('stripping does not swallow anything the page needs', () => {
+  for (const marker of [
+    '<!doctype html>', '</html>', '<title>', '</style>', '</script>',
+    'application/ld+json', '"@context"', '<form', 'aria-live',
+    'data-theme-pref', 'samsonpg-theme',
+  ]) {
+    assert.ok(PAGE.includes(marker), `stripping removed ${marker}`);
+  }
+});
+
+test('every element the client script looks up still exists in the response', () => {
+  // The commonest way a strip breaks a page: the script survives, the element
+  // it addresses does not, and nothing fails until a visitor clicks.
+  const ids = [...new Set([...PAGE_SOURCE.matchAll(/getElementById\('([^']+)'\)/g)].map((m) => m[1]))];
+  assert.ok(ids.length >= 5, 'expected the script to address several elements');
+  for (const id of ids) {
+    assert.ok(PAGE.includes(`id="${id}"`), `element #${id} is addressed by the script but missing from the page`);
+  }
+});
+
+test('URLs survive, because // is the hazard a naive stripper hits', () => {
+  // Line comments are deliberately NOT stripped: a rule for // also eats the
+  // one in https:// and corrupts every link on the page.
+  const urls = PAGE.match(/https:\/\/[^"'\s)]+/g) ?? [];
+  assert.ok(urls.length > 10, 'expected many absolute URLs to survive');
+  for (const u of urls) assert.ok(u.startsWith('https://'), `corrupted URL: ${u}`);
+  assert.ok(PAGE.includes('https://llmdocs.acsaven.com/'));
 });

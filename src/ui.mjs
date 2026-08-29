@@ -50,7 +50,7 @@
 
 import { THEME_TOKENS, THEME_SWITCH_CSS, THEME_SWITCH_HTML, THEME_SWITCH_JS } from './theme.mjs';
 
-export const PAGE = /* html */ `<!doctype html>
+const PAGE_WITH_COMMENTS = /* html */ `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -153,9 +153,81 @@ export const PAGE = /* html */ `<!doctype html>
 </script>
 
 <style>
+/*
+  ═══════════════════════════════════════════════════════════════════════════
+  READING THE CSS BELOW
+  ═══════════════════════════════════════════════════════════════════════════
+  About six hundred lines of styling follow. They are not commented rule by
+  rule, because a note above every line ("this sets the padding") tells you
+  what you can already see and trains you to stop reading comments.
+
+  Instead, here is every technique used below, explained once. After this, the
+  rules read as ordinary English.
+
+  var(--name)                                            appears ~122 times
+      A CSS variable. --ink was given a value near the top of the file, and
+      every rule that wants that colour writes var(--ink) instead of the
+      colour itself. Dark mode then works by changing the variable in ONE
+      place; nothing else has to be touched. This is why there is no second
+      copy of the stylesheet for dark mode.
+
+  clamp(min, preferred, max)                                appears 6 times
+      A size that scales with the window but cannot run away. Read
+      clamp(2rem, 4vw, 2.9rem) as: "4% of the window width, but never below
+      2rem and never above 2.9rem". It replaces writing three media queries
+      for the same heading.
+
+  .thing::before  /  .thing::after                         appears 11 times
+      An invisible extra element the browser creates for you, before or after
+      the real one. Used here for decoration — a glow, a short rule beside a
+      label — so the HTML does not fill up with empty divs that exist only to
+      be coloured in. They need content:"" or they do not appear at all.
+
+  backdrop-filter: blur(...)                               appears 18 times
+      Blurs whatever is BEHIND an element rather than the element itself.
+      That is the frosted-glass look on the nav and the cards. It is expensive
+      to paint, so it is used on a few surfaces and not the whole page.
+
+  @supports (...)                                           appears 4 times
+      "Only apply these rules if the browser understands this property."
+      Guards the glass effect: a browser without backdrop-filter gets a solid
+      background instead of a transparent one, which stays readable rather
+      than becoming grey text on grey.
+
+  @media (prefers-reduced-motion: reduce)                   appears 4 times
+      Some people set their system to reduce animation, often because motion
+      makes them ill. Every animation here is switched off inside this block.
+      It is not optional politeness; for those visitors it is whether the page
+      is usable.
+
+  :focus-visible
+      Styles an element only when it was focused by KEYBOARD, not by mouse
+      click. It is how a focus ring can be strong for keyboard users without
+      appearing around every button someone clicks.
+
+  inset: 0
+      Shorthand for top/right/bottom/left all at once. On a positioned
+      element, inset:0 means "stretch to fill the parent".
+
+  A note on order: the rules run roughly top of page to bottom — background,
+  layout, navigation, hero, the question box, the pipeline, the answer. Search
+  for the section banners to jump between them.
+  ═══════════════════════════════════════════════════════════════════════════
+*/
 
 ${THEME_TOKENS}
+  /*
+    box-sizing: border-box means padding and borders count INSIDE an element's
+    stated width. Without it, a 200px box with 20px padding is 240px wide, and
+    every layout calculation has to remember that. Applied to everything here,
+    which is what almost every stylesheet does first.
+  */
   *, *::before, *::after { box-sizing: border-box; }
+  /*
+    text-size-adjust stops mobile browsers silently enlarging text they think
+    is too small. overflow-x: clip prevents a single wide element from making
+    the whole page scroll sideways — the commonest layout bug on phones.
+  */
   html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 
   body {
@@ -1329,3 +1401,45 @@ ${THEME_SWITCH_JS}  /* ── Scroll: nav border, and back to top ────�
 </script>
 </body>
 </html>`;
+
+/**
+ * The page as written, comments and all. Kept for tests and for anyone who
+ * wants to read what is actually authored rather than what is served.
+ */
+export const PAGE_SOURCE = PAGE_WITH_COMMENTS;
+
+/**
+ * Strip authoring comments from the served page.
+ *
+ * WHY THIS EXISTS
+ * ───────────────
+ * The comments in this file are written for someone learning the code. That
+ * person reads it on GitHub or in an editor. Nobody learns CSS by pressing
+ * "view source" on a pricing lookup tool.
+ *
+ * Measured on this page, the comments are 14,447 raw bytes — 6,395 gzipped,
+ * which is 32% of the download. A third of what a visitor on a phone waits for
+ * would be a tutorial they will never read. So the source keeps every comment
+ * and the response does not.
+ *
+ * WHAT IS DELIBERATELY NOT STRIPPED
+ * ─────────────────────────────────
+ * Only block comments and HTML comments are removed. Line comments beginning
+ * with // are left exactly where they are, because a naive rule for them also
+ * eats the // in https:// and would silently corrupt every URL in the file.
+ * The remaining line comments cost a few hundred bytes; a broken link costs
+ * the page.
+ *
+ * The regexes are non-greedy so that two separate comments are never treated
+ * as one comment with the code between them swallowed.
+ */
+function stripAuthoringComments(html) {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    // Collapse the blank lines the removals leave behind.
+    .replace(/\n[ \t]*\n[ \t]*\n+/g, '\n\n');
+}
+
+/** What the Worker actually sends. */
+export const PAGE = stripAuthoringComments(PAGE_WITH_COMMENTS);

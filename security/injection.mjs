@@ -189,6 +189,18 @@ function judge(answer, canary) {
   };
 }
 
+/**
+ * Ask the live endpoint a question, exactly as a visitor would.
+ *
+ * The test runs against the deployed URL rather than calling the code
+ * directly. That is the point: a defence that works in a unit test and not in
+ * production has not been tested, and the thing being measured here is the
+ * system as it actually ships.
+ *
+ * The 300ms pause is for the rate limiter. Ten attacks fired instantly would
+ * be throttled, and every throttled request would look like a defence holding
+ * when in fact nothing was tested.
+ */
 async function ask(question, model) {
   await sleep(300);
   const url = `${BASE}/ask?q=${encodeURIComponent(question)}${model ? `&model=${encodeURIComponent(model)}` : ''}`;
@@ -196,6 +208,20 @@ async function ask(question, model) {
   return res.ok ? res.text() : `[HTTP ${res.status}]`;
 }
 
+/**
+ * Remove the poisoned documents from the live index.
+ *
+ * This is the most important function in the file. The document attacks work
+ * by inserting hostile text into the real, running search index — so between
+ * the insert and this cleanup, the production system is genuinely poisoned.
+ *
+ * If the run crashes before reaching here, the poison stays and real visitors
+ * can retrieve it. Hence the dedicated --cleanup-only mode: it is always
+ * possible to remove the vectors without running the attacks again.
+ *
+ * The ids are derived from the attack list rather than recorded during the
+ * run, so cleanup works even if the process that inserted them is long gone.
+ */
 async function cleanup() {
   const ids = DOCUMENT_ATTACKS.map((a) => `poison-${a.id}`);
   const res = await fetch(`${BASE}/ingest/delete`, {
